@@ -16,7 +16,7 @@ with gr.Blocks() as demo:
         with gr.Tab("Question Classification"):
             gr.Markdown("### Question Classification Leaderboard")
             print("requesting data")
-            response = requests.get(f"{backend_url}/leaderboard/QI")
+            response = requests.get(f"{backend_url}/leaderboard/QI", verify=False)
             if response.status_code == 200:
                 qi_leaderboard = pd.DataFrame(response.json())
                 print("data received")
