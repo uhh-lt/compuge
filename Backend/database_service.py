@@ -13,8 +13,8 @@ import pandas as pd
 import os
 
 # Database URL
-POSTGRES_USER = 'CompUGE'
-POSTGRES_PASSWORD = '6pbRWypqQ2jEnwt996b0WPEnbbdRiFap'
+POSTGRES_USER = 'postgres'
+POSTGRES_PASSWORD = ''
 POSTGRES_HOST = 'db'
 POSTGRES_PORT = '5432'
 POSTGRES_DB = 'postgres'
