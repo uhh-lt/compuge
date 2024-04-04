@@ -15,9 +15,15 @@ with gr.Blocks() as demo:
         # QC Tab
         with gr.Tab("Question Classification"):
             gr.Markdown("### Question Classification Leaderboard")
-            cqi_leaderboard = pd.DataFrame(requests.get(backend_url + "/leaderboard/QI").json())
-            cqi_leaderboard.drop(columns=["task"], inplace=True)
-            cqi_leaderboard_component = gr.components.Dataframe(cqi_leaderboard)
+            print("requesting data")
+            response = requests.get(f"{backend_url}/leaderboard/QC")
+            if response.status_code == 200:
+                qc_leaderboard = pd.DataFrame(response.json())
+                print("data received")
+            else:
+                qc_leaderboard = pd.DataFrame()
+                print("data not received")
+                print(response)
 
         # OAI Tab
         with gr.Tab("Object and Aspect Identification"):
