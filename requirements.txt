@@ -1,0 +1,6 @@
+gradio~=4.21.0
+SQLAlchemy~=2.0.29
+cython
+psycopg2
+pandas~=2.2.1
+requests

@@ -1,0 +1,7 @@
+fastapi
+SQLAlchemy
+cython
+psycopg2-binary
+uvicorn
+pandas
+numpy

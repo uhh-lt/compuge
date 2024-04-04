@@ -1,0 +1,26 @@
+version: '3.0'
+
+services:
+  backend:
+    build: .
+    restart: always
+    environment:
+      - POSTGRES_USER=CompUGE
+      - POSTGRES_PASSWORD=6pbRWypqQ2jEnwt996b0WPEnbbdRiFap
+    ports:
+      - "15564:8000"
+  db:
+    image: postgres:latest
+    restart: always
+    environment:
+      - POSTGRES_USER=CompUGE
+      - POSTGRES_PASSWORD=6pbRWypqQ2jEnwt996b0WPEnbbdRiFap
+    expose:
+      - "5432"
+    ports:
+      - "15565:5432"
+    volumes:
+      - db:/var/lib/postgresql/data
+volumes:
+  db:
+    driver: local
