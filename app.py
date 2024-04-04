@@ -2,7 +2,7 @@ import gradio as gr
 import pandas as pd
 import requests
 
-backend_url = "http://localhost:15564/api"
+backend_url = "https://cam-v2-compuge-db.ltdemos.informatik.uni-hamburg.de/api"
 
 # UI Root
 with gr.Blocks() as demo:
