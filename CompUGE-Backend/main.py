@@ -1,12 +1,18 @@
 import fastapi
 import pandas as pd
-
+import submission
 import database_service
+from fastapi.middleware.cors import CORSMiddleware
 
 app = fastapi.FastAPI()
 
-database_service.insert_data_from_dataframe(pd.read_csv("CQI_Leaderboard.csv"), "Question Identification")
-
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 @app.get("/api/health")
 def health():
@@ -23,6 +29,12 @@ def root():
     return "Welcome to CompUGE backend! Please visit /api/ for the API documentation."
 
 
-@app.get("/api/leaderboard/QI")
-def leaderboard():
-    return database_service.query_data_by_task_as_dataframe("Question Identification")
+@app.get("/api/leaderboard/{task}")
+def leaderboard(task: str):
+    return database_service.query_data_by_task(task)
+
+
+@app.post("/api/submission")
+def submit(submission_dict: dict):
+    return submission.submit_solution(submission_dict)
+

@@ -1,0 +1,76 @@
+<mat-card>
+  <button mat-raised-button color="primary" (click)="refresh()">Refresh Leaderboard</button>
+  <table mat-table [dataSource]=dataSource>
+
+    <ng-container matColumnDef="model">
+      <mat-header-cell
+        *matHeaderCellDef
+      >
+        Model
+      </mat-header-cell>
+      <mat-cell *matCellDef="let entry">{{ entry.model }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="size">
+      <mat-header-cell
+        *matHeaderCellDef
+      >
+        Size
+      </mat-header-cell>
+      <mat-cell *matCellDef="let entry">{{ entry.size }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="accuracy">
+      <mat-header-cell
+        *matHeaderCellDef
+      >
+        Accuracy
+      </mat-header-cell>
+      <mat-cell *matCellDef="let entry">{{ entry.accuracy }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="precision">
+      <mat-header-cell
+        *matHeaderCellDef
+      >
+        Precision
+      </mat-header-cell>
+      <mat-cell *matCellDef="let entry">{{ entry.precision }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="recall">
+      <mat-header-cell
+        *matHeaderCellDef
+      >
+        Recall
+      </mat-header-cell>
+      <mat-cell *matCellDef="let entry">{{ entry.recall }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="f1">
+      <mat-header-cell
+        *matHeaderCellDef
+      >
+        F1
+      </mat-header-cell>
+      <mat-cell *matCellDef="let entry">{{ entry.f1_score }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="overall">
+      <mat-header-cell
+        *matHeaderCellDef
+      >
+        Overall
+      </mat-header-cell>
+      <mat-cell *matCellDef="let entry">{{ entry.overall_score }}</mat-cell>
+    </ng-container>
+
+
+
+
+    <mat-header-row
+      *matHeaderRowDef="displayedColumns; sticky: true"
+    ></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+  </table>
+</mat-card>

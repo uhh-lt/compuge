@@ -1,9 +1,3 @@
-'''
-Use sqlalchemy to connect to the database and perform CRUD operations
-      POSTGRES_USER=CompUGE
-      POSTGRES_PASSWORD=6pbRWypqQ2jEnwt996b0WPEnbbdRiFap
-'''
-
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
@@ -12,16 +6,10 @@ from sqlalchemy.exc import IntegrityError
 import pandas as pd
 import os
 
-# Database URL
-POSTGRES_USER = 'postgres'
-POSTGRES_PASSWORD = 'admin'
-POSTGRES_HOST = 'db'
-POSTGRES_PORT = '5432'
-POSTGRES_DB = 'postgres'
-DATABASE_URL = f'postgresql://{POSTGRES_USER}:{POSTGRES_PASSWORD}@{POSTGRES_HOST}:{POSTGRES_PORT}/{POSTGRES_DB}'
+DB_URL = os.environ.get('DB_USER', 'postgresql://postgres:@localhost:5433/postgres')
 
 # Create an engine
-engine = create_engine(DATABASE_URL)
+engine = create_engine(DB_URL)
 Session = sessionmaker(bind=engine)
 session = Session()
 Base = declarative_base()
@@ -47,32 +35,22 @@ class Leaderboard(Base):
         return f"<Leaderboard(task='{self.task}', model='{self.model}', accuracy='{self.accuracy}', precision='{self.precision}', recall='{self.recall}', f1_score='{self.f1_score}', evaluation_time='{self.evaluation_time}', overall_score='{self.overall_score}')>"
 
 
-# Insert data from a dataframe
-def insert_data_from_dataframe(df, task):
-    for index, row in df.iterrows():
-        try:
-            session.add(
-                Leaderboard(task=task, model=row['Model'], size=row['Size'], accuracy=row['Accuracy'], precision=row['Precision'],
-                            recall=row['Recall'], f1_score=row['F1 Score'],
-                            overall_score=row['Overall Score']))
-            session.commit()
-        except IntegrityError as e:
-            print(f"Error: {e}")
-            session.rollback()
-    print("Data inserted successfully!")
-
-
-# Insert data from a dictionary
-def insert_data_from_dict(data):
+# Insert a leaderboard record
+def insert_data(data):
     try:
-        session.add(
-            Leaderboard(task=data['task'], model=data['model'], accuracy=data['accuracy'], precision=data['precision'],
-                        recall=data['recall'], f1_score=data['f1_score'], size=data['size'],
-                        overall_score=data['overall_score']))
+        session.add(data)
         session.commit()
     except IntegrityError as e:
         print(f"Error: {e}")
         session.rollback()
+        return False
+    print("Data inserted successfully!")
+    return True
+
+
+def insert_data_from_dataframe(data, task):
+    data['task'] = task
+    data.to_sql('leaderboard', con=engine, if_exists='append', index=False)
     print("Data inserted successfully!")
 
 
@@ -103,8 +81,9 @@ def query_data_by_task_and_model(task, model):
 
 # Query data by task and model return as dataframe
 def query_data_by_task_and_model_as_dataframe(task, model):
-    return pd.read_sql(session.query(Leaderboard).filter(Leaderboard.task == task, Leaderboard.model == model).statement,
-                       session.bind)
+    return pd.read_sql(
+        session.query(Leaderboard).filter(Leaderboard.task == task, Leaderboard.model == model).statement,
+        session.bind)
 
 
 # Update data by task and model
