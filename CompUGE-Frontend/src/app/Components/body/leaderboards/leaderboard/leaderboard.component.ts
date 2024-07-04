@@ -8,9 +8,10 @@ import {
   MatTable,
   MatTableDataSource
 } from "@angular/material/table";
-import {LeaderboardEntry} from "../../../../StateManagement/Models/leaderboard-entry.model";
-import {CommunicationService} from "../../../../StateManagement/Services/communication.service";
+import {LeaderboardEntry} from "../../../../state_management/models/leaderboard-entry.model";
 import {MatButton} from "@angular/material/button";
+import {AppStateService} from "../../../../state_management/services/app-state.service";
+import {map} from "rxjs";
 
 @Component({
   selector: 'app-leaderboard',
@@ -36,7 +37,6 @@ export class LeaderboardComponent implements OnInit {
 
   displayedColumns: string[] = [
     'model',
-    'size',
     'accuracy',
     'precision',
     'recall',
@@ -45,31 +45,33 @@ export class LeaderboardComponent implements OnInit {
   ];
 
   @Input()
-  task : String = "QI";
+  task : string = "QI";
 
   @Input()
-  dataset : String = "CIFAR10";
+  dataset : string = "CIFAR10";
 
   dataSource = new MatTableDataSource<LeaderboardEntry>();
+  leaderboards = this.stateService.state$.pipe(map(state => state.leaderboards));
 
-  constructor(private communicationService: CommunicationService) {
+
+  constructor(private stateService: AppStateService) {
 
   }
 
   ngOnInit() {
-    this.loadData();
+    this.leaderboards.subscribe(
+      data => {
+        // choose only entries where task == this.task and dataset == this.dataset.
+        // assign the data to the dataSource
+        this.dataSource.data = data.filter(
+          entry => (entry.task == this.task && entry.dataset == this.dataset)
+        )
+      }
+    );
+    this.stateService.updateLeaderboards();
   }
 
   refresh() {
-    this.loadData();
+    this.stateService.updateLeaderboards();
   }
-
-  loadData(){
-    this.communicationService.getLeaderboard(this.task).subscribe(
-      (data: any) => {
-        this.dataSource.data = data;
-      }
-    )
-  }
-
 }

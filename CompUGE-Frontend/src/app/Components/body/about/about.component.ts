@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {MatCard, MatCardContent} from "@angular/material/card";
 import {NgIf} from "@angular/common";
 
@@ -13,9 +13,18 @@ import {NgIf} from "@angular/common";
   templateUrl: './about.component.html',
   styleUrl: './about.component.css'
 })
-export class AboutComponent {
+export class AboutComponent implements OnInit{
 
   @Input()
   whatAbout = 'general';
+
+  constructor() { }
+
+  ngOnInit() {
+    if (this.whatAbout === undefined) {
+      this.whatAbout = 'general';
+    }
+  }
+
 
 }

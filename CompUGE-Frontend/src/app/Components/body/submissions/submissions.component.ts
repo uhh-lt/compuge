@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {MatCard, MatCardActions, MatCardContent} from "@angular/material/card";
 import {MatFormField, MatLabel} from "@angular/material/form-field";
 import {MatInput} from "@angular/material/input";
@@ -7,7 +7,20 @@ import {NgIf} from "@angular/common";
 import {MatOption} from "@angular/material/autocomplete";
 import {MatSelect} from "@angular/material/select";
 import {FormsModule} from "@angular/forms";
-import {CommunicationService} from "../../../StateManagement/Services/communication.service";
+import {AppStateService} from "../../../state_management/services/app-state.service";
+import {map} from "rxjs";
+import {
+  MatCell,
+  MatCellDef,
+  MatColumnDef,
+  MatHeaderCell, MatHeaderCellDef,
+  MatHeaderRow,
+  MatHeaderRowDef,
+  MatRow, MatRowDef, MatTable, MatTableDataSource
+} from "@angular/material/table";
+import {LeaderboardEntry} from "../../../state_management/models/leaderboard-entry.model";
+import {SubmissionEntry} from "../../../state_management/models/submission-entry.model";
+import {MatTab, MatTabGroup} from "@angular/material/tabs";
 
 @Component({
   selector: 'app-submissions',
@@ -23,52 +36,58 @@ import {CommunicationService} from "../../../StateManagement/Services/communicat
     NgIf,
     MatOption,
     MatSelect,
-    FormsModule
+    FormsModule,
+    MatCell,
+    MatCellDef,
+    MatColumnDef,
+    MatHeaderCell,
+    MatHeaderRow,
+    MatHeaderRowDef,
+    MatRow,
+    MatRowDef,
+    MatTable,
+    MatHeaderCellDef,
+    MatTabGroup,
+    MatTab
   ],
   templateUrl: './submissions.component.html',
   styleUrl: './submissions.component.css'
 })
-export class SubmissionsComponent {
+export class SubmissionsComponent implements OnInit{
 
-  constructor(
-    private communicationService: CommunicationService
-  ) {}
+  displayedColumns: string[] = [
+    'model',
+    'task',
+    'dataset',
+    'link',
+    'status',
+    'predictions',
+    'time'
+  ];
 
-  tasks = [
-    "QI",
-    "OAI",
-    "SC",
-    "SG"
-    ];
+  @Input()
+  task: string = '';
 
-  modelName = '';
-  modelLink = '';
-  task = '';
-  fileName = '';
-  file?: any;
-  fileContent = '';
-
-  submit = () => {
-    // read file as text
-    const reader = new FileReader();
-    reader.onload = (e: any) => {
-      this.fileContent = e.target.result;
-    };
-    reader.readAsText(this.file);
-    this.communicationService.submit(this.modelName, this.modelLink, this.task, this.fileContent).subscribe(
-      (data: any) => {
-        console.log(data);
-      },
-      (error: any) => {
-        console.log(error);
-      }
-    );
+  constructor(private state: AppStateService) {
   }
 
-  onFileSelected(event : any) {
-    const file: File = event.target.files[0];
-    if (file) {
-      this.file = file;
-    }
+  submissions = this.state.state$.pipe(
+    map(
+      state =>
+      state.submissions.filter(submission => (submission.task == this.task || this.task == undefined)))
+  );
+
+  dataSource = new MatTableDataSource<SubmissionEntry>();
+
+  ngOnInit() {
+    this.submissions.subscribe(
+      data => {
+        this.dataSource.data = data;
+      }
+    )
+  }
+
+  refresh() {
+    this.state.updateSubmissions();
   }
 }

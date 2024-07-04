@@ -1,0 +1,21 @@
+{
+  "tasks":
+  [
+    {
+      "name": "QI",
+      "description": "Question Identification"
+    },
+    {
+      "name": "OAI",
+      "description": "Object and Aspect Identification"
+    },
+    {
+      "name": "SC",
+      "description": "Stance Classification"
+    },
+    {
+      "name": "SG",
+      "description": "Summary Generation"
+    }
+  ]
+}

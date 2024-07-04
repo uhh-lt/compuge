@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="1b0f9635-f17d-4314-90ff-91214c1664af" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/CompUGE-Backend.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/datasets/data_prep.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/datasets/metadata.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/datasets/webis_comparative_questions_2020_qi/english-questions.tsv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/datasets/webis_comparative_questions_2022_qi/data_full.tsv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/datasets/webis_comparative_questions_2022_qi/hard_questions.tsv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/datasets/webis_comparative_questions_2022_qi/readme.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/datasets/webis_comparative_questions_2022_qi/very_hard.tsv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dtos.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/repositories/db_engine.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/repositories/leaderboards_repository.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/repositories/submissions_repository.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/services/dataset_service.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/services/leaderboards_service.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tasks.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CQI_Leaderboard.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database_service.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/submission.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/submissions_service.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CompUGE-Frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../CompUGE-Frontend/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CompUGE-Frontend/src/app/Components/body/about/about.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../CompUGE-Frontend/src/app/Components/body/about/about.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CompUGE-Frontend/src/app/Components/body/about/about.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../CompUGE-Frontend/src/app/Components/body/about/about.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CompUGE-Frontend/src/app/Components/body/body.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../CompUGE-Frontend/src/app/Components/body/body.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CompUGE-Frontend/src/app/Components/body/body.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../CompUGE-Frontend/src/app/Components/body/body.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CompUGE-Frontend/src/app/Components/body/contact/contact.component.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CompUGE-Frontend/src/app/Components/body/contact/contact.component.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CompUGE-Frontend/src/app/Components/body/contact/contact.component.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CompUGE-Frontend/src/app/Components/body/contact/contact.component.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CompUGE-Frontend/src/app/Components/body/leaderboards/leaderboard/leaderboard.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../CompUGE-Frontend/src/app/Components/body/leaderboards/leaderboard/leaderboard.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CompUGE-Frontend/src/app/Components/body/leaderboards/leaderboard/leaderboard.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../CompUGE-Frontend/src/app/Components/body/leaderboards/leaderboard/leaderboard.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CompUGE-Frontend/src/app/Components/body/leaderboards/leaderboards.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../CompUGE-Frontend/src/app/Components/body/leaderboards/leaderboards.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CompUGE-Frontend/src/app/Components/body/leaderboards/leaderboards.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../CompUGE-Frontend/src/app/Components/body/leaderboards/leaderboards.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CompUGE-Frontend/src/app/Components/body/submissions/submissions.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../CompUGE-Frontend/src/app/Components/body/submissions/submissions.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CompUGE-Frontend/src/app/Components/body/submissions/submissions.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../CompUGE-Frontend/src/app/Components/body/submissions/submissions.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CompUGE-Frontend/src/app/Components/body/task/task.component.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CompUGE-Frontend/src/app/Components/body/task/task.component.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CompUGE-Frontend/src/app/Components/body/task/task.component.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CompUGE-Frontend/src/app/Components/body/task/task.component.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CompUGE-Frontend/src/app/Components/header/header.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../CompUGE-Frontend/src/app/Components/header/header.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CompUGE-Frontend/src/app/Components/header/header.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../CompUGE-Frontend/src/app/Components/header/header.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CompUGE-Frontend/src/app/StateManagement/Models/leaderboard-entry.model.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CompUGE-Frontend/src/app/StateManagement/Services/communication.service.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CompUGE-Frontend/src/app/StateManagement/Services/communication.service.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CompUGE-Frontend/src/app/app.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../CompUGE-Frontend/src/app/app.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CompUGE-Frontend/src/app/app.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../CompUGE-Frontend/src/app/app.config.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CompUGE-Frontend/src/app/app.routes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../CompUGE-Frontend/src/app/app.routes.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CompUGE-Frontend/src/environments/environment.docker.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../CompUGE-Frontend/src/environments/environment.docker.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CompUGE-Frontend/src/environments/environment.prod.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../CompUGE-Frontend/src/environments/environment.prod.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CompUGE-Frontend/src/environments/environment.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../CompUGE-Frontend/src/environments/environment.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CompUGE-Frontend/src/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/../CompUGE-Frontend/src/styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../preds.csv" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Jupyter Notebook" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;ahmadshallouf&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/ahmadshallouf/CompUGE-Bench.git&quot;,
+    &quot;accountId&quot;: &quot;86a2fb08-55b9-4a0c-bae2-fa989e51cca9&quot;
+  }
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 0
+}</component>
+  <component name="ProjectId" id="2fQCswQACs0mW701Ndq5KDCoWWQ" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/ahmadshallouf/workspace/CompUGE-Bench/CompUGE-Backend&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  },
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;postgresql&quot;
+    ]
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/service" />
+    </key>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-1d06a55b98c1-91d5c284f522-JavaScript-PY-241.15989.155" />
+        <option value="bundled-python-sdk-babbdf50b680-7c6932dee5e4-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-241.15989.155" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="1b0f9635-f17d-4314-90ff-91214c1664af" name="Changes" comment="" />
+      <created>1713724124949</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1713724124949</updated>
+      <workItem from="1713724126089" duration="1567000" />
+      <workItem from="1714318037220" duration="990000" />
+      <workItem from="1714469783909" duration="6061000" />
+      <workItem from="1714660241536" duration="1214000" />
+      <workItem from="1714674133112" duration="636000" />
+      <workItem from="1714683480913" duration="2334000" />
+      <workItem from="1715081887791" duration="365000" />
+      <workItem from="1715082306401" duration="564000" />
+      <workItem from="1715786979692" duration="109000" />
+      <workItem from="1715787094954" duration="4319000" />
+      <workItem from="1715859176069" duration="2165000" />
+      <workItem from="1715971463944" duration="517000" />
+      <workItem from="1715972018312" duration="4906000" />
+      <workItem from="1716196431415" duration="9558000" />
+      <workItem from="1716669341375" duration="138000" />
+      <workItem from="1716738352980" duration="595000" />
+      <workItem from="1717145406071" duration="44000" />
+      <workItem from="1717145464086" duration="16394000" />
+      <workItem from="1718209021819" duration="1050000" />
+      <workItem from="1718211841396" duration="4734000" />
+      <workItem from="1718458443539" duration="600000" />
+      <workItem from="1719605445455" duration="4604000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>

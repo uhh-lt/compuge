@@ -1,20 +1,18 @@
 <div>
   <mat-card>
     <mat-tab-group>
-      <mat-tab label="QI">
-        <app-leaderboard [task]="'QI'"></app-leaderboard>
-      </mat-tab>
-
-      <mat-tab label="OAI">
-        <app-leaderboard [task]="'OAI'"></app-leaderboard>
-      </mat-tab>
-
-      <mat-tab label="SC">
-        <app-leaderboard [task]="'SC'"></app-leaderboard>
-      </mat-tab>
-
-      <mat-tab label="SG">
-        <app-leaderboard [task]="'SG'"></app-leaderboard>
+      <mat-tab
+       *ngFor="let dataset of datasets | async"
+       [label]="dataset.name"
+      >
+        <br>
+        <p>{{dataset.description}}</p>
+        <br>
+        <app-leaderboard
+          [task]="task"
+          [dataset]="dataset.name"
+          >
+        </app-leaderboard>
       </mat-tab>
     </mat-tab-group>
   </mat-card>

@@ -1,6 +1,7 @@
 <mat-card>
 
   <mat-card-content *ngIf="whatAbout === 'general'">
+    <br>
     <p>
       This System was built in the process of the research conducted by the Author Ahmad Shallouf for his Master Thesis at the University of Hamburg.
       <br>
@@ -8,25 +9,46 @@
       <br>
       The system is built using the Angular Framework for the Frontend and FastAPI Framework for the Backend with a PostgreSQL Database.
     </p>
+    <br>
+    <h3>Contact Information: </h3>
+    <table class="borderless table">
+      <tr>
+        <td>Name:</td>
+        <td>Ahmad Shallouf</td>
+      </tr>
+      <tr>
+        <td>Position:</td>
+        <td>Master Student</td>
+      </tr>
+      <tr>
+        <td>Email:</td>
+        <td>{{'7shallou@informatik.uni-hamburg.de'}}</td>
+      </tr>
+      <tr>
+        <td>Phone:</td>
+        <td>+49 1762405080</td>
+      </tr>
+    </table>
+
   </mat-card-content>
 
   <mat-card-content *ngIf="whatAbout === 'QI'">
-
+    Question Identification
   </mat-card-content>
 
 
   <mat-card-content *ngIf="whatAbout === 'OAI'">
-
+    Object and Aspect Labeling
   </mat-card-content>
 
 
   <mat-card-content *ngIf="whatAbout === 'SC'">
-
+    Stance Classification
   </mat-card-content>
 
 
   <mat-card-content *ngIf="whatAbout === 'SG'">
-
+    Summary Generation
   </mat-card-content>
 
 </mat-card>

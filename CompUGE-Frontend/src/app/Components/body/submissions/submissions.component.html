@@ -1,43 +1,78 @@
-<!----
-  This component is for submitting a model for evaluation.
-  It is a form that takes in the model name, the model file, and the model's description.
----->
+<!---
+  This component is used to display a list of submissions for all users, and allows a new submission to be made.
+-->
+
 <mat-card>
+        <button mat-raised-button color="primary" style="width: 100%" (click)="refresh()">Refresh Submissions</button>
+        <table mat-table [dataSource]=dataSource>
 
-  <mat-card-content>
-    <mat-form-field appearance="outline" style="width: 100%">
-      <mat-label>Model Name</mat-label>
-      <input [(ngModel)]="modelName" matInput placeholder="Model Name" type="text">
-    </mat-form-field>
-  </mat-card-content>
+          <ng-container matColumnDef="task">
+            <mat-header-cell
+              *matHeaderCellDef
+            >
+              Task
+            </mat-header-cell>
+            <mat-cell *matCellDef="let entry">{{ entry.task }}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="dataset">
+            <mat-header-cell
+              *matHeaderCellDef
+            >
+              Dataset
+            </mat-header-cell>
+            <mat-cell *matCellDef="let entry">{{ entry.dataset }}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="model">
+            <mat-header-cell
+              *matHeaderCellDef
+            >
+              Model
+            </mat-header-cell>
+            <mat-cell *matCellDef="let entry">{{ entry.model }}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="link">
+            <mat-header-cell
+              *matHeaderCellDef
+            >
+              Link
+            </mat-header-cell>
+            <mat-cell *matCellDef="let entry">{{ entry.link }}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="predictions">
+            <mat-header-cell
+              *matHeaderCellDef
+            >
+              Predictions
+            </mat-header-cell>
+            <mat-cell *matCellDef="let entry">{{ "entry.predictions" }}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="status">
+            <mat-header-cell
+              *matHeaderCellDef
+            >
+              Status
+            </mat-header-cell>
+            <mat-cell *matCellDef="let entry">{{ entry.status }}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="time">
+            <mat-header-cell
+              *matHeaderCellDef
+            >
+              Time
+            </mat-header-cell>
+            <mat-cell *matCellDef="let entry">{{ entry.time }}</mat-cell>
+          </ng-container>
 
 
-  <mat-card-content>
-    <mat-form-field appearance="outline" style="width: 100%">
-      <mat-label>Model Link</mat-label>
-      <input [(ngModel)]="modelLink" matInput placeholder="Model Link" type="text">
-    </mat-form-field>
-  </mat-card-content>
-
-  <mat-form-field>
-    <mat-label>Task</mat-label>
-    <mat-select [(ngModel)]="task">
-      @for (task of tasks; track task) {
-        <mat-option [value]="task">{{task}}</mat-option>
-      }
-    </mat-select>
-  </mat-form-field>
-
-  <mat-card-content>
-    <button type="button" style="width: 100%" mat-raised-button (click)="predsFileInput.click()">Upload Model
-      Predictions
-    </button>
-    <input hidden type="file" #predsFileInput (change)="onFileSelected($event)"/>
-    <mat-label *ngIf="fileName != ''">{{ fileName }}</mat-label>
-  </mat-card-content>
-
-  <mat-card-actions>
-    <button mat-raised-button style="width: 100%" color="primary" (click)="submit()">Submit</button>
-  </mat-card-actions>
-
+          <mat-header-row
+            *matHeaderRowDef="displayedColumns; sticky: true"
+          ></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+        </table>
 </mat-card>

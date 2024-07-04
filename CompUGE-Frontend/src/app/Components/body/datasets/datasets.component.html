@@ -1,0 +1,8 @@
+<app-dataset *ngFor="let i of datasets | async"
+             [name]="i.name"
+             [description]="i.description"
+             [link]="i.link"
+             [train]="i.train"
+             [test]="i.test"
+>
+</app-dataset>

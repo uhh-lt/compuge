@@ -1,0 +1,27 @@
+<mat-card>
+  <mat-card-content>
+    <mat-tab-group>
+      <mat-tab label="Task Overview">
+        <app-about [whatAbout]="task"></app-about>
+      </mat-tab>
+      <mat-tab label="Datasets">
+        <app-dataset *ngFor="let dataset of datasets | async"
+                     [name]="dataset.name"
+                     [description]="dataset.description"
+                     [link]="dataset.link"
+                     [train]="dataset.train"
+                     [test]="dataset.test"
+        ></app-dataset>
+      </mat-tab>
+      <mat-tab label="Task Leaderboards">
+        <app-leaderboards
+        [task]="task">
+
+        </app-leaderboards>
+      </mat-tab>
+      <mat-tab label="Task Submissions">
+        <app-submissions [task]="task"></app-submissions>
+      </mat-tab>
+    </mat-tab-group>
+  </mat-card-content>
+</mat-card>
