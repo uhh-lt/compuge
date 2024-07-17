@@ -1,7 +1,6 @@
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy import create_engine, Column, String, Float, Integer, ForeignKey, Boolean, Text
+from sqlalchemy.orm import sessionmaker, relationship
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import Column, String, Float
 import os
 
 DB_URL = os.environ.get('DB_USER', 'postgresql://postgres:@localhost:5432/postgres')
@@ -13,39 +12,48 @@ session = Session()
 Base = declarative_base()
 
 
-class Leaderboard(Base):
-    __tablename__ = 'leaderboard'
-    task = Column(String, primary_key=True)
-    dataset = Column(String, primary_key=True)
-    model = Column(String, primary_key=True)
-    accuracy = Column(Float)
-    precision = Column(Float)
-    recall = Column(Float)
-    f1_score = Column(Float)
-    overall_score = Column(Float)
-
-    def __repr__(self):
-        return f"<Leaderboard(task='{self.task}', model='{self.model}', accuracy='{self.accuracy}', precision='{self.precision}', recall='{self.recall}', f1_score='{self.f1_score}', evaluation_time='{self.evaluation_time}', overall_score='{self.overall_score}')>"
-
-    def __str__(self):
-        return f"<Leaderboard(task='{self.task}', model='{self.model}', accuracy='{self.accuracy}', precision='{self.precision}', recall='{self.recall}', f1_score='{self.f1_score}', evaluation_time='{self.evaluation_time}', overall_score='{self.overall_score}')>"
-
-
 class Submission(Base):
     __tablename__ = 'submission'
-    time = Column(String)
-    task = Column(String, primary_key=True)
-    dataset = Column(String, primary_key=True)
-    model = Column(String, primary_key=True)
-    link = Column(String)
-    predictions = Column(String)
-    status = Column(String)
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    time = Column(String, nullable=False)
+    task = Column(String, nullable=False)
+    dataset = Column(String, nullable=False)
+    model = Column(String, nullable=False)
+    link = Column(String, nullable=True)
+    team = Column(String, nullable=True)
+    email = Column(String, nullable=True)
+    predictions = Column(Text, nullable=False)
+    status = Column(String, nullable=False)
+    is_public = Column( Boolean, nullable=False)
 
     def __repr__(self):
-        return f"<Submission(time='{self.time}', task='{self.task}', dataset='{self.dataset}', model='{self.model}', link='{self.link}', predictions='{self.predictions}')>"
+        return f"<Submission(id='{self.id}', time='{self.time}', task='{self.task}', dataset='{self.dataset}', model='{self.model}', link='{self.link}', team='{self.team}', email='{self.email}', predictions='{self.predictions}', status='{self.status}', is_public='{self.is_public}')>"
 
     def __str__(self):
-        return f"<Submission(time='{self.time}', task='{self.task}', dataset='{self.dataset}', model='{self.model}', link='{self.link}', predictions='{self.predictions}')>"
+        return f"<Submission(id='{self.id}', time='{self.time}', task='{self.task}', dataset='{self.dataset}', model='{self.model}', link='{self.link}', team='{self.team}', email='{self.email}', status='{self.status}', is_public='{self.is_public}')>"
 
+class Leaderboard(Base):
+    __tablename__ = 'leaderboard'
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    submission_id = Column(Integer, ForeignKey('submission.id'), nullable=False)
+    accuracy = Column(Float, nullable=False)
+    precision = Column(Float, nullable=False)
+    recall = Column(Float, nullable=False)
+    f1_score = Column(Float, nullable=False)
+
+    # Define the relationship to the Submission table
+    submission = relationship('Submission', back_populates='leaderboard_entry')
+
+    def __repr__(self):
+        return f"<Leaderboard(id='{self.id}', submission_id='{self.submission_id}', accuracy='{self.accuracy}', precision='{self.precision}', recall='{self.recall}', f1_score='{self.f1_score}')>"
+
+    def __str__(self):
+        return f"<Leaderboard(id='{self.id}', submission_id='{self.submission_id}', accuracy='{self.accuracy}', precision='{self.precision}', recall='{self.recall}', f1_score='{self.f1_score}')>"
+
+
+# Define the back_populates relationship in Submission
+Submission.leaderboard_entry = relationship('Leaderboard', order_by=Leaderboard.id, back_populates='submission')
 
 Base.metadata.create_all(engine)

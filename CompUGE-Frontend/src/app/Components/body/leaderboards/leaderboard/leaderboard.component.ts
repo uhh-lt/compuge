@@ -12,6 +12,7 @@ import {LeaderboardEntry} from "../../../../state_management/models/leaderboard-
 import {MatButton} from "@angular/material/button";
 import {AppStateService} from "../../../../state_management/services/app-state.service";
 import {map} from "rxjs";
+import {DecimalPipe, NgIf} from "@angular/common";
 
 @Component({
   selector: 'app-leaderboard',
@@ -28,7 +29,9 @@ import {map} from "rxjs";
     MatHeaderRowDef,
     MatRow,
     MatRowDef,
-    MatButton
+    MatButton,
+    NgIf,
+    DecimalPipe
   ],
   templateUrl: './leaderboard.component.html',
   styleUrl: './leaderboard.component.css'
@@ -37,11 +40,12 @@ export class LeaderboardComponent implements OnInit {
 
   displayedColumns: string[] = [
     'model',
+    'team',
+    'predictions',
     'accuracy',
     'precision',
     'recall',
-    'f1',
-    'overall'
+    'f1'
   ];
 
   @Input()
@@ -69,6 +73,10 @@ export class LeaderboardComponent implements OnInit {
       }
     );
     this.stateService.updateLeaderboards();
+  }
+
+  getTextDownloadURL(prediction: string) {
+    return window.URL.createObjectURL(new Blob([prediction], {type: 'text/plain'}));
   }
 
   refresh() {

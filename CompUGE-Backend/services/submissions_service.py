@@ -12,8 +12,12 @@ def get_submissions():
     return sub_repo.query_all()
 
 
-def submit_solution(task, dataset, submission_dict):
-    accuracy, precision, recall, f1, overall = evaluate_model(
+def submit_solution(
+        task,
+        dataset,
+        submission_dict
+):
+    accuracy, precision, recall, f1 = evaluate_model(
         submission_dict["fileContent"]
     )
     submission = Submission(
@@ -22,22 +26,23 @@ def submit_solution(task, dataset, submission_dict):
         dataset=dataset,
         model=submission_dict["modelName"],
         link=submission_dict["modelLink"],
+        team=submission_dict["teamName"],
+        email=submission_dict["contactEmail"],
         predictions=submission_dict["fileContent"],
-        status="accepted"
+        status="accepted",
+        is_public=bool(submission_dict["isPublic"])
     )
 
-    record = Leaderboard(
-        task=task,
-        dataset=dataset,
-        model=submission_dict["modelName"],
-        accuracy=accuracy,
-        precision=precision,
-        recall=recall,
-        f1_score=f1,
-        overall_score=overall
-    )
-
-    return sub_repo.insert_data(submission) and ld_repo.insert_data(record)
+    if sub_repo.insert_data(submission):
+        record = Leaderboard(
+            submission_id=submission.id,  # Use the ID of the newly created submission
+            accuracy=accuracy,
+            precision=precision,
+            recall=recall,
+            f1_score=f1,
+        )
+        return ld_repo.insert_data(record)
+    return False
 
 
 # a method that recieves a list of lables and predictions and returns :
@@ -45,14 +50,13 @@ def evaluate_model(fileContent):
     # file content is a string that contains the csv file
     df = pd.read_csv(StringIO(fileContent))
     labels = df["labels"]
-    predictions = df["preds"]
+    predictions = df["predictions"]
 
     accuracy = accuracy_score(labels, predictions)
     precision = precision_score(labels, predictions)
     recall = recall_score(labels, predictions)
     f1 = f1_score(labels, predictions)
-    overall = (accuracy + precision + recall + f1) / 4  # TODO: think about the overall score calculation
-    return accuracy, precision, recall, f1, overall
+    return accuracy, precision, recall, f1
 
 
 # a method that calculates the accuracy of the model

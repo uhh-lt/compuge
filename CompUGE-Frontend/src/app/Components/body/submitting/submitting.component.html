@@ -3,50 +3,86 @@
   It is a form that takes in the model name, the model file, and the model's description.
 ---->
 <mat-card>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
 
-  <mat-card-content>
-    <mat-form-field appearance="outline" style="width: 100%">
-      <mat-label>Model Name</mat-label>
-      <input [(ngModel)]="modelName" matInput placeholder="Model Name" type="text">
-    </mat-form-field>
-  </mat-card-content>
+    <mat-card-content>
+      <mat-form-field appearance="outline" style="width: 100%">
+        <mat-label>Team Name</mat-label>
+        <input matInput formControlName="teamName" placeholder="Team Name" type="text">
+      </mat-form-field>
+    </mat-card-content>
 
 
-  <mat-card-content>
-    <mat-form-field appearance="outline" style="width: 100%">
-      <mat-label>Model Link</mat-label>
-      <input [(ngModel)]="modelLink" matInput placeholder="Model Link" type="text">
-    </mat-form-field>
-  </mat-card-content>
+    <mat-card-content>
+      <mat-form-field appearance="outline" style="width: 100%">
+        <mat-label>Contact Email</mat-label>
+        <input matInput formControlName="teamName" placeholder="Contact Email" type="text" email>
+      </mat-form-field>
+    </mat-card-content>
 
-  <mat-form-field>
-    <mat-label>Task</mat-label>
-    <mat-select [(ngModel)]="task">
-      @for (task of tasks | async; track task) {
-        <mat-option [value]="task.name">{{task.name}}</mat-option>
-      }
-    </mat-select>
-  </mat-form-field>
+    <mat-card-content>
+      <mat-form-field appearance="outline" style="width: 100%">
+        <mat-label>Model Name</mat-label>
+        <input matInput formControlName="modelName" placeholder="Model Name" type="text">
+      </mat-form-field>
+    </mat-card-content>
 
-  <mat-form-field>
-    <mat-label>Dataset</mat-label>
-    <mat-select [(ngModel)]="dataset">
-      @for (dataset of datasets|async; track dataset) {
-        <mat-option [value]="dataset.name">{{dataset.name}}</mat-option>
-      }
-    </mat-select>
-  </mat-form-field>
+    <mat-card-content>
+      <mat-form-field appearance="outline" style="width: 100%">
+        <mat-label>Model Link</mat-label>
+        <input formControlName="modelLink" matInput placeholder="Model Link" type="text">
+      </mat-form-field>
+    </mat-card-content>
 
-  <mat-card-content>
-    <button type="button" style="width: 100%" mat-raised-button (click)="predsFileInput.click()">Upload Model
-      Predictions
-    </button>
-    <input hidden type="file" #predsFileInput (change)="onFileSelected($event)"/>
-    <mat-label *ngIf="fileName != ''">{{ fileName }}</mat-label>
-  </mat-card-content>
+    <mat-card-content>
+      <mat-form-field appearance="outline" style="width: 100%">
+        <mat-label>Task</mat-label>
+        <mat-select formControlName="task">
+          @for (task of tasks | async; track task) {
+            <mat-option [value]="task.name">{{ task.name }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+    </mat-card-content>
 
-  <mat-card-actions>
-    <button mat-raised-button style="width: 100%" color="primary" (click)="submit()">Submit</button>
-  </mat-card-actions>
+    <mat-card-content>
+      <mat-form-field appearance="outline" style="width: 100%">
+        <mat-label>Dataset</mat-label>
+        <mat-select formControlName="dataset">
+          @for (dataset of datasets|async; track dataset) {
+            <mat-option [value]="dataset.name">{{ dataset.name }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+    </mat-card-content>
+
+    <mat-card-actions>
+      <button type="button" style="width: 100%" mat-raised-button (click)="predsFileInput.click()">Upload Model
+        Predictions {{ chosenFileName != '' ? ' - ' + chosenFileName : '' }}
+      </button>
+      <input hidden type="file" #predsFileInput formControlName="file" required (change)="onFileSelected($event)"/>
+    </mat-card-actions>
+
+    <br>
+
+    <mat-card-content>
+      <mat-form-field appearance="outline" style="width: 100%">
+        <mat-label>Make Predictions Public</mat-label>
+        <mat-select formControlName="isPublic" required>
+          <mat-option value="true">Yes</mat-option>
+          <mat-option value="false">No</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </mat-card-content>
+
+    <mat-card-actions>
+      <button type="submit" mat-raised-button style="width: 100%" color="primary">
+        Submit
+        <label *ngIf="invalid"> - Invalid Submission</label>
+        <label *ngIf="submitted"> - Submission Successful</label>
+      </button>
+    </mat-card-actions>
+
+  </form>
 
 </mat-card>

@@ -3,76 +3,88 @@
 -->
 
 <mat-card>
-        <button mat-raised-button color="primary" style="width: 100%" (click)="refresh()">Refresh Submissions</button>
-        <table mat-table [dataSource]=dataSource>
+  <mat-card-content>
+    <button mat-raised-button color="primary" style="width: 100%" (click)="refresh()">Refresh Submissions</button>
+  </mat-card-content>
 
-          <ng-container matColumnDef="task">
-            <mat-header-cell
-              *matHeaderCellDef
-            >
-              Task
-            </mat-header-cell>
-            <mat-cell *matCellDef="let entry">{{ entry.task }}</mat-cell>
-          </ng-container>
+  <table mat-table [dataSource]=dataSource>
 
-          <ng-container matColumnDef="dataset">
-            <mat-header-cell
-              *matHeaderCellDef
-            >
-              Dataset
-            </mat-header-cell>
-            <mat-cell *matCellDef="let entry">{{ entry.dataset }}</mat-cell>
-          </ng-container>
+    <ng-container matColumnDef="team">
+      <mat-header-cell
+        *matHeaderCellDef
+      >
+        Team
+      </mat-header-cell>
+      <mat-cell *matCellDef="let entry">
+        <a *ngIf="entry.is_public" [href]="'mailto:' + entry.email" target="_blank"> {{ entry.team }}</a>
+        <span *ngIf="!entry.is_public">{{ entry.team }}</span>
+      </mat-cell>
+    </ng-container>
 
-          <ng-container matColumnDef="model">
-            <mat-header-cell
-              *matHeaderCellDef
-            >
-              Model
-            </mat-header-cell>
-            <mat-cell *matCellDef="let entry">{{ entry.model }}</mat-cell>
-          </ng-container>
+    <ng-container matColumnDef="task">
+      <mat-header-cell
+        *matHeaderCellDef
+      >
+        Task
+      </mat-header-cell>
+      <mat-cell *matCellDef="let entry">{{ entry.task }}</mat-cell>
+    </ng-container>
 
-          <ng-container matColumnDef="link">
-            <mat-header-cell
-              *matHeaderCellDef
-            >
-              Link
-            </mat-header-cell>
-            <mat-cell *matCellDef="let entry">{{ entry.link }}</mat-cell>
-          </ng-container>
+    <ng-container matColumnDef="dataset">
+      <mat-header-cell
+        *matHeaderCellDef
+      >
+        Dataset
+      </mat-header-cell>
+      <mat-cell *matCellDef="let entry">{{ entry.dataset }}</mat-cell>
+    </ng-container>
 
-          <ng-container matColumnDef="predictions">
-            <mat-header-cell
-              *matHeaderCellDef
-            >
-              Predictions
-            </mat-header-cell>
-            <mat-cell *matCellDef="let entry">{{ "entry.predictions" }}</mat-cell>
-          </ng-container>
+    <ng-container matColumnDef="model">
+      <mat-header-cell
+        *matHeaderCellDef
+      >
+        Model
+      </mat-header-cell>
+      <mat-cell *matCellDef="let entry">
+        <a *ngIf="entry.is_public" [href]="entry.link" target="_blank"> {{ entry.model }}</a>
+        <span *ngIf="entry.isPublic">{{ entry.model }}</span>
+      </mat-cell>
+    </ng-container>
 
-          <ng-container matColumnDef="status">
-            <mat-header-cell
-              *matHeaderCellDef
-            >
-              Status
-            </mat-header-cell>
-            <mat-cell *matCellDef="let entry">{{ entry.status }}</mat-cell>
-          </ng-container>
+    <ng-container matColumnDef="predictions">
+      <mat-header-cell
+        *matHeaderCellDef
+      >
+        Predictions
+      </mat-header-cell>
+      <mat-cell *matCellDef="let entry">
+        <a *ngIf="entry.is_public" [href]="getTextDownloadURL(entry.predictions)" target="_blank" download="{{entry.model + '-predictions.txt'}}">Download</a>
+        <span *ngIf="!entry.is_public">Private</span>
+      </mat-cell>
+    </ng-container>
 
-          <ng-container matColumnDef="time">
-            <mat-header-cell
-              *matHeaderCellDef
-            >
-              Time
-            </mat-header-cell>
-            <mat-cell *matCellDef="let entry">{{ entry.time }}</mat-cell>
-          </ng-container>
+    <ng-container matColumnDef="status">
+      <mat-header-cell
+        *matHeaderCellDef
+      >
+        Status
+      </mat-header-cell>
+      <mat-cell *matCellDef="let entry">{{ entry.status }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="time">
+      <mat-header-cell
+        *matHeaderCellDef
+      >
+        Time
+      </mat-header-cell>
+      <mat-cell *matCellDef="let entry">{{ entry.time }}</mat-cell>
+    </ng-container>
 
 
-          <mat-header-row
-            *matHeaderRowDef="displayedColumns; sticky: true"
-          ></mat-header-row>
-          <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
-        </table>
+    <mat-header-row
+      *matHeaderRowDef="displayedColumns; sticky: true"
+    ></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+  </table>
 </mat-card>

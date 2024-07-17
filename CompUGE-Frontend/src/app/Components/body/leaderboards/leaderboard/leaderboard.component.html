@@ -8,7 +8,34 @@
       >
         Model
       </mat-header-cell>
-      <mat-cell *matCellDef="let entry">{{ entry.model }}</mat-cell>
+      <mat-cell *matCellDef="let entry">
+        <a *ngIf="entry.is_public" [href]="entry.link" target="_blank"> {{ entry.model }}</a>
+        <span *ngIf="entry.isPublic">{{ entry.model }}</span>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="team">
+      <mat-header-cell
+        *matHeaderCellDef
+      >
+        Team
+      </mat-header-cell>
+      <mat-cell *matCellDef="let entry">
+        <a *ngIf="entry.is_public" [href]="'mailto:' + entry.email" target="_blank"> {{ entry.team }}</a>
+        <span *ngIf="!entry.is_public">{{ entry.team }}</span>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="predictions">
+      <mat-header-cell
+        *matHeaderCellDef
+      >
+        Predictions
+      </mat-header-cell>
+      <mat-cell *matCellDef="let entry">
+        <a *ngIf="entry.is_public" [href]="getTextDownloadURL(entry.predictions)" target="_blank" download="{{entry.model + '-predictions.txt'}}">Download</a>
+        <span *ngIf="!entry.is_public">Private</span>
+      </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="accuracy">
@@ -17,7 +44,7 @@
       >
         Accuracy
       </mat-header-cell>
-      <mat-cell *matCellDef="let entry">{{ entry.accuracy }}</mat-cell>
+      <mat-cell *matCellDef="let entry">{{ entry.accuracy | number: '1.2-2' }}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="precision">
@@ -26,7 +53,7 @@
       >
         Precision
       </mat-header-cell>
-      <mat-cell *matCellDef="let entry">{{ entry.precision }}</mat-cell>
+      <mat-cell *matCellDef="let entry">{{ entry.precision | number: '1.2-2' }}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="recall">
@@ -35,7 +62,7 @@
       >
         Recall
       </mat-header-cell>
-      <mat-cell *matCellDef="let entry">{{ entry.recall }}</mat-cell>
+      <mat-cell *matCellDef="let entry">{{ entry.recall | number: '1.2-2'}}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="f1">
@@ -44,18 +71,8 @@
       >
         F1
       </mat-header-cell>
-      <mat-cell *matCellDef="let entry">{{ entry.f1_score }}</mat-cell>
+      <mat-cell *matCellDef="let entry">{{ entry.f1_score | number: '1.2-2' }}</mat-cell>
     </ng-container>
-
-    <ng-container matColumnDef="overall">
-      <mat-header-cell
-        *matHeaderCellDef
-      >
-        Overall
-      </mat-header-cell>
-      <mat-cell *matCellDef="let entry">{{ entry.overall_score }}</mat-cell>
-    </ng-container>
-
 
 
 

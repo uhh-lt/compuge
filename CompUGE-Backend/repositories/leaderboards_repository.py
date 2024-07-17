@@ -1,12 +1,7 @@
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import Column, Integer, String, Float
 from sqlalchemy.exc import IntegrityError
-import pandas as pd
-import os
+from sqlalchemy.orm import joinedload
 import repositories.db_engine as engine
-from repositories.db_engine import Leaderboard
+from repositories.db_engine import Leaderboard, Submission
 
 
 # Insert a leaderboard record
@@ -24,29 +19,68 @@ def insert_data(data):
 
 # Query data by task
 def query_data_by_task(task):
-    return engine.session.query(Leaderboard).filter(Leaderboard.task == task).all()
+    return (engine.session.query(Leaderboard)
+            .join(Submission)
+            .filter(Submission.task == task)
+            .all())
 
 
 # Query data by model
 def query_data_by_model(model):
-    return engine.session.query(Leaderboard).filter(Leaderboard.model == model).all()
+    return (engine.session.query(Leaderboard)
+            .join(Submission)
+            .filter(Submission.model == model)
+            .all())
 
 
 # Query data by task and model
 def query_data_by_task_and_model(task, model):
-    return engine.session.query(Leaderboard).filter(Leaderboard.task == task, Leaderboard.model == model).all()
+    return (engine.session.query(Leaderboard)
+            .join(Submission)
+            .filter(Submission.task == task,
+                    Submission.model == model)
+            .all())
 
 
 # Query data by task and dataset
 def query_data_by_task_and_dataset(task, dataset):
-    return engine.session.query(Leaderboard).filter(Leaderboard.task == task, Leaderboard.dataset == dataset).all()
+    return (engine.session.query(Leaderboard)
+            .join(Submission)
+            .filter(Submission.task == task,
+                    Submission.dataset == dataset)
+            .all())
 
 
-# Query data by model, task and dataset
+# Query data by task, dataset, and model
 def query_data_by_task_and_dataset_and_model(task, dataset, model):
-    return engine.session.query(Leaderboard).filter(Leaderboard.task == task, Leaderboard.dataset == dataset,
-                                                    Leaderboard.model == model).all()
+    return (engine.session.query(Leaderboard)
+            .join(Submission)
+            .filter(Submission.task == task,
+                    Submission.dataset == dataset,
+                    Submission.model == model)
+            .all())
 
 
+# Query all data
 def query_all():
-    return engine.session.query(Leaderboard).all()
+    # Query the joined tables and select the desired columns
+    results = (
+        engine.session.query(
+            Leaderboard.accuracy,
+            Leaderboard.precision,
+            Leaderboard.recall,
+            Leaderboard.f1_score,
+            Submission.task,
+            Submission.dataset,
+            Submission.model,
+            Submission.link,
+            Submission.team,
+            Submission.email,
+            Submission.predictions,
+            Submission.is_public
+        )
+        .join(Submission, Leaderboard.submission_id == Submission.id)
+        .all()
+    )
+
+    return results

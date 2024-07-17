@@ -36,7 +36,9 @@ def root():
 
 @app.get("/api/leaderboards")
 def leaderboards():
-    return lb_service.get_leaderboards()
+    lbs = lb_service.get_leaderboards()
+    print(lbs[0])
+    return lbs
 
 
 @app.get("/api/leaderboard/{task}/{dataset}")
@@ -46,7 +48,9 @@ def leaderboard(task: str, dataset: str):
 
 @app.get("/api/submissions")
 def submissions():
-    return sub_service.get_submissions()
+    subs = sub_service.get_submissions()
+    print(subs[0])
+    return subs
 
 
 @app.post("/api/submission/{task}/{dataset}")

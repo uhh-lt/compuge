@@ -53,16 +53,16 @@ import {MatTab, MatTabGroup} from "@angular/material/tabs";
   templateUrl: './submissions.component.html',
   styleUrl: './submissions.component.css'
 })
-export class SubmissionsComponent implements OnInit{
+export class SubmissionsComponent implements OnInit {
 
   displayedColumns: string[] = [
+    'team',
     'model',
     'task',
     'dataset',
-    'link',
     'status',
     'predictions',
-    'time'
+    'time',
   ];
 
   @Input()
@@ -74,7 +74,9 @@ export class SubmissionsComponent implements OnInit{
   submissions = this.state.state$.pipe(
     map(
       state =>
-      state.submissions.filter(submission => (submission.task == this.task || this.task == undefined)))
+        state.submissions.filter(
+          submission =>
+            (submission.task == this.task || this.task == undefined)))
   );
 
   dataSource = new MatTableDataSource<SubmissionEntry>();
@@ -85,6 +87,10 @@ export class SubmissionsComponent implements OnInit{
         this.dataSource.data = data;
       }
     )
+  }
+
+  getTextDownloadURL(prediction: string) {
+    return window.URL.createObjectURL(new Blob([prediction], {type: 'text/plain'}));
   }
 
   refresh() {

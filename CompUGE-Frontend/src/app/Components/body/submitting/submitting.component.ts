@@ -9,6 +9,7 @@ import {AsyncPipe, NgIf} from "@angular/common";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {AppStateService} from "../../../state_management/services/app-state.service";
 import {map} from "rxjs";
+import {FormGroup, FormBuilder, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-submitting',
@@ -32,33 +33,55 @@ import {map} from "rxjs";
   styleUrl: './submitting.component.css'
 })
 export class SubmittingComponent implements OnInit{
-  constructor(
-    private stateService: AppStateService
-  ) {}
 
   tasks = this.stateService.state$.pipe(map(state => state.tasks));
   datasets = this.stateService.state$.pipe(map(state => state.datasets));
 
-  modelName = '';
-  modelLink = '';
-  task = '';
-  dataset = '';
-  fileName = '';
-  file?: any;
+  chosenFileName = '';
+  invalid = false;
+  submitted = false;
+
+  form: FormGroup;
   fileContent = '';
+
+  constructor(
+    private fb: FormBuilder,
+    private stateService: AppStateService
+  ) {
+    this.form = this.fb.group({
+      modelName: ['', Validators.required],
+      modelLink: [''],
+      task: ['', Validators.required],
+      dataset: ['', Validators.required],
+      file: ['', Validators.required],
+      teamName: [''],
+      contactEmail: ['', Validators.email],
+      isPublic: [false, Validators.required]
+    });
+  }
+
 
   ngOnInit(){
   }
 
-  submit = () => {
-    console.log('Submitting');
-    console.log(this.fileContent);
-    console.log('after file content');
+  onSubmit () {
+    if (this.form.invalid) {
+      this.invalid = true;
+      return;
+    }
 
-    this.stateService.submit(this.modelName, this.modelLink, this.task, this.dataset, this.fileContent).subscribe(
-(data: any) => {
-        console.log('Submitted');
-        console.log(data);
+    this.stateService.submit(
+      this.form.value.modelName,
+      this.form.value.modelLink,
+      this.form.value.teamName,
+      this.form.value.contactEmail,
+      this.form.value.task,
+      this.form.value.dataset,
+      this.form.value.isPublic,
+      this.fileContent
+    ).subscribe(
+      () => {
+        this.submitted = true;
       }
     );
   }
@@ -68,15 +91,15 @@ export class SubmittingComponent implements OnInit{
     console.log(event.target.files[0]);
     const file: File = event.target.files[0];
     if (file) {
-      this.fileName = file.name;
-      this.file = file;
-    }
+      this.chosenFileName = file.name;
     // read file as text
     const reader = new FileReader();
     reader.onload = (e: any) => {
       this.fileContent = e.target.result;
     };
-    console.log(this.file.name);
-    reader.readAsText(this.file);
+    reader.readAsText(file);
+    }else {
+      this.chosenFileName = 'Invalid file';
+    }
   }
 }

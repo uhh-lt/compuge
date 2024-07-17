@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {environment} from "../../../environments/environment";
-import {BehaviorSubject} from "rxjs";
+import {BehaviorSubject, Observable} from "rxjs";
 import {HttpClient} from "@angular/common/http";
 import {StateModel} from "../models/state.model";
 
@@ -38,10 +38,22 @@ export class AppStateService {
     return this._state.getValue();
   }
 
-  public submit(modelName: string, modelLink: string, task: string, dataset: string, fileContent: string) {
+  public submit(
+    modelName: string,
+    modelLink: string,
+    teamName: string,
+    contactEmail: string,
+    task: string,
+    dataset: string,
+    isPublic: boolean,
+    fileContent: string
+  ) : Observable<Object> {
     return this.http.post(this._apiUrl + '/submission/' + task + '/' + dataset, {
       modelName: modelName,
       modelLink: modelLink,
+      teamName: teamName,
+      contactEmail: contactEmail,
+      isPublic: isPublic,
       fileContent: fileContent
     });
   }
