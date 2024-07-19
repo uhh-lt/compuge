@@ -5,23 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1b0f9635-f17d-4314-90ff-91214c1664af" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/jupyter-settings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/datasets/analysis.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/6323b719-f890-414a-97fd-22f84666ad27.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/6323b719-f890-414a-97fd-22f84666ad27.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/6323b719-f890-414a-97fd-22f84666ad27/storage_v2/_src_/database/postgres.edMnLQ/schema/public.abK9xQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/6323b719-f890-414a-97fd-22f84666ad27/storage_v2/_src_/database/postgres.edMnLQ/schema/public.abK9xQ.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/datasets/data_prep.ipynb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/repositories/db_engine.py" beforeDir="false" afterPath="$PROJECT_DIR$/repositories/db_engine.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/repositories/leaderboards_repository.py" beforeDir="false" afterPath="$PROJECT_DIR$/repositories/leaderboards_repository.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/leaderboards_service.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/leaderboards_service.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/submissions_service.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/submissions_service.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../CompUGE-Frontend/src/app/Components/body/submissions/submissions.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../CompUGE-Frontend/src/app/Components/body/submissions/submissions.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../CompUGE-Frontend/src/app/Components/body/submissions/submissions.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../CompUGE-Frontend/src/app/Components/body/submissions/submissions.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../CompUGE-Frontend/src/app/Components/body/submitting/submitting.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../CompUGE-Frontend/src/app/Components/body/submitting/submitting.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../CompUGE-Frontend/src/app/Components/body/submitting/submitting.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../CompUGE-Frontend/src/app/Components/body/submitting/submitting.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../CompUGE-Frontend/src/app/state_management/models/submission-entry.model.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../CompUGE-Frontend/src/app/state_management/models/submission-entry.model.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../CompUGE-Frontend/src/app/state_management/services/app-state.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../CompUGE-Frontend/src/app/state_management/services/app-state.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/datasets/metadata.json" beforeDir="false" afterPath="$PROJECT_DIR$/datasets/metadata.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tasks.json" beforeDir="false" afterPath="$PROJECT_DIR$/tasks.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CompUGE-Frontend/src/app/Components/body/leaderboards/leaderboard/leaderboard.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../CompUGE-Frontend/src/app/Components/body/leaderboards/leaderboard/leaderboard.component.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -124,7 +111,7 @@
       <workItem from="1718211841396" duration="4734000" />
       <workItem from="1718458443539" duration="600000" />
       <workItem from="1719605445455" duration="4604000" />
-      <workItem from="1721056539620" duration="14917000" />
+      <workItem from="1721056539620" duration="18716000" />
     </task>
     <servers />
   </component>

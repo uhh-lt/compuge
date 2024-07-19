@@ -1,18 +1,20 @@
 {
   "datasets" : [
     {
-      "task" : "QI",
+      "task" : "Question Identification",
       "name" : "Webis Comparative Questions 2022",
       "description" : "Webis Comparative Questions 2022 dataset contains about 31,000 questions labeled as comparative or not.\n\n",
       "link" : "https://zenodo.org/records/7213397",
-      "folder" : "webis_comparative_questions_2022_qi"
+      "folder" : "webis_comparative_questions_2022_qi",
+      "paper" : ""
     },
     {
-      "task" : "QI",
+      "task" : "Question Identification",
       "name" : "Webis Comparative Questions 2020",
       "description" : "The Webis Comparative Web Search Questions 2020 (Webis-CompQuestions-20) corpus comprises 15,000 web questions collected from the public datasets MS Marco, Google Natural Questions and Quora. The questions were manually annotated as comparative or not and with more fine-grained subclasses.\n\n",
       "link" : "https://zenodo.org/records/4486547",
-      "folder" : "webis_comparative_questions_2020_qi"
+      "folder" : "webis_comparative_questions_2020_qi",
+      "paper" : ""
     }
   ]
 }

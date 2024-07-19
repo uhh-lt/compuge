@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { LeaderboardComponent } from './leaderboard.component';
+import { LeaderboardsComponent} from "../leaderboards.component";
 
 describe('LeaderboardComponent', () => {
   let component: LeaderboardComponent;
@@ -11,7 +11,7 @@ describe('LeaderboardComponent', () => {
       imports: [LeaderboardComponent]
     })
     .compileComponents();
-    
+
     fixture = TestBed.createComponent(LeaderboardComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

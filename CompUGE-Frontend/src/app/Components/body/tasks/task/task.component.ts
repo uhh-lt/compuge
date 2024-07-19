@@ -31,7 +31,7 @@ import {LeaderboardsComponent} from "../../leaderboards/leaderboards.component";
 })
 export class TaskComponent {
 
-  @Input() task: string = 'QI';
+  @Input() task: string = '';
 
   // all datasets where task is equal to the task of this component
   datasets = this.state.state$.pipe(

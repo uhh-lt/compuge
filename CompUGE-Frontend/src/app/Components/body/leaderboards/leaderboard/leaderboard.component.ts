@@ -49,7 +49,7 @@ export class LeaderboardComponent implements OnInit {
   ];
 
   @Input()
-  task : string = "QI";
+  task : string = 'Question Identification';
 
   @Input()
   dataset : string = "CIFAR10";

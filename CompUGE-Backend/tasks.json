@@ -2,19 +2,19 @@
   "tasks":
   [
     {
-      "name": "QI",
+      "name": "Question Identification",
       "description": "Question Identification"
     },
     {
-      "name": "OAI",
+      "name": "Object and Aspect Identification",
       "description": "Object and Aspect Identification"
     },
     {
-      "name": "SC",
+      "name": "Stance Classification",
       "description": "Stance Classification"
     },
     {
-      "name": "SG",
+      "name": "Summary Generation",
       "description": "Summary Generation"
     }
   ]
