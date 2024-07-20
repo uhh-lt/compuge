@@ -34,26 +34,27 @@
 
   <mat-card-content *ngIf="whatAbout === 'Question Identification'">
     <div style="display: flex;">
-      <div style="flex: 1; padding: 20px;">
+      <div style="flex: 1; padding-right: 3%; text-align: justify;">
         <h2>Comparative Question Identification</h2>
-        <p>
-          Comparative Question Identification is the binary classification task to identify whether the question is Comparative or Not.
-          There exist several papers introducing such datasets for English
-          (<a href="https://aclanthology.org/P10-1028/" target="_blank">Li et al., 2010</a>;
-          <a href="https://aclanthology.org/2020.coling-main.321/" target="_blank">Bondarenko et al., 2020a</a>;
-          <a href="https://ar5iv.org/2304.04339" target="_blank">Bondarenko et al., 2022a</a>;
-          <a href="https://www.frontiersin.org/articles/10.3389/frai.2022.732836/full" target="_blank">Beloucif et al., 2022</a>)
-          and Russian
-          (<a href="https://aclanthology.org/2020.coling-main.321/" target="_blank">Bondarenko et al., 2020a</a>).
-          Moreover, the Mintaka dataset for Knowledge Base Question Answering
-          (<a href="https://aclanthology.org/2022.acl-long.179/" target="_blank">Sen et al., 2022</a>),
-          also comprises questions labeled as comparative.
-          Along with the datasets, the authors published baseline approaches to compare with machine learning classifiers,
-          convolutional neural networks, and Transformer Encoders.
+        <p style="font-size: 18px">
+          The comparative question identification task involves detecting and classifying questions that aim to compare entities, such as products or services. This task is important for applications like review summarization, recommendation systems, and opinion mining. Researchers have developed methods involving natural language processing techniques to accurately identify and categorize comparative questions from user-generated content. These methods often require syntactic and semantic analysis to understand the nuances and patterns in language that indicate comparisons.
+          <br> <br>
+          Recent advancements in this field include the use of machine learning models and neural networks to improve the accuracy of identifying comparative questions. These models are trained on large datasets to recognize both explicit and implicit comparisons. Challenges in this area include handling context-dependent comparisons and refining algorithms to better capture the intent behind complex linguistic structures. This work enhances applications by providing deeper insights into user preferences and opinions through effective comparison detection.
         </p>
+        <div>
+          <h3>References</h3>
+          <ul>
+            <li><a href="https://aclanthology.org/P10-1067/" target="_blank">Li et al., 2010</a></li>
+            <li><a href="https://dl.acm.org/doi/10.1145/3336191.3371848" target="_blank">Bondarenko et al., 2020a</a></li>
+            <li><a href="https://dl.acm.org/doi/10.1145/3488560.3498534" target="_blank">Bondarenko et al., 2022a</a></li>
+            <li><a href="https://aclanthology.org/2022.lrec-1.402/" target="_blank">Beloucif et al., 2022</a></li>
+            <li><a href="https://aclanthology.org/2022.coling-1.138/" target="_blank">Sen et al., 2022</a></li>
+          </ul>
+        </div>
       </div>
       <div style="flex: 1; display: flex; align-items: center; justify-content: center;">
-        <img src="https://media.baamboozle.com/uploads/images/552182/1664978926_190364.jpeg" alt="Image Unavailable" style="max-width: 100%; height: auto;">
+        <!--- this image is in assets and is called cqi_explainer.svg --->
+        <img src="assets/cqi_explainer.svg" alt="Image Unavailable" style="max-width: 100%; height: auto; padding: 5%">
       </div>
     </div>
   </mat-card-content>

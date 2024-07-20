@@ -49,7 +49,6 @@ def leaderboard(task: str, dataset: str):
 @app.get("/api/submissions")
 def submissions():
     subs = sub_service.get_submissions()
-    print(subs[0])
     return subs
 
 

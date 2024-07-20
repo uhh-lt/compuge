@@ -27,6 +27,9 @@ export class LeaderboardsComponent {
   @Input()
   task: string = '';
 
+  @Input()
+  showTask: boolean = true;
+
   datasets = this.stateService.state$.pipe(
     map(state =>
       state.datasets.filter(dataset =>

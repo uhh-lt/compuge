@@ -1,5 +1,9 @@
 <mat-card>
   <mat-card-content>
+    <br>
+    <h1 [style.text-align]="'center'">
+      {{task}}
+    </h1>
     <mat-tab-group>
       <mat-tab label="Task Overview">
         <app-about [whatAbout]="task"></app-about>
@@ -15,8 +19,9 @@
       </mat-tab>
       <mat-tab label="Task Leaderboards">
         <app-leaderboards
-        [task]="task">
-
+        [task]="task"
+        [showTask]="false"
+        >
         </app-leaderboards>
       </mat-tab>
       <mat-tab label="Task Submissions">

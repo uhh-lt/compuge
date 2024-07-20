@@ -5,7 +5,7 @@
       make a header with the task name, if the task is not '', align the text to the center
     -->
     <br>
-    <h1 *ngIf="task" [style.text-align]="task ? 'center' : 'left'">
+    <h1 *ngIf="task && showTask" [style.text-align]="task ? 'center' : 'left'">
       {{task}} Leaderboards
     </h1>
 

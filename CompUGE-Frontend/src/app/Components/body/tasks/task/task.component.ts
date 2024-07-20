@@ -5,7 +5,7 @@ import {MatCard, MatCardContent} from "@angular/material/card";
 import {AppStateService} from "../../../../state_management/services/app-state.service";
 import {filter, map} from "rxjs";
 import {DatasetComponent} from "../../datasets/dataset/dataset.component";
-import {AsyncPipe, NgForOf} from "@angular/common";
+import {AsyncPipe, NgForOf, NgIf} from "@angular/common";
 import {SubmissionsComponent} from "../../submissions/submissions.component";
 import {LeaderboardComponent} from "../../leaderboards/leaderboard/leaderboard.component";
 import {LeaderboardsComponent} from "../../leaderboards/leaderboards.component";
@@ -24,7 +24,8 @@ import {LeaderboardsComponent} from "../../leaderboards/leaderboards.component";
     AsyncPipe,
     SubmissionsComponent,
     LeaderboardComponent,
-    LeaderboardsComponent
+    LeaderboardsComponent,
+    NgIf
   ],
   templateUrl: './task.component.html',
   styleUrl: './task.component.css'
