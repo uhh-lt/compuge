@@ -1,9 +1,18 @@
 class DatasetDTO:
-    def __init__(self, task: str, name: str, description: str, link: str, train: list, test: list):
+    def __init__(self, task: str,
+                 name: str,
+                 description: str,
+                 link: str,
+                 paper: str,
+                 paper_link: str,
+                 train: list,
+                 test: list):
         self.task = task
         self.name = name
         self.description = description
         self.link = link
+        self.paper = paper
+        self.paper_link = paper_link
         self.train = train
         self.test = test
 

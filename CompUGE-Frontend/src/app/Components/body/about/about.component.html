@@ -3,11 +3,14 @@
   <mat-card-content *ngIf="whatAbout === 'general'">
     <br>
     <p>
-      This System was built in the process of the research conducted by the Author Ahmad Shallouf for his Master Thesis at the University of Hamburg.
+      This System was built in the process of the research conducted by the Author Ahmad Shallouf for his Master Thesis
+      at the University of Hamburg.
       <br>
-      The purpose of this system is to provide a Benchmark for the 4 main tasks of Comparative Question Answering in the English Language.
+      The purpose of this system is to provide a Benchmark for the 4 main tasks of Comparative Question Answering in the
+      English Language.
       <br>
-      The system is built using the Angular Framework for the Frontend and FastAPI Framework for the Backend with a PostgreSQL Database.
+      The system is built using the Angular Framework for the Frontend and FastAPI Framework for the Backend with a
+      PostgreSQL Database.
     </p>
     <br>
     <h3>Contact Information: </h3>
@@ -22,7 +25,7 @@
       </tr>
       <tr>
         <td>Email:</td>
-        <td>{{'7shallou@informatik.uni-hamburg.de'}}</td>
+        <td>{{ '7shallou@informatik.uni-hamburg.de' }}</td>
       </tr>
       <tr>
         <td>Phone:</td>
@@ -35,18 +38,30 @@
   <mat-card-content *ngIf="whatAbout === 'Question Identification'">
     <div style="display: flex;">
       <div style="flex: 1; padding-right: 3%; text-align: justify;">
-        <h2>Comparative Question Identification</h2>
         <p style="font-size: 18px">
-          The comparative question identification task involves detecting and classifying questions that aim to compare entities, such as products or services. This task is important for applications like review summarization, recommendation systems, and opinion mining. Researchers have developed methods involving natural language processing techniques to accurately identify and categorize comparative questions from user-generated content. These methods often require syntactic and semantic analysis to understand the nuances and patterns in language that indicate comparisons.
-          <br> <br>
-          Recent advancements in this field include the use of machine learning models and neural networks to improve the accuracy of identifying comparative questions. These models are trained on large datasets to recognize both explicit and implicit comparisons. Challenges in this area include handling context-dependent comparisons and refining algorithms to better capture the intent behind complex linguistic structures. This work enhances applications by providing deeper insights into user preferences and opinions through effective comparison detection.
+          The comparative question identification task involves detecting and classifying questions that aim to compare
+          entities, such as products or services. This task is important for applications like review summarization,
+          recommendation systems, and opinion mining. Researchers have developed methods involving natural language
+          processing techniques to accurately identify and categorize comparative questions from user-generated content.
+          These methods often require syntactic and semantic analysis to understand the nuances and patterns in language
+          that indicate comparisons.
+          <br><br>
+          Recent advancements in this field include the use of machine learning models and neural networks to improve
+          the accuracy of identifying comparative questions. These models are trained on large datasets to recognize
+          both explicit and implicit comparisons. Challenges in this area include handling context-dependent comparisons
+          and refining algorithms to better capture the intent behind complex linguistic structures. This work enhances
+          applications by providing deeper insights into user preferences and opinions through effective comparison
+          detection.
         </p>
         <div>
+          <br><br>
           <h3>References</h3>
           <ul>
             <li><a href="https://aclanthology.org/P10-1067/" target="_blank">Li et al., 2010</a></li>
-            <li><a href="https://dl.acm.org/doi/10.1145/3336191.3371848" target="_blank">Bondarenko et al., 2020a</a></li>
-            <li><a href="https://dl.acm.org/doi/10.1145/3488560.3498534" target="_blank">Bondarenko et al., 2022a</a></li>
+            <li><a href="https://dl.acm.org/doi/10.1145/3336191.3371848" target="_blank">Bondarenko et al., 2020a</a>
+            </li>
+            <li><a href="https://dl.acm.org/doi/10.1145/3488560.3498534" target="_blank">Bondarenko et al., 2022a</a>
+            </li>
             <li><a href="https://aclanthology.org/2022.lrec-1.402/" target="_blank">Beloucif et al., 2022</a></li>
             <li><a href="https://aclanthology.org/2022.coling-1.138/" target="_blank">Sen et al., 2022</a></li>
           </ul>
@@ -63,35 +78,77 @@
   <mat-card-content *ngIf="whatAbout === 'Object and Aspect Identification'">
     <div style="display: flex;">
       <div style="flex: 1; padding: 20px;">
-        <h2>Object and Aspect Identification</h2>
         <p>
-          Object and Aspect Identification is the sequence tagging task that aims at identifying certain entities (objects, aspects, predicates, etc.) in the comparative questions.
-          We have encountered at least three different datasets on the task.
-          The dataset <a href="https://aclanthology.org/P10-1028/" target="_blank">Li et al., 2010</a>
-          is not publicly available, where they aim at extracting objects of comparison.
-          The other two datasets (<a href="https://www.frontiersin.org/articles/10.3389/frai.2022.732836/full" target="_blank">Beloucif et al., 2022</a>;
-          <a href="https://ar5iv.org/2304.04339" target="_blank">Bondarenko et al., 2022a</a>)
-          have different annotation schema and tags, which means that they cannot be straightforwardly combined.
-          <a href="https://aclanthology.org/2021.bsnlp-1.2/" target="_blank">Chekalina et al., 2021</a>
-          also presents a dataset with objects and an aspect of comparison.
-          However, it comprises labeled affirmative sentences instead of questions, which makes it inapplicable for our purposes according to
-          (<a href="https://ar5iv.org/2304.04339" target="_blank">Bondarenko et al., 2022a</a>).
+          Object and Aspect Labeling is a sequence tagging task aimed at identifying entities such as objects, aspects, and predicates in comparative questions.
+          <br><br>
+          There are at least three different datasets for this task. The dataset by Li et al. focuses on extracting objects of comparison but is not publicly available. The other two datasets, by Beloucif et al. and Bondarenko et al., have different annotation schemas and tags. Another dataset by Chekalina et al. includes labeled affirmative sentences.<br>
         </p>
+        <div>
+          <br><br>
+          <h3>References</h3>
+          <ul>
+            <li><a href="https://aclanthology.org/P10-1067/" target="_blank">Li et al., 2010</a></li>
+            <li><a href="https://dl.acm.org/doi/10.1145/3488560.3498534" target="_blank">Bondarenko et al., 2022a</a></li>
+            <li><a href="https://aclanthology.org/2022.lrec-1.402/" target="_blank">Beloucif et al., 2022</a></li>
+            <li><a href="https://aclanthology.org/2021.eacl-demos.36/" target="_blank">Chekalina et al., 2021</a></li>
+          </ul>
+        </div>
       </div>
       <div style="flex: 1; display: flex; align-items: center; justify-content: center;">
-        <img src="https://media.baamboozle.com/uploads/images/552182/1664978926_190364.jpeg" alt="Descriptive Alt Text" style="max-width: 100%; height: auto;">
+        <img src="assets/oai_explainer.svg" alt="Image Unavailable" style="max-width: 100%; height: auto; padding: 5%">
       </div>
     </div>
   </mat-card-content>
 
 
   <mat-card-content *ngIf="whatAbout === 'Stance Classification'">
-    Stance Classification
+    <div style="display: flex;">
+      <div style="flex: 1; padding: 20px;">
+        <p>
+          Stance classification is one of the crucial subtasks of the whole pipeline, as we select relevant arguments and detect, in favor of which object the choice is made thanks to the class assigned at this step.
+          <br><br>
+          There is a dataset published by Panchenko et al. along with the baseline classifier, which is outperformed by Ma et al. Bondarenko et al. also introduces datasets and tests them on several models. However, their text excerpts are quite large and are not consistent with the argumentative sentences for our task.
+        </p>
+        <div>
+          <br><br>
+          <h3>References</h3>
+          <ul>
+            <li><a href="https://aclanthology.org/W19-4516/" target="_blank">Panchenko et al., 2019</a></li>
+            <li><a href="https://aclanthology.org/2020.acl-main.512/" target="_blank">Ma et al., 2020</a></li>
+            <li><a href="https://dl.acm.org/doi/10.1145/3488560.3498534" target="_blank">Bondarenko et al., 2022a</a></li>
+          </ul>
+        </div>
+      </div>
+      <div style="flex: 1; display: flex; align-items: center; justify-content: center;">
+        <img src="assets/sc_explainer.svg" alt="Image Unavailable" style="max-width: 100%; height: auto; padding: 5%">
+      </div>
+    </div>
   </mat-card-content>
 
 
   <mat-card-content *ngIf="whatAbout === 'Summary Generation'">
-    Summary Generation
+    <div style="display: flex;">
+      <div style="flex: 1; padding: 20px;">
+        <p>
+          Comparative Summary Generation is a relatively recent and less widespread task.
+          <br> <br>
+          To the best of our knowledge, only two papers introduce datasets and baseline approaches. Chekalina et al. (2021) presents comparative questions with their best answers from Yahoo! Answers and tests several unsupervised approaches, including CTRL and template-based answers. Yu et al. (2023) pre-trains LLMs for comparative reasoning using prompts and introduces a dataset called “Diffen” that works with summarizing arguments for an object pair, though it is not publicly available.<br>
+        </p>
+        <div>
+          <br>
+          <br>
+          <h3>References</h3>
+          <ul>
+            <li><a href="https://arxiv.org/abs/2305.14457" target="_blank">Yu et al., 2023</a></li>
+            <li><a href="https://arxiv.org/abs/1909.05858" target="_blank">Keskar et al., 2019</a></li>
+            <li><a href="https://aclanthology.org/2021.eacl-demos.36/" target="_blank">Chekalina et al., 2021</a></li>
+          </ul>
+        </div>
+      </div>
+      <div style="flex: 1; display: flex; align-items: center; justify-content: center;">
+        <img src="assets/sg_explainer.svg" alt="Image Unavailable" style="max-width: 100%; height: auto; padding: 5%">
+      </div>
+    </div>
   </mat-card-content>
 
 </mat-card>

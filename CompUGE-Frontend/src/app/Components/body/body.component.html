@@ -1,5 +1,49 @@
-<div>
-  <mat-card>
-    Welcome Home !!
-  </mat-card>
-</div>
+<mat-card class="container mat-typography">
+  <mat-card-header>
+    <mat-card-title>Welcome to CompUGE</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <section>
+      <h2>What is Comparative Question Answering?</h2>
+      <p>Related to the paper CAM 2.0: An End to End System for Comparative Question Answering</p>
+      <div class="example-question">
+        <h3>Example Question:</h3>
+        <p>What is better: Harry Potter or Lord of the Rings?</p>
+        <div class="example-images">
+          <img ngSrc="assets/hp.jpg" alt="Harry Potter" class="example-img" height="4608" width="3456">
+          <img ngSrc="assets/lotr.jpg" alt="Lord of the Rings" class="example-img" height="5062" width="3375">
+        </div>
+        <img ngSrc="assets/cam_response1.jpg"
+             alt="CAM 2.0 Response 1"
+             height="1334"
+             width="1746"
+             class="response-image"
+        >
+        <img ngSrc="assets/cam_response2.jpg"
+             alt="CAM 2.0 Response 2"
+             height="1784"
+             width="1754"
+             class="response-image"
+        >
+      </div>
+    </section>
+
+    <section>
+      <h2>What is this Benchmark? CompUGE</h2>
+    </section>
+
+    <div class="tasks-grid">
+      <button *ngFor="let task of (tasks | async)" mat-raised-button color="primary"
+              class="task-button">{{ task.name }}
+      </button>
+    </div>
+
+    <button mat-raised-button color="accent" class="submit-button">Submit a Model</button>
+
+    <nav>
+      <button mat-button>Leaderboards</button>
+      <button mat-button>Datasets</button>
+      <button mat-button>Submissions List</button>
+    </nav>
+  </mat-card-content>
+</mat-card>

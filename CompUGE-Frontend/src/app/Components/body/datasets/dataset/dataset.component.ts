@@ -20,6 +20,10 @@ export class DatasetComponent {
   @Input()
   public link: string = 'Placeholder';
   @Input()
+  public paper: string = 'Placeholder';
+  @Input()
+  public paper_link: string = 'Placeholder';
+  @Input()
   public train: any[] = [];
   @Input()
   public test: any[] = [];
