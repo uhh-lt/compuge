@@ -26,13 +26,19 @@ with open("./datasets/metadata.json", "r") as metadata_file:
 datasetsDTOs = []
 # train and test data are saved as csv files in the dataset's folder
 for dataset in datasets_metadata:
-    with open(f"./datasets/{dataset.folder}/train.csv", "r") as train_file:
-        train = train_file.readlines()
-    with open(f"./datasets/{dataset.folder}/test.csv", "r") as test_file:
-        test = test_file.readlines()
-    datasetsDTOs.append(DatasetDTO(task=dataset.task, name=dataset.name, description=dataset.description,
-                                   link=dataset.link, train=train, test=test, paper=dataset.paper, paper_link=dataset.paper_link))
-
+    # add exception handling to avoid errors when the file is not found
+    train = []
+    test = []
+    try :
+        with open(f"./datasets/{dataset.folder}/train.csv", "r") as train_file:
+            train = train_file.readlines()
+        with open(f"./datasets/{dataset.folder}/test.csv", "r") as test_file:
+            test = test_file.readlines()
+    except FileNotFoundError:
+        print(f"File not found for dataset {dataset.name}")
+    finally:
+        datasetsDTOs.append(DatasetDTO(task=dataset.task, name=dataset.name, description=dataset.description,
+                                       link=dataset.link, train=train, test=test, paper=dataset.paper, paper_link=dataset.paper_link))
 
 def get_dataset(task: str, dataset: str):
     for dataset_dto in datasetsDTOs:

@@ -7,6 +7,8 @@ import {MatIcon} from "@angular/material/icon";
 import {MatMenuItem} from "@angular/material/menu";
 import {RouterLink} from "@angular/router";
 import {AppStateService} from "../../state_management/services/app-state.service";
+import {MatIconButton} from "@angular/material/button";
+import {FlexLayoutModule} from "@angular/flex-layout";
 
 @Component({
   selector: 'app-header',
@@ -22,14 +24,14 @@ import {AppStateService} from "../../state_management/services/app-state.service
     MatMenuItem,
     RouterLink,
     NgForOf,
-    AsyncPipe
+    AsyncPipe,
+    MatIconButton,
+    FlexLayoutModule
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'
 })
 export class HeaderComponent implements OnInit{
-
-  selectedTab = 'home';
 
   stateObservable = this.state.state$;
 
@@ -37,27 +39,6 @@ export class HeaderComponent implements OnInit{
   constructor(private state: AppStateService) { }
 
   ngOnInit() {
-    this.setSelectedTabFromUrl();
   }
 
-  /**
-   * Selects a tab according to the given information in the url (see Tabs object for the allocation)
-   */
-  setSelectedTabFromUrl() {
-    const url = window.location.href;
-    console.log('1' + url);
-
-    const routeStart = url.lastIndexOf('/') + 1;
-    this.selectedTab = url.substr(routeStart);
-
-    if (this.selectedTab === '') {
-      this.selectedTab = 'cam';
-    }
-    console.log('2' + this.selectedTab);
-
-  }
-
-  setSelectedTab(tab: string) {
-    this.selectedTab = tab;
-  }
 }

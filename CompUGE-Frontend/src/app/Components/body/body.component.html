@@ -1,49 +1,59 @@
-<mat-card class="container mat-typography">
-  <mat-card-header>
-    <mat-card-title>Welcome to CompUGE</mat-card-title>
-  </mat-card-header>
-  <mat-card-content>
-    <section>
-      <h2>What is Comparative Question Answering?</h2>
-      <p>Related to the paper CAM 2.0: An End to End System for Comparative Question Answering</p>
-      <div class="example-question">
-        <h3>Example Question:</h3>
-        <p>What is better: Harry Potter or Lord of the Rings?</p>
-        <div class="example-images">
-          <img ngSrc="assets/hp.jpg" alt="Harry Potter" class="example-img" height="4608" width="3456">
-          <img ngSrc="assets/lotr.jpg" alt="Lord of the Rings" class="example-img" height="5062" width="3375">
+<div class="container">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>
+        <h1>Welcome to CompUGE</h1>
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <section>
+        <h2>What is Comparative Question Answering?</h2>
+        <p>Comparative question answering (CQA) is a specialized field within natural language processing (NLP) focused on generating responses to questions that require comparing two or more entities across specific attributes or dimensions. This involves identifying the entities and attributes in the query, retrieving relevant information from various sources, and synthesizing this data into a coherent comparison. CQA systems are particularly useful in domains such as e-commerce, healthcare, education, and technology, where users seek detailed comparisons to make informed decisions. These systems face challenges such as handling ambiguous queries, understanding context, ensuring data quality, and developing robust evaluation metrics to assess the accuracy and relevance of the comparisons generated.</p>
+        <p>
+          Here's an example of a comparative question being processes by the
+          <a href="https://cam-v2.ltdemos.informatik.uni-hamburg.de">CAM 2.0 System</a>
+          introduced in the paper
+          <a href="https://aclanthology.org/2024.lrec-main.238">"CAM 2.0: End-to-End Open Domain Comparative Question Answering System"</a>
+          by our team and accepted at
+          <a href="https://lrec-coling-2024.org">LREC-Coling 2024</a>.
+        </p>
+        <div class="section-content">
+          <h4>What is better: Harry Potter or Lord of the Rings?</h4>
+          <div class="example-question">
+            <img ngSrc="assets/hp.jpg" alt="Harry Potter" height="4608" width="3456">
+            <img ngSrc="assets/lotr.jpg" alt="Lord of the Rings" height="5062" width="3375">
+          </div>
+          <div class="response-images">
+            <img ngSrc="assets/cam_response1.jpg" alt="CAM 2.0 Response 1" height="1334" width="1746">
+            <img ngSrc="assets/cam_response2.jpg" alt="CAM 2.0 Response 2" height="1784" width="1754">
+          </div>
         </div>
-        <img ngSrc="assets/cam_response1.jpg"
-             alt="CAM 2.0 Response 1"
-             height="1334"
-             width="1746"
-             class="response-image"
-        >
-        <img ngSrc="assets/cam_response2.jpg"
-             alt="CAM 2.0 Response 2"
-             height="1784"
-             width="1754"
-             class="response-image"
-        >
+      </section>
+
+      <section>
+        <br><br>
+        <h2>What is CompUGE?</h2>
+        <p>
+          CompUGE is an acronym for Comparative Understanding and Generation Evaluation, a platform designed to facilitate research and development in the field of comparative question answering (CQA). The platform provides access to benchmark datasets, evaluation metrics, leaderboards, and submission guidelines for researchers and practitioners working on CQA systems. By offering a centralized hub for sharing resources and comparing performance across different models, CompUGE aims to advance the state of the art in CQA and foster collaboration within the research community.
+        </p>
+      </section>
+
+      <div class="task-buttons">
+        <button
+          *ngFor="let task of (tasks | async)"
+          mat-raised-button color="primary"
+          routerLink="/tasks/{{ task.name }}"
+        >{{ task.name }}</button>
       </div>
-    </section>
 
-    <section>
-      <h2>What is this Benchmark? CompUGE</h2>
-    </section>
+      <nav class="nav-buttons">
+        <button mat-button routerLink="/leaderboards">Leaderboards</button>
+        <button mat-button routerLink="/datasets">Datasets</button>
+        <button mat-button routerLink="/submissions">Submissions List</button>
+      </nav>
 
-    <div class="tasks-grid">
-      <button *ngFor="let task of (tasks | async)" mat-raised-button color="primary"
-              class="task-button">{{ task.name }}
-      </button>
-    </div>
+      <button mat-raised-button color="accent" class="submit-button">Submit a Model</button>
 
-    <button mat-raised-button color="accent" class="submit-button">Submit a Model</button>
-
-    <nav>
-      <button mat-button>Leaderboards</button>
-      <button mat-button>Datasets</button>
-      <button mat-button>Submissions List</button>
-    </nav>
-  </mat-card-content>
-</mat-card>
+    </mat-card-content>
+  </mat-card>
+</div>

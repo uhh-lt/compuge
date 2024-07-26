@@ -37,7 +37,6 @@ def root():
 @app.get("/api/leaderboards")
 def leaderboards():
     lbs = lb_service.get_leaderboards()
-    print(lbs[0])
     return lbs
 
 

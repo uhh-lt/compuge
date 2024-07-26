@@ -12,6 +12,7 @@ import {MatButton} from "@angular/material/button";
 import {AppStateService} from "../../state_management/services/app-state.service";
 import {map} from "rxjs";
 import {AsyncPipe, NgForOf, NgOptimizedImage} from "@angular/common";
+import {RouterLink} from "@angular/router";
 
 @Component({
   selector: 'app-body',
@@ -32,7 +33,8 @@ import {AsyncPipe, NgForOf, NgOptimizedImage} from "@angular/common";
     MatButton,
     AsyncPipe,
     NgForOf,
-    NgOptimizedImage
+    NgOptimizedImage,
+    RouterLink
   ],
   templateUrl: './body.component.html',
   styleUrl: './body.component.css'

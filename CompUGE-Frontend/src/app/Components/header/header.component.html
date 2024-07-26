@@ -1,94 +1,63 @@
-<div id="header">
+<mat-card>
   <mat-toolbar color="primary">
     <mat-toolbar-row>
 
-      <span style="width: 50%">CompUGE Bench</span>
+      <button mat-menu-item style="width: 50%; align-items: center;" routerLink="/">
+        <span style="color: white">CompUGE Bench</span>
+      </button>
 
-      <div style="width: 50%; display: flex; text-align: center; font-size: 14px">
-        <button mat-menu-item routerLink='' [ngClass]="{'nav-selected': selectedTab == 'home'}"
-                (click)="setSelectedTab('home')">
+      <div style="width: 50%; display: flex; justify-content: center; align-items: center; text-align: center; font-size: 14px;">
+
+        <button mat-menu-item style="display: flex; justify-content: center; align-items: center;" routerLink='/'>
           <span style="color: white">Home</span>
         </button>
 
-        <button mat-menu-item
-                [ngClass]="{'nav-selected': selectedTab == 'tasks'}"
-                (click)="setSelectedTab('tasks')"
-                [matMenuTriggerFor]="tasksMenu"
-        >
+        <button mat-menu-item [matMenuTriggerFor]="tasksMenu" style="display: flex; justify-content: center; align-items: center;">
           <mat-menu #tasksMenu="matMenu">
-            <button
-              *ngFor="let task of (stateObservable | async)?.tasks"
-              mat-menu-item
-              routerLink='/tasks/{{task.name}}'
-            >{{ task.name }}
+            <button *ngFor="let task of (stateObservable | async)?.tasks"
+                    mat-menu-item
+                    routerLink='/tasks/{{task.name}}'
+                    style="display: flex; justify-content: center; align-items: center;">
+              {{ task.name }}
             </button>
           </mat-menu>
           <span style="color: white">Tasks</span>
         </button>
 
-        <button mat-menu-item
-                [ngClass]="{'nav-selected': selectedTab == 'leaderboards'}"
-                (click)="setSelectedTab('leaderboards')"
-                [matMenuTriggerFor]="leaderboardsMenu"
-        >
+        <button mat-menu-item [matMenuTriggerFor]="leaderboardsMenu" style="display: flex; justify-content: center; align-items: center;">
           <mat-menu #leaderboardsMenu="matMenu">
-            <button
-              *ngFor="let task of (stateObservable | async)?.tasks"
-              mat-menu-item
-              routerLink='/leaderboards/{{task.name}}'
-            >{{ task.name }}
+            <button *ngFor="let task of (stateObservable | async)?.tasks"
+                    mat-menu-item
+                    routerLink='/leaderboards/{{task.name}}'
+                    style="display: flex; justify-content: center; align-items: center;">
+              {{ task.name }}
             </button>
           </mat-menu>
           <span style="color: white">Leaderboards</span>
         </button>
 
-        <button mat-menu-item
-                [ngClass]="{'nav-selected': selectedTab == 'submissions'}"
-                (click)="setSelectedTab('submissions')"
-                [matMenuTriggerFor]="submissionsMenu"
-        >
+        <button mat-menu-item [matMenuTriggerFor]="submissionsMenu" style="display: flex; justify-content: center; align-items: center;">
           <mat-menu #submissionsMenu="matMenu">
-            <button
-              mat-menu-item
-              routerLink='/submissions'
-            >
+            <button mat-menu-item routerLink='/submissions' style="display: flex; justify-content: center; align-items: center;">
               Submissions List
             </button>
 
-            <button
-              mat-menu-item
-              routerLink='/submitting'>
+            <button mat-menu-item routerLink='/submitting' style="display: flex; justify-content: center; align-items: center;">
               Submit a Model
             </button>
           </mat-menu>
           <span style="color: white">Submissions</span>
         </button>
 
-        <button mat-menu-item routerLink='/datasets' [ngClass]="{'nav-selected': selectedTab == 'datasets'}"
-                (click)="setSelectedTab('datasets')">
+        <button mat-menu-item routerLink='/datasets' style="display: flex; justify-content: center; align-items: center;">
           <span style="color: white">Datasets</span>
         </button>
 
-        <button mat-menu-item routerLink='/about' [ngClass]="{'nav-selected': selectedTab == 'about'}"
-                (click)="setSelectedTab('about')" style="text-align: center">
+        <button mat-menu-item routerLink='/about' style="display: flex; justify-content: center; align-items: center;">
           <span style="color: white">About</span>
         </button>
+
       </div>
-
-      <button mat-icon-button [matMenuTriggerFor]="menu" fxHide="false" fxHide.gt-sm>
-
-        <mat-icon>more_vert</mat-icon>
-      </button>
     </mat-toolbar-row>
   </mat-toolbar>
-
-
-  <mat-menu x-position="before" #menu="matMenu">
-    <button mat-menu-item routerLink='' (click)="setSelectedTab('home')"> Home</button>
-    <button mat-menu-item routerLink='tasks' (click)="setSelectedTab('tasks')"> Tasks</button>
-    <button mat-menu-item routerLink='leaderboards' (click)="setSelectedTab('leaderboards')"> Leaderboards</button>
-    <button mat-menu-item routerLink='submissions' (click)="setSelectedTab('submissions')"> Submissions</button>
-    <button mat-menu-item routerLink='datasets' (click)="setSelectedTab('datasets')"> Datasets</button>
-    <button mat-menu-item routerLink='about' (click)="setSelectedTab('about')"> About</button>
-  </mat-menu>
-</div>
+</mat-card>
