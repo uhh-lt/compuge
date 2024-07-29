@@ -1,5 +1,22 @@
 <mat-card>
-  <mat-card-content>
-
-  </mat-card-content>
+    <mat-tab-group>
+      <mat-tab
+        *ngFor="let task of tasks | async"
+        [label]="task.name"
+      >
+        <br>
+        <button
+          mat-raised-button
+          color="primary"
+          routerLink="/tasks/{{task}}"
+          style="width: 100%;"
+        >
+          Full Task Page
+        </button>
+        <br>
+        <app-about
+          whatAbout="{{task.name}}"
+        ></app-about>
+      </mat-tab>
+    </mat-tab-group>
 </mat-card>

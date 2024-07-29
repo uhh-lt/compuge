@@ -33,7 +33,7 @@ export class LeaderboardsComponent {
   datasets = this.stateService.state$.pipe(
     map(state =>
       state.datasets.filter(dataset =>
-        dataset.task === this.task || this.task === ''
+        dataset.task == this.task || !this.task
       )
     ),
   );
