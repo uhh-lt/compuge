@@ -15,8 +15,8 @@ class DatasetMetadata:
 
 
 datasets_metadata = []
-# in metadata.json we have a list of datasets in the key "datasets"
-with open("./datasets/metadata.json", "r") as metadata_file:
+# in datasets-metadata.json we have a list of datasets in the key "datasets"
+with open("./datasets/datasets-metadata.json", "r") as metadata_file:
     metadata_dict = json.load(metadata_file)
     for dataset in metadata_dict["datasets"]:
         datasets_metadata.append(
