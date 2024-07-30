@@ -5,20 +5,80 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1b0f9635-f17d-4314-90ff-91214c1664af" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/CompUGE-Backend.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/CompUGE-Backend.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/datasets/analysis.ipynb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/datasets/metadata.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/datasets/model-test.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/datasets/webis_comparative_questions_2020_qi/english-questions.tsv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/datasets/webis_comparative_questions_2020_qi/test.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/datasets/webis_comparative_questions_2020_qi/train.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/datasets/webis_comparative_questions_2022_qi/data_full.tsv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/datasets/webis_comparative_questions_2022_qi/hard_questions.tsv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/datasets/webis_comparative_questions_2022_qi/readme.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/datasets/webis_comparative_questions_2022_qi/test.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/datasets/webis_comparative_questions_2022_qi/train.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/datasets/webis_comparative_questions_2022_qi/very_hard.tsv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/dataset_service.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/dataset_service.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../CompUGE-Research/CAM 2.0 Splits/object-and-aspect-identification/test.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../CompUGE-Research/CAM 2.0 Splits/object-and-aspect-identification/train.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../CompUGE-Research/CAM 2.0 Splits/object-and-aspect-identification/val.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../CompUGE-Research/CAM 2.0 Splits/sentence-classification/dataset.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../CompUGE-Research/CAM 2.0 Splits/sentence-classification/test.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../CompUGE-Research/CAM 2.0 Splits/sentence-classification/train.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../CompUGE-Research/CAM 2.0 Splits/sentence-classification/validate.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../CompUGE-Research/CAM 2.0 Splits/summarization/test.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../CompUGE-Research/CAM 2.0 Splits/summarization/train.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../CompUGE-Research/CAM 2.0 Splits/summarization/val.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../CompUGE-Research/Raw Datasets/Webis-CompQuestions-2020/english-questions.tsv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../CompUGE-Research/Raw Datasets/Webis-CompQuestions-22-2/comparative-or-not-questions/data_full.tsv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../CompUGE-Research/Raw Datasets/Webis-CompQuestions-22-2/comparative-or-not-questions/hard_questions.tsv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../CompUGE-Research/Raw Datasets/Webis-CompQuestions-22-2/comparative-or-not-questions/readme.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../CompUGE-Research/Raw Datasets/Webis-CompQuestions-22-2/comparative-or-not-questions/very_hard.tsv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../CompUGE-Research/Raw Datasets/Webis-CompQuestions-22-2/comparative-questions-direct-or-indirect/full.tsv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../CompUGE-Research/Raw Datasets/Webis-CompQuestions-22-2/comparative-questions-direct-or-indirect/readme.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../CompUGE-Research/Raw Datasets/Webis-CompQuestions-22-2/comparative-questions-parsing/aspect.tsv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../CompUGE-Research/Raw Datasets/Webis-CompQuestions-22-2/comparative-questions-parsing/direct.tsv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../CompUGE-Research/Raw Datasets/Webis-CompQuestions-22-2/comparative-questions-parsing/full.tsv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../CompUGE-Research/Raw Datasets/Webis-CompQuestions-22-2/comparative-questions-parsing/indirect.tsv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../CompUGE-Research/Raw Datasets/Webis-CompQuestions-22-2/comparative-questions-parsing/readme.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../CompUGE-Research/Raw Datasets/Webis-CompQuestions-22-2/comparative-questions-subjective-or-not/full.tsv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../CompUGE-Research/Raw Datasets/Webis-CompQuestions-22-2/comparative-questions-subjective-or-not/readme.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../CompUGE-Research/Raw Datasets/Webis-CompQuestions-22-2/comparative-questions-with-or-without-aspect/full.tsv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../CompUGE-Research/Raw Datasets/Webis-CompQuestions-22-2/comparative-questions-with-or-without-aspect/readme.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../CompUGE-Research/Raw Datasets/Webis-CompQuestions-22-2/comparative-stance-dataset/process_stance_dataset.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../CompUGE-Research/Raw Datasets/Webis-CompQuestions-22-2/comparative-stance-dataset/readme.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../CompUGE-Research/Raw Datasets/Webis-CompQuestions-22-2/comparative-stance-dataset/stance-dataset.tsv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../CompUGE-Research/Raw Datasets/mintaka" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../CompUGE-Research/Splits/webis_comparative_questions_2022_qi/test.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../CompUGE-Research/Splits/webis_comparative_questions_2022_qi/train.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../CompUGE-Research/model-test.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CompUGE-Research/Comparative Question Identication/Webis-CompQuestions-22_comparative-or-not-questions/test.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CompUGE-Research/Comparative Question Identication/Webis-CompQuestions-22_comparative-or-not-questions/train.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CompUGE-Research/Comparative Question Identication/Webis-CompQuestions-22_comparative-or-not-questions/valid.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CompUGE-Research/Comparative Question Identication/final_dataset_english.tsv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CompUGE-Research/Comparative Question Identication/test.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CompUGE-Research/Comparative Question Identication/train.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CompUGE-Research/Comparative Question Identication/validate.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CompUGE-Research/Webis-CompQuestions-22_comparative-questions-parsing/test.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CompUGE-Research/Webis-CompQuestions-22_comparative-questions-parsing/train.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CompUGE-Research/Webis-CompQuestions-22_comparative-questions-parsing/train.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CompUGE-Research/Webis-CompQuestions-22_comparative-questions-parsing/valid.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CompUGE-Research/Webis-CompQuestions-22_comparative-stance-dataset/test.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CompUGE-Research/Webis-CompQuestions-22_comparative-stance-dataset/test.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CompUGE-Research/Webis-CompQuestions-22_comparative-stance-dataset/train.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CompUGE-Research/Webis-CompQuestions-22_comparative-stance-dataset/train.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CompUGE-Research/Webis-CompQuestions-22_comparative-stance-dataset/valid.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CompUGE-Research/data_prep.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/../CompUGE-Research/data_prep.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CompUGE-Research/datasets/analysis.ipynb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CompUGE-Research/datasets/datasets-metadata.json" beforeDir="false" afterPath="$PROJECT_DIR$/../CompUGE-Research/datasets-metadata.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CompUGE-Research/datasets/model-test.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CompUGE-Research/datasets/webis_comparative_questions_2020_qi/english-questions.tsv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CompUGE-Research/datasets/webis_comparative_questions_2020_qi/test.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CompUGE-Research/datasets/webis_comparative_questions_2020_qi/train.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CompUGE-Research/datasets/webis_comparative_questions_2022_qi/data_full.tsv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CompUGE-Research/datasets/webis_comparative_questions_2022_qi/hard_questions.tsv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CompUGE-Research/datasets/webis_comparative_questions_2022_qi/readme.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CompUGE-Research/datasets/webis_comparative_questions_2022_qi/test.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CompUGE-Research/datasets/webis_comparative_questions_2022_qi/train.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CompUGE-Research/datasets/webis_comparative_questions_2022_qi/very_hard.tsv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CompUGE-Research/object-and-aspect-identification/test.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CompUGE-Research/object-and-aspect-identification/train.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CompUGE-Research/object-and-aspect-identification/train.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CompUGE-Research/object-and-aspect-identification/val.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CompUGE-Research/sentence-classification/dataset.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CompUGE-Research/sentence-classification/test.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CompUGE-Research/sentence-classification/train.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CompUGE-Research/sentence-classification/validate.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CompUGE-Research/summarization/test.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CompUGE-Research/summarization/train.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CompUGE-Research/summarization/val.json" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
