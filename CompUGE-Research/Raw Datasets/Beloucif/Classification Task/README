@@ -1,0 +1,5 @@
+This folder contains the data for the classification task. The purpose of the task is to classify if a question is comparative or not. In this dataset, we only 
+take into consideration binary comparatives; meaning that the input sentence should only compare two objects. An example of this would be: "What's faster, Python or Matlab?"
+We consider open questions such as: "Who's the best football player? to be none comparative". 
+
+For this task, we asked Mechanical Turk annotators to label the questions as: comparative, not comparative or not a question. 

@@ -1,0 +1,2 @@
+This folder contains the code and final dataset comparative question answering labeling task. For this task annotators were asked to label each component of the comparison as follows: 
+"who	is [better	ASPECT] manny	[OBJ-1] or	[ortiz	OBJ-2]?". 
