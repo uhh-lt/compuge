@@ -5,6 +5,6 @@ export interface DatasetModel {
   link: string;
   paper: string;
   paper_link: string;
-  train: any[];
-  test: any[];
+  train: string[];
+  test: string[];
 }

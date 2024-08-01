@@ -1,6 +1,6 @@
 import json
 from dtos import DatasetDTO
-
+import pandas as pd
 
 class DatasetMetadata:
     def __init__(self, task: str, name: str, description: str, link: str, folder: str, paper: str, paper_link: str):
@@ -30,10 +30,13 @@ for dataset in datasets_metadata:
     train = []
     test = []
     try :
-        with open(f"./datasets/{dataset.folder}/train.csv", "r") as train_file:
-            train = train_file.readlines()
-        with open(f"./datasets/{dataset.folder}/test.csv", "r") as test_file:
-            test = test_file.readlines()
+        train = pd.read_csv(f"./datasets/{dataset.folder}/train.csv")
+        test = pd.read_csv(f"./datasets/{dataset.folder}/test.csv")
+        # remove the 2nd columns from test
+        test = test.drop(test.columns[1], axis=1)
+        # convert the dataframes to lists of strings including the headers
+        train = train.to_string(index=False).split("\n")
+        test = test.to_string(index=False).split("\n")
     except FileNotFoundError:
         print(f"File not found for dataset {dataset.name}")
     finally:

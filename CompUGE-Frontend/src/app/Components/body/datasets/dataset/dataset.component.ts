@@ -14,6 +14,8 @@ import {MatCard, MatCardContent} from "@angular/material/card";
 export class DatasetComponent {
 
   @Input()
+  public task: string = 'Placeholder';
+  @Input()
   public name: string = 'Placeholder';
   @Input()
   public description: string = 'Placeholder';
@@ -24,8 +26,12 @@ export class DatasetComponent {
   @Input()
   public paper_link: string = 'Placeholder';
   @Input()
-  public train: any[] = [];
+  public train: string[] = [];
   @Input()
-  public test: any[] = [];
+  public test: string[] = [];
+
+  getTextDownloadURL(data: string[]) {
+    return window.URL.createObjectURL(new Blob(data, {type: 'text/plain'}));
+  }
 
 }

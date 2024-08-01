@@ -32,7 +32,7 @@ mat-card-title {
 }
 
 .example-question img {
-  width: 250px;
+  width: 480px;
   height: auto;
   border-radius: 4px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.2);
@@ -46,7 +46,7 @@ mat-card-title {
 
 .response-images img {
   margin-top: 10px;
-  width: 510px;
+  width: 1000px;
   height: auto;
   border-radius: 4px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.2);
