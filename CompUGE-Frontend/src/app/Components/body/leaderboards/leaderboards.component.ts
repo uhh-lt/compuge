@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {MatCard, MatCardHeader} from "@angular/material/card";
 import {MatTab, MatTabGroup} from "@angular/material/tabs";
 import {LeaderboardComponent} from "./leaderboard/leaderboard.component";
@@ -22,7 +22,7 @@ import {AsyncPipe, NgForOf, NgIf} from "@angular/common";
   templateUrl: './leaderboards.component.html',
   styleUrl: './leaderboards.component.css'
 })
-export class LeaderboardsComponent {
+export class LeaderboardsComponent implements OnChanges {
 
   @Input()
   task: string = '';
@@ -30,17 +30,28 @@ export class LeaderboardsComponent {
   @Input()
   showTask: boolean = true;
 
-  datasets = this.stateService.state$.pipe(
-    map(state =>
-      state.datasets.filter(dataset =>
-        dataset.task == this.task || !this.task
-      )
-    ),
-  );
+  datasets: any;
 
   constructor(
     private stateService: AppStateService
   ) {
+    this.updateDatasets();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['task']) {
+      this.updateDatasets();
+    }
+  }
+
+  private updateDatasets() {
+    this.datasets = this.stateService.state$.pipe(
+      map(state =>
+        state.datasets.filter(dataset =>
+          dataset.task === this.task || !this.task
+        )
+      ),
+    );
   }
 
 }

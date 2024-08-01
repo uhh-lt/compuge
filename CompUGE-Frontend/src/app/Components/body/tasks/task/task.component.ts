@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
 import {AboutComponent} from "../../about/about.component";
 import {MatTab, MatTabGroup} from "@angular/material/tabs";
 import {MatCard, MatCardContent} from "@angular/material/card";
@@ -30,17 +30,27 @@ import {LeaderboardsComponent} from "../../leaderboards/leaderboards.component";
   templateUrl: './task.component.html',
   styleUrl: './task.component.css'
 })
-export class TaskComponent {
+export class TaskComponent implements OnChanges {
 
   @Input() task: string = '';
 
-  // all datasets where task is equal to the task of this component
-  datasets = this.state.state$.pipe(
-    map(state => state.datasets.filter(dataset => dataset.task === this.task))
-  );
+  datasets: any;
 
   constructor(
     private state: AppStateService
-  ) { }
+  ) {
+    this.updateDatasets();
+  }
 
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['task']) {
+      this.updateDatasets();
+    }
+  }
+
+  private updateDatasets() {
+    this.datasets = this.state.state$.pipe(
+      map(state => state.datasets.filter(dataset => dataset.task === this.task))
+    );
+  }
 }

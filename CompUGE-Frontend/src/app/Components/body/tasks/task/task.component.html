@@ -10,6 +10,7 @@
       </mat-tab>
       <mat-tab label="Datasets">
         <app-dataset *ngFor="let dataset of datasets | async"
+                     [task]="dataset.task"
                      [name]="dataset.name"
                      [description]="dataset.description"
                      [link]="dataset.link"
