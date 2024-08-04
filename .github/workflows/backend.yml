@@ -2,11 +2,11 @@ name: Docker Compose Test
 
 on:
   push:
-    paths:
-      - 'CompUGE-Backend/**'
+    branches:
+      - main
   pull_request:
-    paths:
-      - 'CompUGE-Backend/**'
+    branches:
+      - main
 
 jobs:
   test:
@@ -15,6 +15,7 @@ jobs:
     - uses: actions/checkout@v4
     - name: Set up Docker Compose
       run: docker compose up -d
+      working-directory: ./CompUGE-Backend
 
     - name: Wait for the backend to be ready
       run: sleep 60
@@ -29,12 +30,18 @@ jobs:
           echo "Ping test failed";
           exit 1;
         fi
+        
     - name: Get backend service logs
       if: failure()
       run: docker compose logs backend
+      working-directory: ./CompUGE-Backend
+      
     - name: Get db service logs
       if: failure()
       run: docker compose logs db
+      working-directory: ./CompUGE-Backend
+      
     - name: Stop and remove Docker Compose services
       run: docker-compose down
+      working-directory: ./CompUGE-Backend
 
