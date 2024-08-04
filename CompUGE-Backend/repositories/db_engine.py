@@ -4,7 +4,7 @@ from sqlalchemy import create_engine, Column, String, Float, Integer, ForeignKey
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, relationship
 
-DB_URL = os.environ.get('DB_URL', 'postgresql://postgres:@localhost:5432/postgres')
+DB_URL = os.environ.get('DB_URL', 'postgresql+psycopg2://postgres:@localhost:5432/postgres')
 
 # Create an engine
 engine = create_engine(DB_URL)

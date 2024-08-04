@@ -7,7 +7,7 @@ services:
     ports:
       - "15564:8000"
     environment:
-        - DB_URL=postgres+psycopg2://postgres:admin@db:5432/postgres
+        - DB_URL=postgresql+psycopg2://postgres:admin@db:5432/postgres
   db:
     image: postgres:latest
     restart: always
