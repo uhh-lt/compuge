@@ -1,4 +1,4 @@
-name: Backend Docker Compose Test
+name: Docker Compose Test
 
 on:
   push:
@@ -11,27 +11,30 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
-
-    - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v2
-
+    - uses: actions/checkout@v4
     - name: Set up Docker Compose
-      uses: docker/setup-buildx-action@v2
+      run: docker-compose up -d
 
-    - name: Build and run Docker Compose
-      run: |
-        cd CompUGE-Backend
-        docker-compose up -d
-        # Wait for backend service to be up
-        sleep 15
-        # Check if backend service is reachable
-        curl -f http://localhost:15564 || exit 1
+    - name: Wait for the backend to be ready
+      run: sleep 60
 
-    - name: Shut down Docker Compose
+    - name: Test the FastAPI app
       run: |
-        cd CompUGE-Backend
-        docker-compose down
+        RESPONSE=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:15564/ping)
+        echo "Response code: $RESPONSE"
+        if [ "$RESPONSE" == "200" ]; then 
+          echo "Ping test passed";
+        else
+          echo "Ping test failed";
+          exit 1;
+        fi
+    - name: Get backend service logs
+      if: failure()
+      run: docker-compose logs backend
+    - name: Get db service logs
+      if: failure()
+      run: docker-compose logs db
+    - name: Stop and remove Docker Compose services
+      run: docker-compose down
+
