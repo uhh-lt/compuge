@@ -29,8 +29,8 @@ with open("tasks.json", "r") as tasks_file:
 # ping
 @app.get("/api/ping")
 def ping():
-    db_engine.check_db_connection()
-    return "pong"
+    return db_engine.check_db_connection()
+
 
 
 @app.get("/api/")
