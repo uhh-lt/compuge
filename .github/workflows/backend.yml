@@ -14,7 +14,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Set up Docker Compose
-      run: docker-compose up -d
+      run: docker compose up -d
 
     - name: Wait for the backend to be ready
       run: sleep 60
@@ -31,10 +31,10 @@ jobs:
         fi
     - name: Get backend service logs
       if: failure()
-      run: docker-compose logs backend
+      run: docker compose logs backend
     - name: Get db service logs
       if: failure()
-      run: docker-compose logs db
+      run: docker compose logs db
     - name: Stop and remove Docker Compose services
       run: docker-compose down
 
