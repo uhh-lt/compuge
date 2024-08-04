@@ -5,20 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1b0f9635-f17d-4314-90ff-91214c1664af" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/6323b719-f890-414a-97fd-22f84666ad27.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/6323b719-f890-414a-97fd-22f84666ad27.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/6323b719-f890-414a-97fd-22f84666ad27/storage_v2/_src_/database/postgres.edMnLQ/schema/public.abK9xQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/6323b719-f890-414a-97fd-22f84666ad27/storage_v2/_src_/database/postgres.edMnLQ/schema/public.abK9xQ.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker-compose.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dtos.py" beforeDir="false" afterPath="$PROJECT_DIR$/dtos.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/repositories/db_engine.py" beforeDir="false" afterPath="$PROJECT_DIR$/repositories/db_engine.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/dataset_service.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/dataset_service.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/submissions_service.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/submissions_service.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../CompUGE-Frontend/src/app/Components/body/submitting/submitting.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../CompUGE-Frontend/src/app/Components/body/submitting/submitting.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../CompUGE-Frontend/src/app/Components/body/submitting/submitting.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../CompUGE-Frontend/src/app/Components/body/submitting/submitting.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../CompUGE-Frontend/src/app/state_management/services/app-state.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../CompUGE-Frontend/src/app/state_management/services/app-state.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CompUGE-Frontend/src/app/Components/body/body.component.css" beforeDir="false" afterPath="$PROJECT_DIR$/../CompUGE-Frontend/src/app/Components/body/body.component.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CompUGE-Frontend/src/app/Components/body/body.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../CompUGE-Frontend/src/app/Components/body/body.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CompUGE-Frontend/src/assets/hp.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/../CompUGE-Frontend/src/assets/hp.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CompUGE-Frontend/src/assets/lotr.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/../CompUGE-Frontend/src/assets/lotr.jpg" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -125,7 +115,7 @@
       <workItem from="1721514121800" duration="4082000" />
       <workItem from="1721827972833" duration="14496000" />
       <workItem from="1722348504530" duration="98000" />
-      <workItem from="1722498478733" duration="26295000" />
+      <workItem from="1722498478733" duration="27081000" />
     </task>
     <servers />
   </component>

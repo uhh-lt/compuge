@@ -13,6 +13,7 @@ import {AppStateService} from "../../state_management/services/app-state.service
 import {map} from "rxjs";
 import {AsyncPipe, NgForOf, NgOptimizedImage} from "@angular/common";
 import {RouterLink} from "@angular/router";
+import {MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle} from "@angular/material/expansion";
 
 @Component({
   selector: 'app-body',
@@ -34,7 +35,10 @@ import {RouterLink} from "@angular/router";
     AsyncPipe,
     NgForOf,
     NgOptimizedImage,
-    RouterLink
+    RouterLink,
+    MatExpansionPanel,
+    MatExpansionPanelTitle,
+    MatExpansionPanelHeader
   ],
   templateUrl: './body.component.html',
   styleUrl: './body.component.css'

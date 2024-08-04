@@ -8,34 +8,61 @@
     <mat-card-content>
       <section>
         <h2>What is Comparative Question Answering?</h2>
-        <p>Comparative question answering (CQA) is a specialized field within natural language processing (NLP) focused on generating responses to questions that require comparing two or more entities across specific attributes or dimensions. This involves identifying the entities and attributes in the query, retrieving relevant information from various sources, and synthesizing this data into a coherent comparison. CQA systems are particularly useful in domains such as e-commerce, healthcare, education, and technology, where users seek detailed comparisons to make informed decisions. These systems face challenges such as handling ambiguous queries, understanding context, ensuring data quality, and developing robust evaluation metrics to assess the accuracy and relevance of the comparisons generated.</p>
+        <p>Comparative question answering (CQA) is a specialized field within natural language processing (NLP) focused
+          on generating responses to questions that require comparing two or more entities across specific attributes or
+          dimensions. This involves identifying the entities and attributes in the query, retrieving relevant
+          information from various sources, and synthesizing this data into a coherent comparison. CQA systems are
+          particularly useful in domains such as e-commerce, healthcare, education, and technology, where users seek
+          detailed comparisons to make informed decisions. These systems face challenges such as handling ambiguous
+          queries, understanding context, ensuring data quality, and developing robust evaluation metrics to assess the
+          accuracy and relevance of the comparisons generated.</p>
+        <section>
+          <br><br>
+          <h2>What is CompUGE?</h2>
+          <p>
+            CompUGE is an acronym for Comparative Understanding and Generation Evaluation, a platform designed to
+            facilitate research and development in the field of comparative question answering (CQA). The platform
+            provides access to benchmark datasets, evaluation metrics, leaderboards, and submission guidelines for
+            researchers and practitioners working on CQA systems. By offering a centralized hub for sharing resources
+            and comparing performance across different models, CompUGE aims to advance the state of the art in CQA and
+            foster collaboration within the research community.
+          </p>
+        </section>
+
         <p>
           Here's an example of a comparative question being processes by the
           <a href="https://cam-v2.ltdemos.informatik.uni-hamburg.de">CAM 2.0 System</a>
           introduced in the paper
-          <a href="https://aclanthology.org/2024.lrec-main.238">"CAM 2.0: End-to-End Open Domain Comparative Question Answering System"</a>
+          <a href="https://aclanthology.org/2024.lrec-main.238">"CAM 2.0: End-to-End Open Domain Comparative Question
+            Answering System"</a>
           by our team and accepted at
           <a href="https://lrec-coling-2024.org">LREC-Coling 2024</a>.
         </p>
         <div class="section-content">
-          <h4>What is better: Harry Potter or Lord of the Rings?</h4>
-          <div class="example-question">
-            <img ngSrc="assets/hp.jpg" alt="Harry Potter" height="4608" width="3456">
-            <img ngSrc="assets/lotr.jpg" alt="Lord of the Rings" height="5062" width="3375">
-          </div>
-          <div class="response-images">
-            <img ngSrc="assets/cam_response1.jpg" alt="CAM 2.0 Response 1" height="1334" width="1746">
-            <img ngSrc="assets/cam_response2.jpg" alt="CAM 2.0 Response 2" height="1784" width="1754">
-          </div>
-        </div>
-      </section>
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <h2 style="text-align: center; margin-top: 15px">What is better: Harry Potter or Lord of the Rings?</h2>
+              </mat-panel-title>
+            </mat-expansion-panel-header>
 
-      <section>
-        <br><br>
-        <h2>What is CompUGE?</h2>
-        <p>
-          CompUGE is an acronym for Comparative Understanding and Generation Evaluation, a platform designed to facilitate research and development in the field of comparative question answering (CQA). The platform provides access to benchmark datasets, evaluation metrics, leaderboards, and submission guidelines for researchers and practitioners working on CQA systems. By offering a centralized hub for sharing resources and comparing performance across different models, CompUGE aims to advance the state of the art in CQA and foster collaboration within the research community.
-        </p>
+            <div class="image-grid">
+              <div class="image-grid-item image1">
+                <img src="assets/hp.jpg" alt="Image 1">
+              </div>
+              <div class="image-grid-item image2">
+                <img src="assets/cam_response1.jpg" alt="Image 2">
+              </div>
+              <div class="image-grid-item image3">
+                <img src="assets/cam_response2.jpg" alt="Image 3">
+              </div>
+              <div class="image-grid-item image4">
+                <img src="assets/lotr.jpg" alt="Image 4">
+              </div>
+            </div>
+
+          </mat-expansion-panel>
+        </div>
       </section>
 
       <div class="task-buttons">
@@ -43,7 +70,8 @@
           *ngFor="let task of (tasks | async)"
           mat-raised-button color="primary"
           routerLink="/tasks/{{ task.name }}"
-        >{{ task.name }}</button>
+        >{{ task.name }}
+        </button>
       </div>
 
       <nav class="nav-buttons">
