@@ -1,15 +1,17 @@
 import {Component, OnInit} from '@angular/core';
 import {MatButton} from "@angular/material/button";
 import {MatCard, MatCardActions, MatCardContent} from "@angular/material/card";
-import {MatFormField, MatLabel} from "@angular/material/form-field";
+import {MatError, MatFormField, MatLabel} from "@angular/material/form-field";
 import {MatInput} from "@angular/material/input";
 import {MatOption} from "@angular/material/autocomplete";
 import {MatSelect} from "@angular/material/select";
 import {AsyncPipe, NgIf} from "@angular/common";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {AppStateService} from "../../../state_management/services/app-state.service";
-import {map} from "rxjs";
+import {map, Observer} from "rxjs";
 import {FormGroup, FormBuilder, Validators} from "@angular/forms";
+import {error} from "@angular/compiler-cli/src/transformers/util";
+
 
 @Component({
   selector: 'app-submitting',
@@ -27,7 +29,8 @@ import {FormGroup, FormBuilder, Validators} from "@angular/forms";
     NgIf,
     ReactiveFormsModule,
     FormsModule,
-    AsyncPipe
+    AsyncPipe,
+    MatError
   ],
   templateUrl: './submitting.component.html',
   styleUrl: './submitting.component.css'
@@ -38,8 +41,7 @@ export class SubmittingComponent implements OnInit{
   datasets = this.stateService.state$.pipe(map(state => state.datasets));
 
   chosenFileName = '';
-  invalid = false;
-  submitted = false;
+  message = '';
 
   form: FormGroup;
   fileContent = '';
@@ -65,11 +67,14 @@ export class SubmittingComponent implements OnInit{
   }
 
   onSubmit () {
+    this.message = '';
+
     if (this.form.invalid) {
-      this.invalid = true;
+      this.message = 'Invalid form';
       return;
     }
 
+    this.message = 'Submitting...';
     this.stateService.submit(
       this.form.value.modelName,
       this.form.value.modelLink,
@@ -80,8 +85,14 @@ export class SubmittingComponent implements OnInit{
       this.form.value.isPublic,
       this.fileContent
     ).subscribe(
-      () => {
-        this.submitted = true;
+      {
+        next: (data) => {
+          this.message = 'Submission successful';
+        },
+        error: (err) => {
+          // show error message that includes the error code
+          this.message = 'Submission failed: ' + err.message;
+        }
       }
     );
   }

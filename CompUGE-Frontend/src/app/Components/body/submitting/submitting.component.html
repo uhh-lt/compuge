@@ -50,7 +50,7 @@
         <mat-label>Dataset</mat-label>
         <mat-select formControlName="dataset">
           @for (dataset of datasets|async; track dataset) {
-            <mat-option [value]="dataset.name">{{ dataset.name }}</mat-option>
+            <mat-option [value]="dataset.name">{{ dataset.name }} ({{dataset.task}})</mat-option>
           }
         </mat-select>
       </mat-form-field>
@@ -78,8 +78,7 @@
     <mat-card-actions>
       <button type="submit" mat-raised-button style="width: 100%" color="primary">
         Submit
-        <label *ngIf="invalid"> - Invalid Submission</label>
-        <label *ngIf="submitted"> - Submission Successful</label>
+        <label *ngIf="message != ''"> - {{ message }}</label>
       </button>
     </mat-card-actions>
 

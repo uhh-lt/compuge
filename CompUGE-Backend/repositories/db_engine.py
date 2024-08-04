@@ -1,9 +1,10 @@
-from sqlalchemy import create_engine, Column, String, Float, Integer, ForeignKey, Boolean, Text
-from sqlalchemy.orm import sessionmaker, relationship
-from sqlalchemy.ext.declarative import declarative_base
 import os
 
-DB_URL = os.environ.get('DB_USER', 'postgresql://postgres:@localhost:5432/postgres')
+from sqlalchemy import create_engine, Column, String, Float, Integer, ForeignKey, Boolean, Text
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import sessionmaker, relationship
+
+DB_URL = os.environ.get('DB_URL', 'postgresql://postgres:@localhost:5432/postgres')
 
 # Create an engine
 engine = create_engine(DB_URL)
@@ -25,13 +26,14 @@ class Submission(Base):
     email = Column(String, nullable=True)
     predictions = Column(Text, nullable=False)
     status = Column(String, nullable=False)
-    is_public = Column( Boolean, nullable=False)
+    is_public = Column(Boolean, nullable=False)
 
     def __repr__(self):
         return f"<Submission(id='{self.id}', time='{self.time}', task='{self.task}', dataset='{self.dataset}', model='{self.model}', link='{self.link}', team='{self.team}', email='{self.email}', predictions='{self.predictions}', status='{self.status}', is_public='{self.is_public}')>"
 
     def __str__(self):
         return f"<Submission(id='{self.id}', time='{self.time}', task='{self.task}', dataset='{self.dataset}', model='{self.model}', link='{self.link}', team='{self.team}', email='{self.email}', status='{self.status}', is_public='{self.is_public}')>"
+
 
 class Leaderboard(Base):
     __tablename__ = 'leaderboard'

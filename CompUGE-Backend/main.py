@@ -1,10 +1,12 @@
-import fastapi
-import services.submissions_service as sub_service
-import services.leaderboards_service as lb_service
-import services.dataset_service as ds_service
-from fastapi.middleware.cors import CORSMiddleware
-from dtos import SubmissionDTO, LeaderboardDTO, TaskDTO, DatasetDTO
 import json
+
+import fastapi
+from fastapi.middleware.cors import CORSMiddleware
+
+import services.dataset_service as ds_service
+import services.leaderboards_service as lb_service
+import services.submissions_service as sub_service
+from dtos import TaskDTO
 
 app = fastapi.FastAPI()
 
@@ -51,11 +53,6 @@ def submissions():
     return subs
 
 
-@app.post("/api/submission/{task}/{dataset}")
-def submit(task: str, dataset: str, submission_dict: dict):
-    return sub_service.submit_solution(task, dataset, submission_dict)
-
-
 @app.get("/api/tasks")
 def get_tasks():
     return tasks
@@ -63,14 +60,24 @@ def get_tasks():
 
 @app.get("/api/datasets")
 def get_datasets():
-    return ds_service.get_datasets()
+    return ds_service.get_dataset_dtos()
 
 
 @app.get("/api/dataset/{task}/{dataset}")
 def get_dataset(task: str, dataset: str):
-    return ds_service.get_dataset(task, dataset)
+    return ds_service.get_dataset_dto(task, dataset)
 
 
 @app.get("/api/datasets/{task}")
 def get_datasets_per_task(task: str):
-    return ds_service.get_datasets_per_task(task)
+    return ds_service.get_dataset_dtos_per_task(task)
+
+
+@app.post("/api/submission/{task}/{dataset}")
+def submit(task: str, dataset: str, submission_dict: dict):
+    response = sub_service.submit_solution(task, dataset, submission_dict)
+    if response == "Submission failed due to mismatch in the test set":
+        return fastapi.Response(content=response, status_code=400)
+    elif response == "Submission failed due to persistence error":
+        return fastapi.Response(content=response, status_code=500)
+    return response

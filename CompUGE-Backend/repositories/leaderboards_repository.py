@@ -1,5 +1,5 @@
 from sqlalchemy.exc import IntegrityError
-from sqlalchemy.orm import joinedload
+
 import repositories.db_engine as engine
 from repositories.db_engine import Leaderboard, Submission
 

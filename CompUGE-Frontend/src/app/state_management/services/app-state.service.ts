@@ -48,6 +48,7 @@ export class AppStateService {
     isPublic: boolean,
     fileContent: string
   ) : Observable<Object> {
+    console.log(fileContent);
     return this.http.post(this._apiUrl + '/submission/' + task + '/' + dataset, {
       modelName: modelName,
       modelLink: modelLink,

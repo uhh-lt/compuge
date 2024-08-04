@@ -1,83 +1,64 @@
 import datetime
-import os
-import repositories.submissions_repository as sub_repo
+
+from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
+
 import repositories.leaderboards_repository as ld_repo
+import repositories.submissions_repository as sub_repo
 from repositories.db_engine import Leaderboard, Submission
-import pandas as pd
-import numpy as np
-from io import StringIO
+from services.dataset_service import get_test_labels, get_labels_from_csv
 
 
-def get_submissions():
-    return sub_repo.query_all()
+def submit_solution(task, dataset, submission_dict):
+    # Extract submission information
+    model = submission_dict["modelName"]
+    link = submission_dict["modelLink"]
+    team = submission_dict["teamName"]
+    email = submission_dict["contactEmail"]
+    predictions = get_labels_from_csv(submission_dict["fileContent"])
+    is_public = bool(submission_dict["isPublic"])
 
+    # Get dataset split
+    labels = get_test_labels(task, dataset)
 
-def submit_solution(
-        task,
-        dataset,
-        submission_dict
-):
-    accuracy, precision, recall, f1 = evaluate_model(
-        submission_dict["fileContent"]
-    )
+    # Handle accepted submission
     submission = Submission(
         time=datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
         task=task,
         dataset=dataset,
-        model=submission_dict["modelName"],
-        link=submission_dict["modelLink"],
-        team=submission_dict["teamName"],
-        email=submission_dict["contactEmail"],
-        predictions=submission_dict["fileContent"],
+        model=model,
+        link=link,
+        team=team,
+        email=email,
+        predictions=str(predictions),
         status="accepted",
-        is_public=bool(submission_dict["isPublic"])
+        is_public=is_public,
+    )
+    sub_repo.insert_data(submission)
+
+    # Perform model evaluation
+    accuracy, precision, recall, f1 = evaluate_model(labels, predictions)
+    record = Leaderboard(
+        submission_id=submission.id,
+        accuracy=accuracy,
+        precision=precision,
+        recall=recall,
+        f1_score=f1,
     )
 
-    if sub_repo.insert_data(submission):
-        record = Leaderboard(
-            submission_id=submission.id,  # Use the ID of the newly created submission
-            accuracy=accuracy,
-            precision=precision,
-            recall=recall,
-            f1_score=f1,
-        )
-        return ld_repo.insert_data(record)
-    return False
+    if ld_repo.insert_data(record):
+        return "Submission successful"
+    return "Submission failed due to persistence error"
 
 
-# a method that recieves a list of lables and predictions and returns :
-def evaluate_model(fileContent):
-    # file content is a string that contains the csv file
-    df = pd.read_csv(StringIO(fileContent))
-    labels = df["labels"]
-    predictions = df["predictions"]
-
+# a method that receives a list of labels and predictions and returns :
+def evaluate_model(labels, predictions):
     accuracy = accuracy_score(labels, predictions)
-    precision = precision_score(labels, predictions)
-    recall = recall_score(labels, predictions)
-    f1 = f1_score(labels, predictions)
-    return accuracy, precision, recall, f1
+    precision = precision_score(labels, predictions, average='weighted')
+    recall = recall_score(labels, predictions, average='weighted')
+    f1 = f1_score(labels, predictions, average='weighted')
+
+    return float(accuracy), float(precision), float(recall), float(f1)
 
 
-# a method that calculates the accuracy of the model
-def accuracy_score(labels, predictions):
-    return sum([1 for i in range(len(labels)) if labels[i] == predictions[i]]) / len(labels)
-
-
-def precision_score(labels, predictions):
-    tp = sum([1 for i in range(len(labels)) if labels[i] == 1 and predictions[i] == 1])
-    fp = sum([1 for i in range(len(labels)) if labels[i] == 0 and predictions[i] == 1])
-    return tp / (tp + fp)
-
-
-def recall_score(labels, predictions):
-    tp = sum([1 for i in range(len(labels)) if labels[i] == 1 and predictions[i] == 1])
-    fn = sum([1 for i in range(len(labels)) if labels[i] == 1 and predictions[i] == 0])
-    return tp / (tp + fn)
-
-
-def f1_score(labels, predictions):
-    precision = precision_score(labels, predictions)
-    recall = recall_score(labels, predictions)
-    return 2 * (precision * recall) / (precision + recall)
-
+def get_submissions():
+    return sub_repo.query_all()

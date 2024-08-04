@@ -35,7 +35,8 @@ class SubmissionDTO:
 
 
 class LeaderboardDTO:
-    def __init__(self, task: str, dataset: str, model: str, accuracy: float, precision: float, recall: float, f1_score: float, overall_score: float):
+    def __init__(self, task: str, dataset: str, model: str, accuracy: float, precision: float, recall: float,
+                 f1_score: float):
         self.task = task
         self.dataset = dataset
         self.model = model
@@ -43,4 +44,3 @@ class LeaderboardDTO:
         self.precision = precision
         self.recall = recall
         self.f1_score = f1_score
-        self.overall_score = overall_score
