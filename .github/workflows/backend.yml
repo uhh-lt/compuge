@@ -42,6 +42,6 @@ jobs:
       working-directory: ./CompUGE-Backend
       
     - name: Stop and remove Docker Compose services
-      run: docker-compose down
+      run: docker compose down
       working-directory: ./CompUGE-Backend
 
