@@ -1,0 +1,37 @@
+name: Backend Docker Compose Test
+
+on:
+  push:
+    paths:
+      - 'CompUGE-Backend/**'
+  pull_request:
+    paths:
+      - 'CompUGE-Backend/**'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v2
+
+    - name: Set up Docker Compose
+      uses: docker/setup-buildx-action@v2
+
+    - name: Build and run Docker Compose
+      run: |
+        cd CompUGE-Backend
+        docker-compose up -d
+        # Wait for backend service to be up
+        sleep 15
+        # Check if backend service is reachable
+        curl -f http://localhost:15564 || exit 1
+
+    - name: Shut down Docker Compose
+      run: |
+        cd CompUGE-Backend
+        docker-compose down
