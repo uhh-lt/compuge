@@ -2,7 +2,7 @@ import json
 
 import fastapi
 from fastapi.middleware.cors import CORSMiddleware
-
+import repositories.db_engine as db_engine
 import services.dataset_service as ds_service
 import services.leaderboards_service as lb_service
 import services.submissions_service as sub_service
@@ -24,6 +24,13 @@ with open("tasks.json", "r") as tasks_file:
     tasks_dict = json.load(tasks_file)
     for task in tasks_dict["tasks"]:
         tasks.append(TaskDTO(name=task["name"], description=task["description"]))
+
+
+# ping
+@app.get("/api/ping")
+def ping():
+    db_engine.check_db_connection()
+    return "pong"
 
 
 @app.get("/api/")

@@ -59,3 +59,12 @@ class Leaderboard(Base):
 Submission.leaderboard_entry = relationship('Leaderboard', order_by=Leaderboard.id, back_populates='submission')
 
 Base.metadata.create_all(engine)
+
+
+# a method to check the database connection
+def check_db_connection():
+    try:
+        session.execute('SELECT 1')
+    except Exception as e:
+        return f"Database connection failed: {str(e)}"
+    return "pong"
