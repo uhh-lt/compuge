@@ -22,7 +22,7 @@ jobs:
 
     - name: Test the FastAPI app
       run: |
-        RESPONSE=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:15564/ping)
+        RESPONSE=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:15564/api/ping)
         echo "Response code: $RESPONSE"
         if [ "$RESPONSE" == "200" ]; then 
           echo "Ping test passed";
