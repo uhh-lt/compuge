@@ -4,6 +4,6 @@ services:
     build:
       context: .
       args:
-        PROFILE: local
+        PROFILE: production
     ports:
       - '4200:4200' # Port mapping

@@ -52,7 +52,8 @@ for dataset in datasets_metadata:
         print(f"Validation set not found for dataset {dataset.name}")
 
     # remove the 2nd columns from test
-    test = test.drop(test.columns[1], axis=1)
+    if test is not None:
+        test = test.drop(test.columns[1], axis=1)
     # convert the dataframes to lists of strings including the headers
     if train is not None:
         train = train.to_string(index=False).split("\n")
@@ -84,25 +85,6 @@ def get_dataset_dtos_per_task(task: str):
 
 def get_dataset_dtos():
     return datasetsDTOs
-
-
-def get_dataset_split(task: str, dataset: str):
-    # get the dataset metadata
-    dataset_metadata = None
-    for dset in datasets_metadata:
-        if dset.task == task and dset.name == dataset:
-            dataset_metadata = dset
-            break
-    if dataset_metadata is None:
-        return None, None
-    # read the train and test data
-    try:
-        train = pd.read_csv(f"./datasets/{dataset_metadata.folder}/train.csv")
-        test = pd.read_csv(f"./datasets/{dataset_metadata.folder}/test.csv")
-        return train, test
-    except FileNotFoundError:
-        print(f"File not found for dataset {dataset_metadata.name}")
-        return None, None
 
 
 def get_test_labels(task: str, dataset: str):
