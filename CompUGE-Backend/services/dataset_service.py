@@ -39,7 +39,7 @@ for dataset in datasets_metadata:
     try:
         train = pd.read_csv(f"./datasets/{dataset.folder}/train.csv")
     except FileNotFoundError:
-        print(f"Train or test set not found for dataset {dataset.name}")
+        print(f"Train set not found for dataset {dataset.name}")
 
     try:
         test = pd.read_csv(f"./datasets/{dataset.folder}/test.csv")
@@ -51,13 +51,11 @@ for dataset in datasets_metadata:
     except FileNotFoundError:
         print(f"Validation set not found for dataset {dataset.name}")
 
-    # remove the 2nd columns from test
-    if test is not None:
-        test = test.drop(test.columns[1], axis=1)
     # convert the dataframes to lists of strings including the headers
     if train is not None:
         train = train.to_string(index=False).split("\n")
     if test is not None:
+        test = test.drop(test.columns[1], axis=1)
         test = test.to_string(index=False).split("\n")
     if val is not None:
         val = val.to_string(index=False).split("\n")

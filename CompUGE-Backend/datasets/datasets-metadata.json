@@ -59,7 +59,7 @@
       "name" : "Chekalina et al. (2021)",
       "description" : "",
       "link":"",
-      "folder": "Chekalina_2021_oai",
+      "folder": "chekalina_2021_oai",
       "paper": "Which is Better for Deep Learning: Python or MATLAB? Answering Comparative Questions in Natural Language",
       "paper_link": "https://aclanthology.org/2021.eacl-demos.36/"
     },
@@ -86,7 +86,7 @@
       "name" : "Chekalina et al. (2021)",
       "description" : "",
       "link":"",
-      "folder": "Chekalina_2021_sg",
+      "folder": "chekalina_2021_sg",
       "paper": "Which is Better for Deep Learning: Python or MATLAB? Answering Comparative Questions in Natural Language",
       "paper_link": "https://aclanthology.org/2021.eacl-demos.36/"
     }
