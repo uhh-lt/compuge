@@ -2,6 +2,8 @@ import {Component, Input} from '@angular/core';
 import {MatCard, MatCardContent} from "@angular/material/card";
 import {MatButton} from "@angular/material/button";
 import {MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle} from "@angular/material/expansion";
+import {DatasetModel} from "../../../../state_management/models/dataset.model";
+import {NgIf, NgStyle} from "@angular/common";
 
 @Component({
   selector: 'app-dataset',
@@ -12,7 +14,9 @@ import {MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle} from
     MatButton,
     MatExpansionPanel,
     MatExpansionPanelHeader,
-    MatExpansionPanelTitle
+    MatExpansionPanelTitle,
+    NgIf,
+    NgStyle
   ],
   templateUrl: './dataset.component.html',
   styleUrl: './dataset.component.css'
@@ -20,21 +24,17 @@ import {MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle} from
 export class DatasetComponent {
 
   @Input()
-  public task: string = 'Placeholder';
-  @Input()
-  public name: string = 'Placeholder';
-  @Input()
-  public description: string = 'Placeholder';
-  @Input()
-  public link: string = 'Placeholder';
-  @Input()
-  public paper: string = 'Placeholder';
-  @Input()
-  public paper_link: string = 'Placeholder';
-  @Input()
-  public train: string[] = [];
-  @Input()
-  public test: string[] = [];
+  public datasetModel: DatasetModel = {
+    task: '',
+    name: '',
+    description: '',
+    link: '',
+    paper: '',
+    paper_link: '',
+    train: [],
+    test: [],
+    val: []
+  };
 
   getTextDownloadURL(data: string[]) {
     return window.URL.createObjectURL(new Blob(data, {type: 'text/plain'}));
@@ -44,7 +44,7 @@ export class DatasetComponent {
     const url = this.getTextDownloadURL(data);
     const a = document.createElement('a');
     a.href = url;
-    a.download = this.task + '-' + this.name + '-' + name + '.csv';
+    a.download = this.datasetModel.task + '-' + this.datasetModel.name + '-' + name + '.csv';
     document.body.appendChild(a);
     a.click();
     window.URL.revokeObjectURL(url);

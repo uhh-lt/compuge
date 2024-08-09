@@ -1,19 +1,48 @@
 <mat-expansion-panel>
   <mat-expansion-panel-header>
     <mat-panel-title>
-      <h2 style="margin-top: 15px">{{ name }} ({{ task }})</h2>
+      <h2 style="margin-top: 15px">{{ datasetModel.name }} ({{ datasetModel.task }})</h2>
     </mat-panel-title>
   </mat-expansion-panel-header>
-  <p>{{ description }}</p>
+  <p>{{ datasetModel.description }}</p>
   <p>
     This dataset was introduced in the following paper:
-    <a href="{{paper_link}}" target="_blank">{{ paper }}</a>
+    <a href="{{datasetModel.paper_link}}" target="_blank">{{ datasetModel.paper }}</a>
   </p>
-  <button mat-raised-button (click)="goToUrl(link)" style="width: 99%; margin: 0.5%">Link to the Dataset</button>
-  <button mat-raised-button style="width: 49%; margin: 0.5%" (click)="downloadData(train, 'train')">Download Training
-    Data
+
+  <button mat-raised-button (click)="goToUrl(datasetModel.link)" style="width: 99%; margin: 0.5%">Link to the
+    Dataset
   </button>
-  <button mat-raised-button style="width: 49%; margin: 0.5%" (click)="downloadData(test, 'test')">Download Testing
-    Data
+
+  <!-- Training Data Button -->
+  <button *ngIf="datasetModel.train"
+          mat-raised-button
+          [ngStyle]="{
+            'width': !datasetModel.val ? '49.5%' : '33%'
+          }"
+          style="margin-left: 0.3%; margin-right: 0.1%"
+          (click)="downloadData(datasetModel.train, 'train')">
+    Download Training Data
+  </button>
+
+  <!-- Validation Data Button -->
+  <button *ngIf="datasetModel.val"
+          mat-raised-button
+          [ngStyle]="{
+            'width': !datasetModel.train ? '49.5%' : '33%'
+          }"
+          style="margin: 0.1%"
+          (click)="downloadData(datasetModel.val, 'validation')">
+    Download Validation Data
+  </button>
+
+  <!-- Testing Data Button (always present) -->
+  <button mat-raised-button
+          [ngStyle]="{
+            'width': !datasetModel.train && !datasetModel.val ? '99%' : (!datasetModel.train || !datasetModel.val) ? '49.5%' : '33%'
+          }"
+          style="margin-right: 0.3%; margin-left: 0.1%"
+          (click)="downloadData(datasetModel.test, 'test')">
+    Download Testing Data
   </button>
 </mat-expansion-panel>

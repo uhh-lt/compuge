@@ -7,4 +7,5 @@ export interface DatasetModel {
   paper_link: string;
   train: string[];
   test: string[];
+  val: string[];
 }

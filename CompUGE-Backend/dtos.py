@@ -6,7 +6,8 @@ class DatasetDTO:
                  paper: str,
                  paper_link: str,
                  train: list,
-                 test: list):
+                 test: list,
+                 val: list):
         self.task = task
         self.name = name
         self.description = description
@@ -15,6 +16,7 @@ class DatasetDTO:
         self.paper_link = paper_link
         self.train = train
         self.test = test
+        self.val = val
 
 
 class TaskDTO:

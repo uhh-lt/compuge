@@ -32,22 +32,38 @@ with open("./datasets/datasets-metadata.json", "r") as metadata_file:
 # train and test data are saved as csv files in the dataset's folder
 for dataset in datasets_metadata:
     # add exception handling to avoid errors when the file is not found
-    train = []
-    test = []
+    train = None
+    test = None
+    val = None
+    # try to read the data
     try:
         train = pd.read_csv(f"./datasets/{dataset.folder}/train.csv")
-        test = pd.read_csv(f"./datasets/{dataset.folder}/test.csv")
-        # remove the 2nd columns from test
-        test = test.drop(test.columns[1], axis=1)
-        # convert the dataframes to lists of strings including the headers
-        train = train.to_string(index=False).split("\n")
-        test = test.to_string(index=False).split("\n")
     except FileNotFoundError:
-        print(f"File not found for dataset {dataset.name}")
-    finally:
-        datasetsDTOs.append(DatasetDTO(task=dataset.task, name=dataset.name, description=dataset.description,
-                                       link=dataset.link, train=train, test=test, paper=dataset.paper,
-                                       paper_link=dataset.paper_link))
+        print(f"Train or test set not found for dataset {dataset.name}")
+
+    try:
+        test = pd.read_csv(f"./datasets/{dataset.folder}/test.csv")
+    except FileNotFoundError:
+        print(f"Test set not found for dataset {dataset.name}")
+
+    try:
+        val = pd.read_csv(f"./datasets/{dataset.folder}/val.csv")
+    except FileNotFoundError:
+        print(f"Validation set not found for dataset {dataset.name}")
+
+    # remove the 2nd columns from test
+    test = test.drop(test.columns[1], axis=1)
+    # convert the dataframes to lists of strings including the headers
+    if train is not None:
+        train = train.to_string(index=False).split("\n")
+    if test is not None:
+        test = test.to_string(index=False).split("\n")
+    if val is not None:
+        val = val.to_string(index=False).split("\n")
+
+    datasetsDTOs.append(DatasetDTO(task=dataset.task, name=dataset.name, description=dataset.description,
+                                   link=dataset.link, train=train, test=test, val=val, paper=dataset.paper,
+                                   paper_link=dataset.paper_link))
 
 
 # ======================================================================================================================

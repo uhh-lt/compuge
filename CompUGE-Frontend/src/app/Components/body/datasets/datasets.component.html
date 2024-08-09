@@ -1,13 +1,6 @@
 <div style="margin-bottom: 10px" *ngFor="let i of datasets | async">
   <app-dataset
-    [task]="i.task"
-    [name]="i.name"
-    [description]="i.description"
-    [link]="i.link"
-    [paper]="i.paper"
-    [paper_link]="i.paper_link"
-    [train]="i.train"
-    [test]="i.test">
+    [datasetModel]="i">
   </app-dataset>
 </div>
 <br>

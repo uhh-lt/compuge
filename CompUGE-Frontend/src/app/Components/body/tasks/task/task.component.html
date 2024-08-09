@@ -9,14 +9,7 @@
         <app-about [whatAbout]="task"></app-about>
       </mat-tab>
       <mat-tab label="Datasets">
-        <app-dataset *ngFor="let dataset of datasets | async"
-                     [task]="dataset.task"
-                     [name]="dataset.name"
-                     [description]="dataset.description"
-                     [link]="dataset.link"
-                     [train]="dataset.train"
-                     [test]="dataset.test"
-        ></app-dataset>
+        <app-datasets [datasets]="datasets"></app-datasets>
       </mat-tab>
       <mat-tab label="Task Leaderboards">
         <app-leaderboards

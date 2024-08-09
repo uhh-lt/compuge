@@ -9,6 +9,7 @@ import {AsyncPipe, NgForOf, NgIf} from "@angular/common";
 import {SubmissionsComponent} from "../../submissions/submissions.component";
 import {LeaderboardComponent} from "../../leaderboards/leaderboard/leaderboard.component";
 import {LeaderboardsComponent} from "../../leaderboards/leaderboards.component";
+import {DatasetsComponent} from "../../datasets/datasets.component";
 
 @Component({
   selector: 'app-task',
@@ -25,7 +26,8 @@ import {LeaderboardsComponent} from "../../leaderboards/leaderboards.component";
     SubmissionsComponent,
     LeaderboardComponent,
     LeaderboardsComponent,
-    NgIf
+    NgIf,
+    DatasetsComponent
   ],
   templateUrl: './task.component.html',
   styleUrl: './task.component.css'

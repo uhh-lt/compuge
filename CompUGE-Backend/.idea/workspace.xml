@@ -5,23 +5,71 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1b0f9635-f17d-4314-90ff-91214c1664af" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../CompUGE-Research/Splits/beloucif_oai/data_prep.ipynb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../CompUGE-Research/Splits/beloucif_qi/data_prep.ipynb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../CompUGE-Research/Splits/chekalina_2021_oai/data_prep.ipynb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../CompUGE-Research/Splits/chekalina_2021_oai/dev.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../CompUGE-Research/Splits/chekalina_2021_sg/data_prep.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/datasets/beloucif_oai/data_prep.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/datasets/chekalina_2021_oai/data_prep.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/datasets/compsent_19_sc/data_prep.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/datasets/compsent_19_sc/val.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/datasets/mintaka_qi/data_prep.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/datasets/webis_comparative_questions_2022_oai/val.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/datasets/webis_comparative_questions_2022_qi/data_prep.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/datasets/webis_comparative_questions_2022_qi/val.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/datasets/webis_comparative_questions_2022_sc/data_prep.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../CompUGE-Research/CAM 2.0 Splits/Comparative Question Identication/Webis-CompQuestions-22_comparative-or-not-questions/test.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../CompUGE-Research/CAM 2.0 Splits/Comparative Question Identication/Webis-CompQuestions-22_comparative-or-not-questions/train.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../CompUGE-Research/CAM 2.0 Splits/Comparative Question Identication/Webis-CompQuestions-22_comparative-or-not-questions/valid.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../CompUGE-Research/CAM 2.0 Splits/Comparative Question Identication/final_dataset_english.tsv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../CompUGE-Research/CAM 2.0 Splits/Comparative Question Identication/test.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../CompUGE-Research/CAM 2.0 Splits/Comparative Question Identication/train.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../CompUGE-Research/CAM 2.0 Splits/Comparative Question Identication/validate.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../CompUGE-Research/CAM 2.0 Splits/object-and-aspect-identification/test.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../CompUGE-Research/CAM 2.0 Splits/object-and-aspect-identification/train.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../CompUGE-Research/CAM 2.0 Splits/object-and-aspect-identification/train.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../CompUGE-Research/CAM 2.0 Splits/object-and-aspect-identification/val.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../CompUGE-Research/CAM 2.0 Splits/sentence-classification/dataset.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../CompUGE-Research/CAM 2.0 Splits/sentence-classification/test.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../CompUGE-Research/CAM 2.0 Splits/sentence-classification/train.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../CompUGE-Research/CAM 2.0 Splits/sentence-classification/validate.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../CompUGE-Research/CAM 2.0 Splits/summarization/test.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../CompUGE-Research/CAM 2.0 Splits/summarization/train.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../CompUGE-Research/CAM 2.0 Splits/summarization/val.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../CompUGE-Research/Splits/chekalina_2021_oai/val.csv" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../CompUGE-Research/Splits/compsent_19_sc/data_prep.ipynb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../CompUGE-Research/Splits/mintaka_qi/data_prep.ipynb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../CompUGE-Research/Splits/webis_comparative_questions_2020_qi/data_prep.ipynb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../CompUGE-Research/Splits/webis_comparative_questions_2022_oai/data_prep.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../CompUGE-Research/Splits/compsent_19_sc/val.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../CompUGE-Research/Splits/mintaka_qi/val.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../CompUGE-Research/Splits/webis_comparative_questions_2022_oai/val.csv" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../CompUGE-Research/Splits/webis_comparative_questions_2022_qi/data_prep.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../CompUGE-Research/Splits/webis_comparative_questions_2022_qi/val.csv" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../CompUGE-Research/Splits/webis_comparative_questions_2022_sc/data_prep.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/datasets/beloucif_qi/train.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/datasets/chekalina_2021_oai/test.csv" beforeDir="false" afterPath="$PROJECT_DIR$/datasets/chekalina_2021_oai/test.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/datasets/chekalina_2021_oai/train.csv" beforeDir="false" afterPath="$PROJECT_DIR$/datasets/chekalina_2021_oai/train.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/datasets/compsent_19_sc/train.csv" beforeDir="false" afterPath="$PROJECT_DIR$/datasets/compsent_19_sc/train.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/datasets/webis_comparative_questions_2022_oai/train.csv" beforeDir="false" afterPath="$PROJECT_DIR$/datasets/webis_comparative_questions_2022_oai/train.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/datasets/webis_comparative_questions_2022_qi/test.csv" beforeDir="false" afterPath="$PROJECT_DIR$/datasets/webis_comparative_questions_2022_qi/test.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/datasets/webis_comparative_questions_2022_qi/train.csv" beforeDir="false" afterPath="$PROJECT_DIR$/datasets/webis_comparative_questions_2022_qi/train.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/datasets/webis_comparative_questions_2022_sc/test.csv" beforeDir="false" afterPath="$PROJECT_DIR$/datasets/webis_comparative_questions_2022_sc/test.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/datasets/webis_comparative_questions_2022_sc/train.csv" beforeDir="false" afterPath="$PROJECT_DIR$/datasets/webis_comparative_questions_2022_sc/train.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dtos.py" beforeDir="false" afterPath="$PROJECT_DIR$/dtos.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/dataset_service.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/dataset_service.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CompUGE-Frontend/src/app/Components/body/datasets/dataset/dataset.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../CompUGE-Frontend/src/app/Components/body/datasets/dataset/dataset.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CompUGE-Frontend/src/app/Components/body/datasets/dataset/dataset.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../CompUGE-Frontend/src/app/Components/body/datasets/dataset/dataset.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CompUGE-Frontend/src/app/Components/body/datasets/datasets.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../CompUGE-Frontend/src/app/Components/body/datasets/datasets.component.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../CompUGE-Frontend/src/app/Components/body/datasets/datasets.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../CompUGE-Frontend/src/app/Components/body/datasets/datasets.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../CompUGE-Research/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../CompUGE-Research/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../CompUGE-Research/Splits/chekalina_2021_oai/test.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../CompUGE-Research/Splits/chekalina_2021_oai/test.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../CompUGE-Research/Splits/chekalina_2021_oai/train.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../CompUGE-Research/Splits/chekalina_2021_oai/train.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../CompUGE-Research/data_prep.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/../CompUGE-Research/data_prep.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CompUGE-Frontend/src/app/Components/body/tasks/task/task.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../CompUGE-Frontend/src/app/Components/body/tasks/task/task.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CompUGE-Frontend/src/app/Components/body/tasks/task/task.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../CompUGE-Frontend/src/app/Components/body/tasks/task/task.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CompUGE-Frontend/src/app/state_management/models/dataset.model.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../CompUGE-Frontend/src/app/state_management/models/dataset.model.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CompUGE-Research/Splits/beloucif_qi/train.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CompUGE-Research/Splits/chekalina_2021_oai/data_prep.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/../CompUGE-Research/Splits/chekalina_2021_oai/data_prep.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CompUGE-Research/Splits/chekalina_2021_oai/dev.csv" beforeDir="false" afterPath="$PROJECT_DIR$/datasets/chekalina_2021_oai/val.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CompUGE-Research/Splits/compsent_19_sc/train.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../CompUGE-Research/Splits/compsent_19_sc/train.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CompUGE-Research/Splits/mintaka_qi/data_prep.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/../CompUGE-Research/Splits/mintaka_qi/data_prep.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CompUGE-Research/Splits/mintaka_qi/dev.csv" beforeDir="false" afterPath="$PROJECT_DIR$/datasets/mintaka_qi/val.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CompUGE-Research/Splits/webis_comparative_questions_2022_oai/train.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../CompUGE-Research/Splits/webis_comparative_questions_2022_oai/train.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CompUGE-Research/Splits/webis_comparative_questions_2022_qi/test.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../CompUGE-Research/Splits/webis_comparative_questions_2022_qi/test.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CompUGE-Research/Splits/webis_comparative_questions_2022_qi/train.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../CompUGE-Research/Splits/webis_comparative_questions_2022_qi/train.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CompUGE-Research/Splits/webis_comparative_questions_2022_sc/test.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../CompUGE-Research/Splits/webis_comparative_questions_2022_sc/test.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CompUGE-Research/Splits/webis_comparative_questions_2022_sc/train.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../CompUGE-Research/Splits/webis_comparative_questions_2022_sc/train.csv" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -130,7 +178,7 @@
       <workItem from="1722348504530" duration="98000" />
       <workItem from="1722498478733" duration="32819000" />
       <workItem from="1722793951145" duration="3863000" />
-      <workItem from="1723201592670" duration="2388000" />
+      <workItem from="1723201592670" duration="5370000" />
     </task>
     <servers />
   </component>

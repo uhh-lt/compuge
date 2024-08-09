@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {AppStateService} from "../../../state_management/services/app-state.service";
 import {DatasetComponent} from "./dataset/dataset.component";
 import {AsyncPipe, NgForOf} from "@angular/common";
@@ -15,18 +15,20 @@ import {map, Observable} from "rxjs";
   templateUrl: './datasets.component.html',
   styleUrl: './datasets.component.css'
 })
-export class DatasetsComponent {
+export class DatasetsComponent implements OnInit {
+
+  @Input() datasets!: Observable<any[]>;
 
   constructor(
     private appState: AppStateService,
-  ) {
+  ) {}
 
+  ngOnInit(): void {
+    if (!this.datasets) {
+      this.datasets = this.appState.state$.pipe(
+        map(state => state.datasets)
+      );
+    }
   }
-
-  // give default values to the inputs
-  @Input()
-  public datasets : Observable<any[]> = this.appState.state$.pipe(
-    map(state => state.datasets)
-  );
 
 }
