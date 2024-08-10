@@ -125,7 +125,16 @@ export class AppStateService {
 
   public updateControlPanel() {
     const headers = this.authService.getAuthHeaders();
-    this.http.get(`${this._apiUrl}/controlPanelSubmissions`, { headers }).subscribe(
+    this.http.get(`${this._apiUrl}/controlPanelSubmissions`, { headers }).pipe(
+      catchError(error => {
+          if (error.status === 401) {
+            this.authService.logout();
+          }
+          console.log(error);
+          return error;
+        }
+      ))
+      .subscribe(
       (data: any) => {
         this._setState({
           ...this.getState(),
@@ -137,11 +146,20 @@ export class AppStateService {
 
   public forceUpdateSubmission(entry: any){
     const headers = this.authService.getAuthHeaders();
-    this.http.put(`${this._apiUrl}/controlPanelSubmission/${entry.id}`, entry, { headers }).subscribe(
-      () => {
-        this.updateControlPanel();
-      }
-    );
+    this.http.put(`${this._apiUrl}/controlPanelSubmission/${entry.id}`, entry, { headers }).pipe(
+      catchError(error => {
+          if (error.status === 401) {
+            this.authService.logout();
+          }
+          console.log(error);
+          return error;
+        }
+      ))
+      .subscribe(
+        () => {
+          this.updateControlPanel();
+        }
+      );
   }
 
   public deleteSubmission(id: number){
@@ -150,6 +168,9 @@ export class AppStateService {
     this.http.delete(`${this._apiUrl}/controlPanelSubmission/` + id, { headers })
       .pipe(
         catchError(error => {
+          if (error.status === 401) {
+            this.authService.logout();
+          }
           console.log(error);
           return error;
         }

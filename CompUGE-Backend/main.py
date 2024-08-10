@@ -23,7 +23,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# load tasks from tasks.json under key "tasks"
+# Load tasks from tasks.json under key "tasks"
 tasks = []
 with open("tasks.json", "r") as tasks_file:
     tasks_dict = json.load(tasks_file)
@@ -31,7 +31,7 @@ with open("tasks.json", "r") as tasks_file:
         tasks.append(TaskDTO(name=task["name"], description=task["description"]))
 
 
-# ping
+# Ping
 @app.get("/api/ping")
 def ping():
     return db_engine.check_db_connection()
@@ -95,10 +95,21 @@ def submit(task: str, dataset: str, submission_dict: dict):
 
 
 # ====================== Authentication ==========================
-# OAuth2 scheme
 
-# OAuth2 scheme
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
+# The OAuth2PasswordBearer instance is needed for the token authentication flow
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/token")
+
+
+def get_current_user(token: str = Depends(oauth2_scheme)):
+    """Dependency that extracts and verifies the current user from the token."""
+    payload = auth_service.decode_token(token)
+    user = payload.get("sub")
+    if user != "admin":  # The username is always "admin"
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid credentials",
+        )
+    return user  # This will return "admin"
 
 
 @app.post("/api/token")
@@ -110,21 +121,23 @@ async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(
             headers={"WWW-Authenticate": "Bearer"},
         )
     access_token_expires = timedelta(minutes=30)
-    access_token = auth_service.create_access_token(data={"sub": "authenticated_user"},
+    access_token = auth_service.create_access_token(data={"sub": "admin"},
                                                     expires_delta=access_token_expires)
     return {"access_token": access_token, "token_type": "bearer"}
 
 
 @app.get("/api/controlPanelSubmissions")
-async def controlPanelSubmissions(token: str = Depends(oauth2_scheme)):
+async def control_panel_submissions(current_user: str = Depends(get_current_user)):
     return sub_service.get_submissions_with_their_leaderboard_entries()
 
 
 @app.put("/api/controlPanelSubmission/{sub_id}")
-async def forceUpdateSubmission(sub_id: int, submission: dict, token: str = Depends(oauth2_scheme)):
+async def force_update_submission(sub_id: int,
+                                  submission: dict,
+                                  current_user: str = Depends(get_current_user)):
     return sub_service.force_update_submission(sub_id, submission)
 
 
 @app.delete("/api/controlPanelSubmission/{sub_id}")
-async def deleteSubmission(sub_id: int, token: str = Depends(oauth2_scheme)):
+async def delete_submission(sub_id: int, current_user: str = Depends(get_current_user)):
     return sub_service.delete_submission(sub_id)
