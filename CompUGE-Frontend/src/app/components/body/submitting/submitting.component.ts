@@ -98,8 +98,6 @@ export class SubmittingComponent implements OnInit{
   }
 
   onFileSelected(event : any) {
-    console.log(event);
-    console.log(event.target.files[0]);
     const file: File = event.target.files[0];
     if (file) {
       this.chosenFileName = file.name;

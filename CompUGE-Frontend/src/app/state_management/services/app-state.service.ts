@@ -26,7 +26,6 @@ export class AppStateService {
 
   constructor(public http: HttpClient,
               public authService: AuthenticationService) {
-    console.log('AppStateService created');
     console.log(this._apiUrl)
     this.updateTasks();
     this.updateDatasets();
@@ -60,7 +59,6 @@ export class AppStateService {
     isPublic: boolean,
     fileContent: string
   ) : Observable<Object> {
-    console.log(fileContent);
     return this.http.post(this._apiUrl + '/submission/' + task + '/' + dataset, {
       modelName: modelName,
       modelLink: modelLink,
@@ -164,7 +162,6 @@ export class AppStateService {
 
   public deleteSubmission(id: number){
     const headers = this.authService.getAuthHeaders();
-    console.log('Deleting submission with id: ' + id);
     this.http.delete(`${this._apiUrl}/controlPanelSubmission/` + id, { headers })
       .pipe(
         catchError(error => {

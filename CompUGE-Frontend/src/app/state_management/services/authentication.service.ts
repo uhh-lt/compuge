@@ -55,7 +55,6 @@ export class AuthenticationService {
         this.token = response.access_token;
         localStorage.setItem('auth_token', this.token);
         this.$authStatus.next('authenticated');
-        console.log(this.token);
       }),
       catchError(error => {
         if (error.status === 401) {
