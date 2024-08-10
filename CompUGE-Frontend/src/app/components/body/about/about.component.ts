@@ -1,6 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {MatCard, MatCardContent} from "@angular/material/card";
 import {NgIf} from "@angular/common";
+import {RouterLink} from "@angular/router";
+import {MatButton} from "@angular/material/button";
 
 @Component({
   selector: 'app-about',
@@ -8,7 +10,9 @@ import {NgIf} from "@angular/common";
   imports: [
     MatCard,
     MatCardContent,
-    NgIf
+    NgIf,
+    RouterLink,
+    MatButton
   ],
   templateUrl: './about.component.html',
   styleUrl: './about.component.css'
