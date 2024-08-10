@@ -162,3 +162,8 @@ cython_debug/
 /CompUGE-Frontend/.vscode/
 /CompUGE-Frontend/.vscode/
 /model
+
+# Ignore all JetBrains IDE config files
+.idea/
+*.iml
+
