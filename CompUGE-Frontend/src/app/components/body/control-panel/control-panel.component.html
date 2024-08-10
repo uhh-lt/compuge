@@ -1,0 +1,144 @@
+<app-admin-login *ngIf="(authenticationState | async) != 'authenticated'"></app-admin-login>
+
+<div *ngIf="(authenticationState | async) == 'authenticated'">
+  <!-- Admin Control Panel -->
+  <mat-card>
+    <button mat-raised-button color="primary" class="full-width" (click)="refresh()">Refresh List</button>
+
+    <div class="table-container">
+      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 responsive-table">
+
+        <!-- Team Column -->
+        <ng-container matColumnDef="team">
+          <mat-header-cell *matHeaderCellDef> Team </mat-header-cell>
+          <mat-cell *matCellDef="let entry">
+            <span *ngIf="!isEditing(entry)">{{ entry.team }}</span>
+            <input *ngIf="isEditing(entry)" [(ngModel)]="entry.team" (keyup.enter)="saveEdit(entry)">
+          </mat-cell>
+        </ng-container>
+
+        <!-- Task Column -->
+        <ng-container matColumnDef="task">
+          <mat-header-cell *matHeaderCellDef> Task </mat-header-cell>
+          <mat-cell *matCellDef="let entry">
+            <span *ngIf="!isEditing(entry)">{{ entry.task }}</span>
+            <input *ngIf="isEditing(entry)" [(ngModel)]="entry.task" (keyup.enter)="saveEdit(entry)">
+          </mat-cell>
+        </ng-container>
+
+        <!-- Dataset Column -->
+        <ng-container matColumnDef="dataset">
+          <mat-header-cell *matHeaderCellDef> Dataset </mat-header-cell>
+          <mat-cell *matCellDef="let entry">
+            <span *ngIf="!isEditing(entry)">{{ entry.dataset }}</span>
+            <input *ngIf="isEditing(entry)" [(ngModel)]="entry.dataset" (keyup.enter)="saveEdit(entry)">
+          </mat-cell>
+        </ng-container>
+
+        <!-- Model Column -->
+        <ng-container matColumnDef="model">
+          <mat-header-cell *matHeaderCellDef> Model </mat-header-cell>
+          <mat-cell *matCellDef="let entry">
+            <span *ngIf="!isEditing(entry)">{{ entry.model }}</span>
+            <input *ngIf="isEditing(entry)" [(ngModel)]="entry.model" (keyup.enter)="saveEdit(entry)">
+          </mat-cell>
+        </ng-container>
+
+        <!-- Link Column -->
+        <ng-container matColumnDef="link">
+          <mat-header-cell *matHeaderCellDef> Link </mat-header-cell>
+          <mat-cell *matCellDef="let entry">
+            <a *ngIf="!isEditing(entry)" [href]="entry.link" target="_blank">{{ entry.link }}</a>
+            <input *ngIf="isEditing(entry)" [(ngModel)]="entry.link" (keyup.enter)="saveEdit(entry)">
+          </mat-cell>
+        </ng-container>
+
+        <!-- Email Column -->
+        <ng-container matColumnDef="email">
+          <mat-header-cell *matHeaderCellDef> Email </mat-header-cell>
+          <mat-cell *matCellDef="let entry">
+            <span *ngIf="!isEditing(entry)">{{ entry.email }}</span>
+            <input *ngIf="isEditing(entry)" [(ngModel)]="entry.email" (keyup.enter)="saveEdit(entry)">
+          </mat-cell>
+        </ng-container>
+
+        <!-- Status Column -->
+        <ng-container matColumnDef="status">
+          <mat-header-cell *matHeaderCellDef> Status </mat-header-cell>
+          <mat-cell *matCellDef="let entry">
+            <span *ngIf="!isEditing(entry)">{{ entry.status }}</span>
+            <input *ngIf="isEditing(entry)" [(ngModel)]="entry.status" (keyup.enter)="saveEdit(entry)">
+          </mat-cell>
+        </ng-container>
+
+        <!-- Time Column -->
+        <ng-container matColumnDef="time">
+          <mat-header-cell *matHeaderCellDef> Time </mat-header-cell>
+          <mat-cell *matCellDef="let entry">
+            <span *ngIf="!isEditing(entry)">{{ entry.time }}</span>
+            <input *ngIf="isEditing(entry)" [(ngModel)]="entry.time" (keyup.enter)="saveEdit(entry)">
+          </mat-cell>
+        </ng-container>
+
+        <!-- Is Public Column -->
+        <ng-container matColumnDef="is_public">
+          <mat-header-cell *matHeaderCellDef> Is Public </mat-header-cell>
+          <mat-cell *matCellDef="let entry">
+            <span *ngIf="!isEditing(entry)">{{ entry.is_public }}</span>
+            <input *ngIf="isEditing(entry)" type="checkbox" [(ngModel)]="entry.is_public" (keyup.enter)="saveEdit(entry)">
+          </mat-cell>
+        </ng-container>
+
+        <!-- Accuracy Column -->
+        <ng-container matColumnDef="accuracy">
+          <mat-header-cell *matHeaderCellDef> Accuracy </mat-header-cell>
+          <mat-cell *matCellDef="let entry">
+            <span *ngIf="!isEditing(entry)">{{ entry.accuracy | number: '1.2-2' }}</span>
+            <input *ngIf="isEditing(entry)" [(ngModel)]="entry.accuracy" (keyup.enter)="saveEdit(entry)">
+          </mat-cell>
+        </ng-container>
+
+        <!-- Precision Column -->
+        <ng-container matColumnDef="precision">
+          <mat-header-cell *matHeaderCellDef> Precision </mat-header-cell>
+          <mat-cell *matCellDef="let entry">
+            <span *ngIf="!isEditing(entry)">{{ entry.precision | number: '1.2-2' }}</span>
+            <input *ngIf="isEditing(entry)" [(ngModel)]="entry.precision" (keyup.enter)="saveEdit(entry)">
+          </mat-cell>
+        </ng-container>
+
+        <!-- Recall Column -->
+        <ng-container matColumnDef="recall">
+          <mat-header-cell *matHeaderCellDef> Recall </mat-header-cell>
+          <mat-cell *matCellDef="let entry">
+            <span *ngIf="!isEditing(entry)">{{ entry.recall | number: '1.2-2'}}</span>
+            <input *ngIf="isEditing(entry)" [(ngModel)]="entry.recall" (keyup.enter)="saveEdit(entry)">
+          </mat-cell>
+        </ng-container>
+
+        <!-- F1 Score Column -->
+        <ng-container matColumnDef="f1_score">
+          <mat-header-cell *matHeaderCellDef> F1 Score </mat-header-cell>
+          <mat-cell *matCellDef="let entry">
+            <span *ngIf="!isEditing(entry)">{{ entry.f1_score | number: '1.2-2' }}</span>
+            <input *ngIf="isEditing(entry)" [(ngModel)]="entry.f1_score" (keyup.enter)="saveEdit(entry)">
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+          <mat-header-cell *matHeaderCellDef class="actions-cell"> Actions </mat-header-cell>
+          <mat-cell *matCellDef="let entry" class="actions-cell">
+            <button *ngIf="!isEditing(entry)" mat-button (click)="editRow(entry)">Edit</button>
+            <button *ngIf="isEditing(entry)" mat-button (click)="saveEdit(entry)">Save</button>
+            <button *ngIf="isEditing(entry)" mat-button (click)="cancelEdit(entry)">Cancel</button>
+            <button mat-button color="warn" (click)="deleteRow(entry.id)">Delete</button>
+          </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+
+      </table>
+    </div>
+  </mat-card>
+</div>

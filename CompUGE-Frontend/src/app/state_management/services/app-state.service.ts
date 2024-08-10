@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import {environment} from "../../../environments/environment";
-import {BehaviorSubject, Observable} from "rxjs";
+import {BehaviorSubject, catchError, Observable} from "rxjs";
 import {HttpClient} from "@angular/common/http";
 import {StateModel} from "../models/state.model";
+import {AuthenticationService} from "./authentication.service";
 
 @Injectable({
   providedIn: 'root'
@@ -15,19 +16,30 @@ export class AppStateService {
       leaderboards: [],
       submissions: [],
       datasets: [],
-      tasks: []
+      tasks: [],
+      controlPanelSubmissions: [],
+      adminSessionStatus: ''
       }
   );
 
   public readonly state$ = this._state.asObservable();
 
-  constructor(public http: HttpClient) {
+  constructor(public http: HttpClient,
+              public authService: AuthenticationService) {
     console.log('AppStateService created');
     console.log(this._apiUrl)
     this.updateTasks();
     this.updateDatasets();
     this.updateLeaderboards();
     this.updateSubmissions();
+    authService.$authStatus.subscribe(
+      (status: string) => {
+        this._setState({
+          ...this.getState(),
+          adminSessionStatus: status
+        });
+      }
+    );
   }
 
   private _setState(state: StateModel): void {
@@ -99,6 +111,52 @@ export class AppStateService {
           ...this.getState(),
           submissions: data
         });
+      }
+    );
+  }
+
+  public authenticate(password : string) {
+    this.authService.login(password).subscribe(
+      () => {
+        this.updateControlPanel();
+      }
+    );
+  }
+
+  public updateControlPanel() {
+    const headers = this.authService.getAuthHeaders();
+    this.http.get(`${this._apiUrl}/controlPanelSubmissions`, { headers }).subscribe(
+      (data: any) => {
+        this._setState({
+          ...this.getState(),
+          controlPanelSubmissions: data
+        });
+      }
+    );
+  }
+
+  public forceUpdateSubmission(entry: any){
+    const headers = this.authService.getAuthHeaders();
+    this.http.put(`${this._apiUrl}/controlPanelSubmission/${entry.id}`, entry, { headers }).subscribe(
+      () => {
+        this.updateControlPanel();
+      }
+    );
+  }
+
+  public deleteSubmission(id: number){
+    const headers = this.authService.getAuthHeaders();
+    console.log('Deleting submission with id: ' + id);
+    this.http.delete(`${this._apiUrl}/controlPanelSubmission/` + id, { headers })
+      .pipe(
+        catchError(error => {
+          console.log(error);
+          return error;
+        }
+      ))
+      .subscribe(
+      () => {
+        this.updateControlPanel();
       }
     );
   }

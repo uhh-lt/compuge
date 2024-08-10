@@ -1,8 +1,10 @@
-fastapi
+fastapi[all]
 SQLAlchemy
 cython
 psycopg2-binary
-uvicorn
 pandas
 numpy
 scikit-learn
+pyjwt
+passlib[bcrypt]
+bcrypt==4.0.1

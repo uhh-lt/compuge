@@ -1,7 +1,7 @@
 from sqlalchemy.exc import IntegrityError
 
 import repositories.db_engine as engine
-from repositories.db_engine import Submission
+from repositories.db_engine import Submission, Leaderboard
 
 
 # Insert a leaderboard record
@@ -45,3 +45,51 @@ def query_data_by_task_and_dataset_and_model(task, dataset, model):
 
 def query_all():
     return engine.session.query(Submission).all()
+
+
+def query_all_with_leaderboard_entries():
+    results = (engine.session.query(
+            Submission.id,
+            Leaderboard.accuracy,
+            Leaderboard.precision,
+            Leaderboard.recall,
+            Leaderboard.f1_score,
+            Submission.task,
+            Submission.dataset,
+            Submission.model,
+            Submission.link,
+            Submission.team,
+            Submission.email,
+            Submission.is_public,
+            Submission.status,
+            Submission.time
+        ).
+               join(Submission, Leaderboard.submission_id == Submission.id).
+               all())
+    return results
+
+
+# Update a submission record in the database with the new data provided in the submission object parameter
+def update_submission(submission):
+    try:
+        engine.session.add(submission)
+        engine.session.commit()
+    except IntegrityError as e:
+        print(f"Error: {e}")
+        engine.session.rollback()
+        return False
+    print("Data updated successfully!")
+    return True
+
+
+def query_data_by_id(sub_id):
+    return engine.session.query(Submission).filter(Submission.id == sub_id).first()
+
+
+def delete_data(sub_id):
+    submission = query_data_by_id(sub_id)
+    if submission is None:
+        return "Submission not found"
+    engine.session.delete(submission)
+    engine.session.commit()
+    return "Submission deleted successfully"

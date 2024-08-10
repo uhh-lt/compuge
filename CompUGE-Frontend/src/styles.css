@@ -2,9 +2,7 @@
 
 html, body { height: 100%; }
 body {
-  margin-left: 3%;
-  margin-right: 3%;
-  margin-top: 0;
+  margin: 1%;
   font-family: Roboto, "Helvetica Neue", sans-serif;
   font-size: 15px;
 }

@@ -7,6 +7,8 @@ import {DatasetsComponent} from "./components/body/datasets/datasets.component";
 import {AboutComponent} from "./components/body/about/about.component";
 import {TaskComponent} from "./components/body/tasks/task/task.component";
 import {SubmittingComponent} from "./components/body/submitting/submitting.component";
+import {ControlPanelComponent} from "./components/body/control-panel/control-panel.component";
+import {AdminLoginComponent} from "./components/body/control-panel/admin-login/admin-login.component";
 
 export const routes: Routes = [
   {path: '', component : BodyComponent},
@@ -18,4 +20,5 @@ export const routes: Routes = [
   {path: 'about', component: AboutComponent},
   {path: 'leaderboards', component: LeaderboardsComponent},
   {path: 'leaderboards/:task', component: LeaderboardsComponent},
+  {path: 'control', component: ControlPanelComponent},
 ];

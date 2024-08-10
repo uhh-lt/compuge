@@ -1,12 +1,17 @@
 import json
+from datetime import timedelta
 
 import fastapi
 from fastapi.middleware.cors import CORSMiddleware
+
 import repositories.db_engine as db_engine
 import services.dataset_service as ds_service
 import services.leaderboards_service as lb_service
 import services.submissions_service as sub_service
 from dtos import TaskDTO
+from fastapi import Depends, HTTPException, status
+from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
+import services.authentication_service as auth_service
 
 app = fastapi.FastAPI()
 
@@ -30,7 +35,6 @@ with open("tasks.json", "r") as tasks_file:
 @app.get("/api/ping")
 def ping():
     return db_engine.check_db_connection()
-
 
 
 @app.get("/api/")
@@ -88,3 +92,39 @@ def submit(task: str, dataset: str, submission_dict: dict):
     elif response == "Submission failed due to persistence error":
         return fastapi.Response(content=response, status_code=500)
     return response
+
+
+# ====================== Authentication ==========================
+# OAuth2 scheme
+
+# OAuth2 scheme
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
+
+
+@app.post("/api/token")
+async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends()):
+    if not auth_service.authenticate_password(form_data.password):
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Incorrect password",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
+    access_token_expires = timedelta(minutes=30)
+    access_token = auth_service.create_access_token(data={"sub": "authenticated_user"},
+                                                    expires_delta=access_token_expires)
+    return {"access_token": access_token, "token_type": "bearer"}
+
+
+@app.get("/api/controlPanelSubmissions")
+async def controlPanelSubmissions(token: str = Depends(oauth2_scheme)):
+    return sub_service.get_submissions_with_their_leaderboard_entries()
+
+
+@app.put("/api/controlPanelSubmission/{sub_id}")
+async def forceUpdateSubmission(sub_id: int, submission: dict, token: str = Depends(oauth2_scheme)):
+    return sub_service.force_update_submission(sub_id, submission)
+
+
+@app.delete("/api/controlPanelSubmission/{sub_id}")
+async def deleteSubmission(sub_id: int, token: str = Depends(oauth2_scheme)):
+    return sub_service.delete_submission(sub_id)

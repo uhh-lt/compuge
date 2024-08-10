@@ -84,3 +84,28 @@ def query_all():
     )
 
     return results
+
+# Update a leaderboard record
+def update_entry(data):
+    try:
+        engine.session.add(data)
+        engine.session.commit()
+    except IntegrityError as e:
+        print(f"Error: {e}")
+        engine.session.rollback()
+        return False
+    print("Data updated successfully!")
+    return True
+
+
+def query_data_by_submission_id(sub_id):
+    return engine.session.query(Leaderboard).filter(Leaderboard.submission_id == sub_id).first()
+
+
+def delete_data(sub_id):
+    record = query_data_by_submission_id(sub_id)
+    if record is None:
+        return "Record not found"
+    engine.session.delete(record)
+    engine.session.commit()
+    return "Record deleted successfully"

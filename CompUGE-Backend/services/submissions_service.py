@@ -62,3 +62,68 @@ def evaluate_model(labels, predictions):
 
 def get_submissions():
     return sub_repo.query_all()
+
+
+'''
+Leaderboard.accuracy,
+            Leaderboard.precision,
+            Leaderboard.recall,
+            Leaderboard.f1_score,
+            Submission.task,
+            Submission.dataset,
+            Submission.model,
+            Submission.link,
+            Submission.team,
+            Submission.email,
+            Submission.is_public
+            '''
+
+
+def get_submissions_with_their_leaderboard_entries():
+    result = sub_repo.query_all_with_leaderboard_entries()
+    result_dict = [
+        {
+            'id': r.id,
+            'accuracy': r.accuracy,
+            'precision': r.precision,
+            'recall': r.recall,
+            'f1_score': r.f1_score,
+            'task': r.task,
+            'dataset': r.dataset,
+            'model': r.model,
+            'link': r.link,
+            'team': r.team,
+            'email': r.email,
+            'is_public': r.is_public,
+            'status': r.status,
+            'time': r.time
+        }
+        for r in result
+    ]
+    return result_dict
+
+
+def force_update_submission(sub_id, submission_dict):
+    submission = sub_repo.query_data_by_id(sub_id)
+    leaderboardEntry = ld_repo.query_data_by_submission_id(sub_id)
+    if submission is None:
+        return "Submission not found"
+    # for each key in the submission_dict, update the submission object
+    for key in submission_dict:
+        if hasattr(submission, key):
+            setattr(submission, key, submission_dict[key])
+        elif hasattr(leaderboardEntry, key):
+            setattr(leaderboardEntry, key, submission_dict[key])
+
+    sub_repo.update_submission(submission)
+    ld_repo.update_entry(leaderboardEntry)
+    return "Submission updated successfully"
+
+
+def delete_submission(sub_id):
+    submission = sub_repo.query_data_by_id(sub_id)
+    if submission is None:
+        return "Submission not found"
+    ld_repo.delete_data(sub_id)
+    sub_repo.delete_data(sub_id)
+    return "Submission deleted successfully"
