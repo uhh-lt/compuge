@@ -64,21 +64,6 @@ def get_submissions():
     return sub_repo.query_all()
 
 
-'''
-Leaderboard.accuracy,
-            Leaderboard.precision,
-            Leaderboard.recall,
-            Leaderboard.f1_score,
-            Submission.task,
-            Submission.dataset,
-            Submission.model,
-            Submission.link,
-            Submission.team,
-            Submission.email,
-            Submission.is_public
-            '''
-
-
 def get_submissions_with_their_leaderboard_entries():
     result = sub_repo.query_all_with_leaderboard_entries()
     result_dict = [

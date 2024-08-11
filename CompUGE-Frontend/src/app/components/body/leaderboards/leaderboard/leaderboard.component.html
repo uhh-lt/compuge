@@ -1,84 +1,66 @@
 <mat-card>
   <button mat-raised-button color="primary" (click)="refresh()">Refresh Leaderboard</button>
-  <table mat-table [dataSource]=dataSource>
+  <table mat-table [dataSource]="dataSource" matSort>
 
+    <!-- Index Column -->
+    <ng-container matColumnDef="index">
+      <mat-header-cell *matHeaderCellDef> # </mat-header-cell>
+      <mat-cell *matCellDef="let entry; let i = index"> {{i + 1}} </mat-cell>
+    </ng-container>
+
+    <!-- Model Column -->
     <ng-container matColumnDef="model">
-      <mat-header-cell
-        *matHeaderCellDef
-      >
-        Model
-      </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Model </mat-header-cell>
       <mat-cell *matCellDef="let entry">
         <a *ngIf="entry.is_public" [href]="entry.link" target="_blank"> {{ entry.model }}</a>
         <span *ngIf="entry.isPublic">{{ entry.model }}</span>
       </mat-cell>
     </ng-container>
 
+    <!-- Team Column -->
     <ng-container matColumnDef="team">
-      <mat-header-cell
-        *matHeaderCellDef
-      >
-        Team
-      </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Team </mat-header-cell>
       <mat-cell *matCellDef="let entry">
         <a *ngIf="entry.is_public" [href]="'mailto:' + entry.email" target="_blank"> {{ entry.team }}</a>
         <span *ngIf="!entry.is_public">{{ entry.team }}</span>
       </mat-cell>
     </ng-container>
 
+    <!-- Predictions Column -->
     <ng-container matColumnDef="predictions">
-      <mat-header-cell
-        *matHeaderCellDef
-      >
-        Predictions
-      </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef> Predictions </mat-header-cell>
       <mat-cell *matCellDef="let entry">
         <a *ngIf="entry.is_public" [href]="getTextDownloadURL(entry.predictions)" target="_blank" download="{{entry.model + '-predictions.txt'}}">Download</a>
         <span *ngIf="!entry.is_public">Private</span>
       </mat-cell>
     </ng-container>
 
+    <!-- Accuracy Column -->
     <ng-container matColumnDef="accuracy">
-      <mat-header-cell
-        *matHeaderCellDef
-      >
-        Accuracy
-      </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Accuracy </mat-header-cell>
       <mat-cell *matCellDef="let entry">{{ entry.accuracy | number: '1.2-2' }}</mat-cell>
     </ng-container>
 
+    <!-- Precision Column -->
     <ng-container matColumnDef="precision">
-      <mat-header-cell
-        *matHeaderCellDef
-      >
-        Precision
-      </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Precision </mat-header-cell>
       <mat-cell *matCellDef="let entry">{{ entry.precision | number: '1.2-2' }}</mat-cell>
     </ng-container>
 
+    <!-- Recall Column -->
     <ng-container matColumnDef="recall">
-      <mat-header-cell
-        *matHeaderCellDef
-      >
-        Recall
-      </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Recall </mat-header-cell>
       <mat-cell *matCellDef="let entry">{{ entry.recall | number: '1.2-2'}}</mat-cell>
     </ng-container>
 
-    <ng-container matColumnDef="f1">
-      <mat-header-cell
-        *matHeaderCellDef
-      >
-        F1
-      </mat-header-cell>
+    <!-- F1 Column -->
+    <ng-container matColumnDef="f1_score">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> F1 </mat-header-cell>
       <mat-cell *matCellDef="let entry">{{ entry.f1_score | number: '1.2-2' }}</mat-cell>
     </ng-container>
 
-
-
-    <mat-header-row
-      *matHeaderRowDef="displayedColumns; sticky: true"
-    ></mat-header-row>
+    <!-- Header and Row Declarations -->
+    <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
     <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
   </table>
 </mat-card>

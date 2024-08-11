@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {AfterViewInit, Component, Input, OnInit, ViewChild} from '@angular/core';
 import {MatCard, MatCardActions, MatCardContent} from "@angular/material/card";
 import {MatFormField, MatLabel} from "@angular/material/form-field";
 import {MatInput} from "@angular/material/input";
@@ -21,6 +21,7 @@ import {
 import {LeaderboardEntry} from "../../../state_management/models/leaderboard-entry.model";
 import {SubmissionEntry} from "../../../state_management/models/submission-entry.model";
 import {MatTab, MatTabGroup} from "@angular/material/tabs";
+import {MatSort, MatSortModule} from "@angular/material/sort";
 
 @Component({
   selector: 'app-submissions',
@@ -48,14 +49,17 @@ import {MatTab, MatTabGroup} from "@angular/material/tabs";
     MatTable,
     MatHeaderCellDef,
     MatTabGroup,
-    MatTab
+    MatTab,
+    MatSort,
+    MatSortModule
   ],
   templateUrl: './submissions.component.html',
   styleUrl: './submissions.component.css'
 })
-export class SubmissionsComponent implements OnInit {
+export class SubmissionsComponent implements OnInit, AfterViewInit {
 
   displayedColumns: string[] = [
+    'index',
     'team',
     'model',
     'task',
@@ -65,6 +69,12 @@ export class SubmissionsComponent implements OnInit {
     'time',
   ];
 
+  @ViewChild(MatSort) sort: MatSort | undefined;
+
+  ngAfterViewInit() {
+    if (this.sort)
+      this.dataSource.sort = this.sort;
+  }
   @Input()
   task: string = '';
 

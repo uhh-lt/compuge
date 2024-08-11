@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {AfterViewInit, Component, Input, OnInit, ViewChild} from '@angular/core';
 import {MatCard} from "@angular/material/card";
 import {
   MatCell,
@@ -13,6 +13,7 @@ import {MatButton} from "@angular/material/button";
 import {AppStateService} from "../../../../state_management/services/app-state.service";
 import {map} from "rxjs";
 import {DecimalPipe, NgIf} from "@angular/common";
+import {MatSort, MatSortModule} from "@angular/material/sort";
 
 @Component({
   selector: 'app-leaderboard',
@@ -31,21 +32,24 @@ import {DecimalPipe, NgIf} from "@angular/common";
     MatRowDef,
     MatButton,
     NgIf,
-    DecimalPipe
+    DecimalPipe,
+    MatSort,
+    MatSortModule
   ],
   templateUrl: './leaderboard.component.html',
   styleUrl: './leaderboard.component.css'
 })
-export class LeaderboardComponent implements OnInit {
+export class LeaderboardComponent implements OnInit, AfterViewInit {
 
   displayedColumns: string[] = [
+    'index',
     'model',
     'team',
     'predictions',
     'accuracy',
     'precision',
     'recall',
-    'f1'
+    'f1_score'
   ];
 
   @Input()
@@ -57,6 +61,12 @@ export class LeaderboardComponent implements OnInit {
   dataSource = new MatTableDataSource<LeaderboardEntry>();
   leaderboards = this.stateService.state$.pipe(map(state => state.leaderboards));
 
+  @ViewChild(MatSort) sort: MatSort | undefined;
+
+  ngAfterViewInit() {
+    if (this.sort)
+      this.dataSource.sort = this.sort;
+  }
 
   constructor(private stateService: AppStateService) {
 

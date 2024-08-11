@@ -1,90 +1,70 @@
-<!---
-  This component is used to display a list of submissions for all users, and allows a new submission to be made.
--->
-
 <mat-card>
   <mat-card-content>
     <button mat-raised-button color="primary" style="width: 100%" (click)="refresh()">Refresh Submissions</button>
   </mat-card-content>
 
-  <table mat-table [dataSource]=dataSource>
+  <table mat-table [dataSource]="dataSource" matSort>
 
+    <!-- Index Column -->
+    <ng-container matColumnDef="index">
+      <mat-header-cell *matHeaderCellDef> # </mat-header-cell>
+      <mat-cell *matCellDef="let entry; let i = index"> {{i + 1}} </mat-cell>
+    </ng-container>
+
+    <!-- Team Column -->
     <ng-container matColumnDef="team">
-      <mat-header-cell
-        *matHeaderCellDef
-      >
-        Team
-      </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Team </mat-header-cell>
       <mat-cell *matCellDef="let entry">
         <a *ngIf="entry.is_public" [href]="'mailto:' + entry.email" target="_blank"> {{ entry.team }}</a>
         <span *ngIf="!entry.is_public">{{ entry.team }}</span>
       </mat-cell>
     </ng-container>
 
+    <!-- Task Column -->
     <ng-container matColumnDef="task">
-      <mat-header-cell
-        *matHeaderCellDef
-      >
-        Task
-      </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Task </mat-header-cell>
       <mat-cell *matCellDef="let entry">{{ entry.task }}</mat-cell>
     </ng-container>
 
+    <!-- Dataset Column -->
     <ng-container matColumnDef="dataset">
-      <mat-header-cell
-        *matHeaderCellDef
-      >
-        Dataset
-      </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Dataset </mat-header-cell>
       <mat-cell *matCellDef="let entry">{{ entry.dataset }}</mat-cell>
     </ng-container>
 
+    <!-- Model Column -->
     <ng-container matColumnDef="model">
-      <mat-header-cell
-        *matHeaderCellDef
-      >
-        Model
-      </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Model </mat-header-cell>
       <mat-cell *matCellDef="let entry">
         <a *ngIf="entry.is_public" [href]="entry.link" target="_blank"> {{ entry.model }}</a>
         <span *ngIf="entry.isPublic">{{ entry.model }}</span>
       </mat-cell>
     </ng-container>
 
+    <!-- Predictions Column -->
     <ng-container matColumnDef="predictions">
-      <mat-header-cell
-        *matHeaderCellDef
-      >
-        Predictions
-      </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef> Predictions </mat-header-cell>
       <mat-cell *matCellDef="let entry">
         <a *ngIf="entry.is_public" [href]="getTextDownloadURL(entry.predictions)" target="_blank" download="{{entry.model + '-predictions.txt'}}">Download</a>
         <span *ngIf="!entry.is_public">Private</span>
       </mat-cell>
     </ng-container>
 
+    <!-- Status Column -->
     <ng-container matColumnDef="status">
-      <mat-header-cell
-        *matHeaderCellDef
-      >
-        Status
-      </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Status </mat-header-cell>
       <mat-cell *matCellDef="let entry">{{ entry.status }}</mat-cell>
     </ng-container>
 
+    <!-- Time Column -->
     <ng-container matColumnDef="time">
-      <mat-header-cell
-        *matHeaderCellDef
-      >
-        Time
-      </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Time </mat-header-cell>
       <mat-cell *matCellDef="let entry">{{ entry.time }}</mat-cell>
     </ng-container>
 
-
-    <mat-header-row
-      *matHeaderRowDef="displayedColumns; sticky: true"
-    ></mat-header-row>
+    <!-- Header and Row Declarations -->
+    <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
     <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+
   </table>
 </mat-card>
