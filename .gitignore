@@ -141,3 +141,4 @@ node_modules/
 # Git metadata
 *.git/
 model/
+*.DS_Store
