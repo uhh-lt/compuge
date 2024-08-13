@@ -1,15 +1,36 @@
 import os
-
+import logging
 from sqlalchemy import create_engine, Column, String, Float, Integer, ForeignKey, Boolean, Text
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, relationship
 
+# Set up logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+
+# Get database URL from environment variable or use a default value
 DB_URL = os.environ.get('DB_URL', 'postgresql+psycopg2://postgres:@localhost:5432/postgres')
 
-# Create an engine
-engine = create_engine(DB_URL)
-Session = sessionmaker(bind=engine)
-session = Session()
+try:
+    # Create an engine
+    engine = create_engine(DB_URL)
+    logger.info("Database engine created successfully.")
+except Exception as e:
+    logger.error(f"Failed to create database engine: {e}")
+    raise
+
+try:
+    # Create a configured "Session" class
+    Session = sessionmaker(bind=engine)
+    # Create a Session
+    session = Session()
+    logger.info("Database session created successfully.")
+except Exception as e:
+    logger.error(f"Failed to create database session: {e}")
+    raise
+
+# Base class for declarative models
 Base = declarative_base()
 
 
@@ -58,13 +79,21 @@ class Leaderboard(Base):
 # Define the back_populates relationship in Submission
 Submission.leaderboard_entry = relationship('Leaderboard', order_by=Leaderboard.id, back_populates='submission')
 
-Base.metadata.create_all(engine)
+try:
+    # Create all tables in the database which are defined by Base's subclasses
+    Base.metadata.create_all(engine)
+    logger.info("All tables created successfully.")
+except Exception as e:
+    logger.error(f"Failed to create tables: {e}")
+    raise
 
 
-# a method to check the database connection
+# A method to check the database connection
 def check_db_connection():
     try:
         session.execute('SELECT 1')
+        logger.info("Database connection check succeeded.")
+        return "pong"
     except Exception as e:
+        logger.error(f"Database connection failed: {e}")
         return f"Database connection failed: {str(e)}"
-    return "pong"

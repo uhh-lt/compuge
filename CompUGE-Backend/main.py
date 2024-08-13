@@ -1,17 +1,16 @@
 import json
 from datetime import timedelta
-
 import fastapi
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi import Depends, HTTPException, status, Body
+from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 
 import repositories.db_engine as db_engine
 import services.dataset_service as ds_service
 import services.leaderboards_service as lb_service
 import services.submissions_service as sub_service
-from dtos import TaskDTO
-from fastapi import Depends, HTTPException, status
-from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 import services.authentication_service as auth_service
+from dtos import TaskDTO
 
 app = fastapi.FastAPI()
 
@@ -49,8 +48,7 @@ def root():
 
 @app.get("/api/leaderboards")
 def leaderboards():
-    lbs = lb_service.get_leaderboards()
-    return lbs
+    return lb_service.get_leaderboards()
 
 
 @app.get("/api/leaderboard/{task}/{dataset}")
@@ -60,8 +58,7 @@ def leaderboard(task: str, dataset: str):
 
 @app.get("/api/submissions")
 def submissions():
-    subs = sub_service.get_submissions()
-    return subs
+    return sub_service.get_submissions()
 
 
 @app.get("/api/tasks")
@@ -85,13 +82,17 @@ def get_datasets_per_task(task: str):
 
 
 @app.post("/api/submission/{task}/{dataset}")
-def submit(task: str, dataset: str, submission_dict: dict):
-    response = sub_service.submit_solution(task, dataset, submission_dict)
-    if response == "Submission failed due to mismatch in the test set":
-        return fastapi.Response(content=response, status_code=400)
-    elif response == "Submission failed due to persistence error":
-        return fastapi.Response(content=response, status_code=500)
-    return response
+def submit(task: str, dataset: str, submission_dict: dict = Body(...)):
+    # Input validation
+    if not submission_dict.get("modelName") or not submission_dict.get("modelLink"):
+        raise HTTPException(status_code=400, detail="Invalid input: 'modelName' and 'modelLink' are required fields.")
+    if not submission_dict.get("teamName") or not submission_dict.get("contactEmail"):
+        raise HTTPException(status_code=400, detail="Invalid input: 'teamName' and 'contactEmail' are required fields.")
+    if not submission_dict.get("fileContent"):
+        raise HTTPException(status_code=400, detail="Invalid input: 'fileContent' is required.")
+
+    # Proceed with submission processing
+    return sub_service.submit_solution(task, dataset, submission_dict)
 
 
 # ====================== Authentication ==========================
@@ -102,14 +103,20 @@ oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/token")
 
 def get_current_user(token: str = Depends(oauth2_scheme)):
     """Dependency that extracts and verifies the current user from the token."""
-    payload = auth_service.decode_token(token)
-    user = payload.get("sub")
-    if user != "admin":  # The username is always "admin"
+    try:
+        payload = auth_service.decode_token(token)
+        user = payload.get("sub")
+        if user != "admin":  # The username is always "admin"
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="Invalid credentials",
+            )
+        return user  # This will return "admin"
+    except Exception:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Invalid credentials",
+            detail="Invalid token or credentials",
         )
-    return user  # This will return "admin"
 
 
 @app.post("/api/token")
@@ -135,6 +142,9 @@ async def control_panel_submissions(current_user: str = Depends(get_current_user
 async def force_update_submission(sub_id: int,
                                   submission: dict,
                                   current_user: str = Depends(get_current_user)):
+    # Validate submission update input
+    if not submission:
+        raise HTTPException(status_code=400, detail="Invalid input: update data is required.")
     return sub_service.force_update_submission(sub_id, submission)
 
 
