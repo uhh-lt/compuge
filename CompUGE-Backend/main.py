@@ -1,14 +1,15 @@
 import json
 from datetime import timedelta
+
 import fastapi
-from fastapi.middleware.cors import CORSMiddleware
 from fastapi import Depends, HTTPException, status, Body
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 
 import repositories.db_engine as db_engine
+import services.authentication_service as auth_service
 import services.dataset_service as ds_service
 import services.submissions_service as sub_service
-import services.authentication_service as auth_service
 from dtos import TaskDTO
 
 app = fastapi.FastAPI()
@@ -127,12 +128,12 @@ async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(
     return {"access_token": access_token, "token_type": "bearer"}
 
 
-@app.get("/api/controlPanelSubmissions")
+@app.get("/api/control-panel-submissions")
 async def control_panel_submissions(current_user: str = Depends(get_current_user)):
     return sub_service.get_submission_for_control_panel()
 
 
-@app.put("/api/updateSubmission/{sub_id}")
+@app.put("/api/submission/{sub_id}")
 async def update_submission(sub_id: int,
                             submission: dict,
                             current_user: str = Depends(get_current_user)):
@@ -151,7 +152,7 @@ async def update_submission(sub_id: int,
         raise HTTPException(status_code=500, detail=f"An unexpected error occurred in update_submission")
 
 
-@app.delete("/api/deleteSubmission/{sub_id}")
+@app.delete("/api/submission/{sub_id}")
 async def delete_submission(sub_id: int, current_user: str = Depends(get_current_user)):
     ret = sub_service.delete_submission(sub_id)
     switcher = {
@@ -160,4 +161,3 @@ async def delete_submission(sub_id: int, current_user: str = Depends(get_current
         "Error deleting submission data from the database": status.HTTP_500_INTERNAL_SERVER_ERROR,
     }
     return {"message": ret}, switcher.get(ret, status.HTTP_500_INTERNAL_SERVER_ERROR)
-

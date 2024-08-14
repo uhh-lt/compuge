@@ -1,6 +1,6 @@
 import os
 import logging
-from sqlalchemy import create_engine, Column, String, Float, Integer, ForeignKey, Boolean, Text
+from sqlalchemy import create_engine, Column, String, Float, Integer, ForeignKey, Boolean, Text, text
 from sqlalchemy.exc import IntegrityError, SQLAlchemyError
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, relationship
@@ -78,6 +78,7 @@ class Leaderboard(Base):
     def __str__(self):
         return f"<Leaderboard(id='{self.id}', submission_id='{self.submission_id}', accuracy='{self.accuracy}', precision='{self.precision}', recall='{self.recall}', f1_score='{self.f1_score}')>"
 
+
 try:
     # Create all tables in the database which are defined by Base's subclasses
     Base.metadata.create_all(engine)
@@ -90,7 +91,7 @@ except Exception as e:
 # A method to check the database connection
 def check_db_connection():
     try:
-        session.execute('SELECT 1')
+        session.execute(text("SELECT 1"))
         logger.info("Database connection check succeeded.")
         return "pong"
     except Exception as e:

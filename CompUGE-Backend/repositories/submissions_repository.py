@@ -1,4 +1,6 @@
 import logging
+
+from sqlalchemy import text
 from sqlalchemy.exc import IntegrityError, SQLAlchemyError
 
 from repositories.db_engine import Submission, session, Leaderboard
@@ -42,7 +44,8 @@ def query_all_with_eval_metrics():
             Submission.email,
             Submission.is_public,
             Submission.status,
-            Submission.time
+            Submission.time,
+            Submission.predictions,
         )
                    .join(Leaderboard, Leaderboard.submission_id == Submission.id)
                    .all())
@@ -60,9 +63,7 @@ def query_submission_by_id(sub_id):
     :return: a submission object with the same ID or None if an error occurred
     """
     try:
-        result = session.execute(
-            f"SELECT * FROM submission WHERE id = {sub_id}"
-        )
+        result = session.query(Submission).filter(Submission.id == sub_id).first()
         logger.info(f"Queried data by submission ID: {sub_id}")
         return result
     except SQLAlchemyError as e:
@@ -77,9 +78,7 @@ def query_leaderboard_by_submission_id(sub_id):
     :return: a leaderboard object with the same submission ID or None if an error occurred
     """
     try:
-        result = session.execute(
-            f"SELECT * FROM leaderboard WHERE submission_id = {sub_id}"
-        )
+        result = session.query(Leaderboard).filter(Leaderboard.submission_id == sub_id).first()
         logger.info(f"Queried leaderboard by submission ID: {sub_id}")
         return result
     except SQLAlchemyError as e:
@@ -96,6 +95,7 @@ def insert_data(submission, leaderboard):
     """
     try:
         session.add(submission)
+        session.flush()
         leaderboard.submission_id = submission.id
         session.add(leaderboard)
         session.commit()
