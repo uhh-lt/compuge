@@ -1,107 +1,34 @@
 import logging
 from sqlalchemy.exc import IntegrityError, SQLAlchemyError
 
-import repositories.db_engine as engine
-from repositories.db_engine import Submission, Leaderboard
+from repositories.db_engine import Submission, session, Leaderboard
 
 # Set up logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 
-# Insert a submission record
-def insert_data(data):
-    try:
-        engine.session.add(data)
-        engine.session.commit()
-        logger.info("Data inserted successfully!")
-        return True
-    except IntegrityError as e:
-        logger.error(f"IntegrityError while inserting data: {e}")
-        engine.session.rollback()
-        return False
-    except SQLAlchemyError as e:
-        logger.error(f"SQLAlchemyError while inserting data: {e}")
-        engine.session.rollback()
-        return False
-    except Exception as e:
-        logger.error(f"Unexpected error while inserting data: {e}")
-        engine.session.rollback()
-        return False
-
-
-# Query data by task
-def query_data_by_task(task):
-    try:
-        results = engine.session.query(Submission).filter(Submission.task == task).all()
-        logger.info(f"Queried data by task: {task}")
-        return results
-    except SQLAlchemyError as e:
-        logger.error(f"SQLAlchemyError while querying data by task {task}: {e}")
-        return []
-
-
-# Query data by model
-def query_data_by_model(model):
-    try:
-        results = engine.session.query(Submission).filter(Submission.model == model).all()
-        logger.info(f"Queried data by model: {model}")
-        return results
-    except SQLAlchemyError as e:
-        logger.error(f"SQLAlchemyError while querying data by model {model}: {e}")
-        return []
-
-
-# Query data by task and model
-def query_data_by_task_and_model(task, model):
-    try:
-        result = engine.session.query(Submission).filter(Submission.task == task, Submission.model == model).first()
-        logger.info(f"Queried data by task and model: task={task}, model={model}")
-        return result
-    except SQLAlchemyError as e:
-        logger.error(f"SQLAlchemyError while querying data by task and model: task={task}, model={model}: {e}")
-        return None
-
-
-# Query data by task and dataset
-def query_data_by_task_and_dataset(task, dataset):
-    try:
-        results = engine.session.query(Submission).filter(Submission.task == task, Submission.dataset == dataset).all()
-        logger.info(f"Queried data by task and dataset: task={task}, dataset={dataset}")
-        return results
-    except SQLAlchemyError as e:
-        logger.error(f"SQLAlchemyError while querying data by task and dataset: task={task}, dataset={dataset}: {e}")
-        return []
-
-
-# Query data by task, dataset, and model
-def query_data_by_task_and_dataset_and_model(task, dataset, model):
-    try:
-        results = engine.session.query(Submission).filter(Submission.task == task, Submission.dataset == dataset,
-                                                          Submission.model == model).all()
-        logger.info(f"Queried data by task, dataset, and model: task={task}, dataset={dataset}, model={model}")
-        return results
-    except SQLAlchemyError as e:
-        logger.error(
-            f"SQLAlchemyError while querying data by task, dataset, and model: task={task}, dataset={dataset}, model={model}: {e}")
-        return []
-
-
-# Query all submissions
 def query_all():
+    """
+    Query all submissions
+    :return: List of all submissions or None if an error occurred
+    """
     try:
-        results = engine.session.query(Submission).all()
+        results = session.query(Submission).all()
         logger.info("Queried all submissions")
         return results
     except SQLAlchemyError as e:
         logger.error(f"SQLAlchemyError while querying all submissions: {e}")
-        return []
+        return None
 
 
-# Query all submissions with leaderboard entries
-def query_all_with_leaderboard_entries():
+def query_all_with_eval_metrics():
+    """
+    Query all submissions with leaderboard entries (evaluation metrics) included
+    :return: List of all submissions with leaderboard entries or None if an error occurred
+    """
     try:
-        results = (engine.session.query(
+        results = (session.query(
             Submission.id,
             Leaderboard.accuracy,
             Leaderboard.precision,
@@ -123,33 +50,19 @@ def query_all_with_leaderboard_entries():
         return results
     except SQLAlchemyError as e:
         logger.error(f"SQLAlchemyError while querying all submissions with leaderboard entries: {e}")
-        return []
+        return None
 
 
-# Update a submission record
-def update_submission(submission):
+def query_submission_by_id(sub_id):
+    """
+    Query submission by ID
+    :param sub_id: the submission ID
+    :return: a submission object with the same ID or None if an error occurred
+    """
     try:
-        engine.session.add(submission)
-        engine.session.commit()
-        logger.info("Data updated successfully!")
-        return True
-    except IntegrityError as e:
-        logger.error(f"IntegrityError while updating submission: {e}")
-        engine.session.rollback()
-        return False
-    except SQLAlchemyError as e:
-        logger.error(f"SQLAlchemyError while updating submission: {e}")
-        engine.session.rollback()
-        return False
-    except Exception as e:
-        logger.error(f"Unexpected error while updating submission: {e}")
-        engine.session.rollback()
-        return False
-
-
-def query_data_by_id(sub_id):
-    try:
-        result = engine.session.query(Submission).filter(Submission.id == sub_id).first()
+        result = session.execute(
+            f"SELECT * FROM submission WHERE id = {sub_id}"
+        )
         logger.info(f"Queried data by submission ID: {sub_id}")
         return result
     except SQLAlchemyError as e:
@@ -157,21 +70,99 @@ def query_data_by_id(sub_id):
         return None
 
 
-def delete_data(sub_id):
+def query_leaderboard_by_submission_id(sub_id):
+    """
+    Query leaderboard entry by submission ID
+    :param sub_id: the submission ID
+    :return: a leaderboard object with the same submission ID or None if an error occurred
+    """
     try:
-        submission = query_data_by_id(sub_id)
+        result = session.execute(
+            f"SELECT * FROM leaderboard WHERE submission_id = {sub_id}"
+        )
+        logger.info(f"Queried leaderboard by submission ID: {sub_id}")
+        return result
+    except SQLAlchemyError as e:
+        logger.error(f"SQLAlchemyError while querying leaderboard by submission ID {sub_id}: {e}")
+        return None
+
+
+def insert_data(submission, leaderboard):
+    """
+    Insert submission and leaderboard data into the database
+    :param submission: the submission object
+    :param leaderboard: the leaderboard object
+    :return: True if the data was inserted successfully, False otherwise
+    """
+    try:
+        session.add(submission)
+        leaderboard.submission_id = submission.id
+        session.add(leaderboard)
+        session.commit()
+        logger.info("Data inserted successfully!")
+        return True
+    except IntegrityError as e:
+        logger.error(f"IntegrityError while inserting data: {e}")
+        session.rollback()
+        return False
+    except SQLAlchemyError as e:
+        logger.error(f"SQLAlchemyError while inserting data: {e}")
+        session.rollback()
+        return False
+    except Exception as e:
+        logger.error(f"Unexpected error while inserting data: {e}")
+        session.rollback()
+        return False
+
+
+def update_data(submission, leaderboard):
+    """
+    Update submission and leaderboard data in the database
+    :param submission: the updated submission object
+    :param leaderboard: the updated leaderboard object
+    :return: True if the data was updated successfully, False otherwise
+    """
+    try:
+        session.add(submission)
+        session.add(leaderboard)
+        session.commit()
+        logger.info("Data updated successfully!")
+        return True
+    except IntegrityError as e:
+        logger.error(f"IntegrityError while updating data: {e}")
+        session.rollback()
+        return False
+    except SQLAlchemyError as e:
+        logger.error(f"SQLAlchemyError while updating data: {e}")
+        session.rollback()
+        return False
+    except Exception as e:
+        logger.error(f"Unexpected error while updating data: {e}")
+        session.rollback()
+        return False
+
+
+def delete_submission(sub_id):
+    """
+    Delete submission and associated leaderboard entry
+    :param sub_id: the submission ID
+    :return: True if the submission was deleted successfully, False otherwise
+    """
+    try:
+        submission = query_submission_by_id(sub_id)
         if submission is None:
             logger.warning(f"Submission not found for ID: {sub_id}")
-            return "Submission not found"
-        engine.session.delete(submission)
-        engine.session.commit()
+            return False
+        # Delete the submission and associated leaderboard entry due to cascade delete
+        session.delete(submission)
+        session.commit()
         logger.info(f"Submission deleted successfully for ID: {sub_id}")
-        return "Submission deleted successfully"
+        return True
     except SQLAlchemyError as e:
         logger.error(f"SQLAlchemyError while deleting submission ID {sub_id}: {e}")
-        engine.session.rollback()
-        return "Error occurred while deleting the submission"
+        session.rollback()
+        return False
     except Exception as e:
         logger.error(f"Unexpected error while deleting submission ID {sub_id}: {e}")
-        engine.session.rollback()
-        return "Error occurred while deleting the submission"
+        session.rollback()
+        return False

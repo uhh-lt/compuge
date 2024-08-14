@@ -1,4 +1,5 @@
 import logging
+import os
 import time
 from datetime import datetime, timedelta, timezone
 
@@ -7,9 +8,9 @@ from fastapi import HTTPException, status
 from passlib.context import CryptContext
 
 # Configuration
-SECRET_KEY = "XBBXBBXBBX"  # Replace with a strong secret key
+SECRET_KEY = "I4X2mFx3Q-Kz9z5Yh8GqKRA87MvqEr9NeZyHsSx3P2fP_FK4-bSRK8_2DctRxFObhYzpHwvM9hYgUEs-VWJD0g"
 ALGORITHM = "HS256"
-PASSWORD = "IrinaIsTheBestSupervisor"  # Replace with your actual password
+PASSWORD = os.environ.get(" ADMIN_PASSWORD", "IrinaIsTheBestSupervisor")
 RATE_LIMIT_INTERVAL = 1  # 1 second
 
 # Password hashing

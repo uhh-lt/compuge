@@ -1,13 +1,13 @@
 import os
 import logging
 from sqlalchemy import create_engine, Column, String, Float, Integer, ForeignKey, Boolean, Text
+from sqlalchemy.exc import IntegrityError, SQLAlchemyError
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, relationship
 
 # Set up logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
-
 
 # Get database URL from environment variable or use a default value
 DB_URL = os.environ.get('DB_URL', 'postgresql+psycopg2://postgres:@localhost:5432/postgres')
@@ -49,6 +49,9 @@ class Submission(Base):
     status = Column(String, nullable=False)
     is_public = Column(Boolean, nullable=False)
 
+    # Define the relationship to the Leaderboard table
+    leaderboard_entry = relationship('Leaderboard', back_populates='submission', cascade="all, delete-orphan")
+
     def __repr__(self):
         return f"<Submission(id='{self.id}', time='{self.time}', task='{self.task}', dataset='{self.dataset}', model='{self.model}', link='{self.link}', team='{self.team}', email='{self.email}', predictions='{self.predictions}', status='{self.status}', is_public='{self.is_public}')>"
 
@@ -66,7 +69,7 @@ class Leaderboard(Base):
     recall = Column(Float, nullable=False)
     f1_score = Column(Float, nullable=False)
 
-    # Define the relationship to the Submission table
+    # Define the relationship back to the Submission table
     submission = relationship('Submission', back_populates='leaderboard_entry')
 
     def __repr__(self):
@@ -74,10 +77,6 @@ class Leaderboard(Base):
 
     def __str__(self):
         return f"<Leaderboard(id='{self.id}', submission_id='{self.submission_id}', accuracy='{self.accuracy}', precision='{self.precision}', recall='{self.recall}', f1_score='{self.f1_score}')>"
-
-
-# Define the back_populates relationship in Submission
-Submission.leaderboard_entry = relationship('Leaderboard', order_by=Leaderboard.id, back_populates='submission')
 
 try:
     # Create all tables in the database which are defined by Base's subclasses

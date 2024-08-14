@@ -7,7 +7,6 @@ from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 
 import repositories.db_engine as db_engine
 import services.dataset_service as ds_service
-import services.leaderboards_service as lb_service
 import services.submissions_service as sub_service
 import services.authentication_service as auth_service
 from dtos import TaskDTO
@@ -22,7 +21,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Load tasks from tasks.json under key "tasks"
+# Load tasks from JSON file
 tasks = []
 with open("tasks.json", "r") as tasks_file:
     tasks_dict = json.load(tasks_file)
@@ -48,12 +47,7 @@ def root():
 
 @app.get("/api/leaderboards")
 def leaderboards():
-    return lb_service.get_leaderboards()
-
-
-@app.get("/api/leaderboard/{task}/{dataset}")
-def leaderboard(task: str, dataset: str):
-    return lb_service.get_leaderboard(task, dataset)
+    return sub_service.get_leaderboards()
 
 
 @app.get("/api/submissions")
@@ -71,16 +65,6 @@ def get_datasets():
     return ds_service.get_dataset_dtos()
 
 
-@app.get("/api/dataset/{task}/{dataset}")
-def get_dataset(task: str, dataset: str):
-    return ds_service.get_dataset_dto(task, dataset)
-
-
-@app.get("/api/datasets/{task}")
-def get_datasets_per_task(task: str):
-    return ds_service.get_dataset_dtos_per_task(task)
-
-
 @app.post("/api/submission/{task}/{dataset}")
 def submit(task: str, dataset: str, submission_dict: dict = Body(...)):
     # Input validation
@@ -90,9 +74,19 @@ def submit(task: str, dataset: str, submission_dict: dict = Body(...)):
         raise HTTPException(status_code=400, detail="Invalid input: 'teamName' and 'contactEmail' are required fields.")
     if not submission_dict.get("fileContent"):
         raise HTTPException(status_code=400, detail="Invalid input: 'fileContent' is required.")
+    if not submission_dict.get("isPublic"):
+        raise HTTPException(status_code=400, detail="Invalid input: 'isPublic' is required.")
 
-    # Proceed with submission processing
-    return sub_service.submit_solution(task, dataset, submission_dict)
+    ret = sub_service.submit_solution(task, dataset, submission_dict)
+    switcher = {
+        "Submission successful": status.HTTP_201_CREATED,
+        "Submission rejected": status.HTTP_400_BAD_REQUEST,
+        "Error getting test labels": status.HTTP_500_INTERNAL_SERVER_ERROR,
+        "Error getting predictions from CSV": status.HTTP_500_INTERNAL_SERVER_ERROR,
+        "Error persisting accepted submission data": status.HTTP_500_INTERNAL_SERVER_ERROR,
+        "Error persisting rejected submission data": status.HTTP_500_INTERNAL_SERVER_ERROR,
+    }
+    return {"message": ret}, switcher.get(ret, status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
 # ====================== Authentication ==========================
@@ -135,19 +129,35 @@ async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(
 
 @app.get("/api/controlPanelSubmissions")
 async def control_panel_submissions(current_user: str = Depends(get_current_user)):
-    return sub_service.get_submissions_with_their_leaderboard_entries()
+    return sub_service.get_submission_for_control_panel()
 
 
-@app.put("/api/controlPanelSubmission/{sub_id}")
-async def force_update_submission(sub_id: int,
-                                  submission: dict,
-                                  current_user: str = Depends(get_current_user)):
+@app.put("/api/updateSubmission/{sub_id}")
+async def update_submission(sub_id: int,
+                            submission: dict,
+                            current_user: str = Depends(get_current_user)):
     # Validate submission update input
     if not submission:
         raise HTTPException(status_code=400, detail="Invalid input: update data is required.")
-    return sub_service.force_update_submission(sub_id, submission)
+    try:
+        ret = sub_service.update_submission(sub_id, submission)
+        switcher = {
+            "Submission updated successfully": status.HTTP_200_OK,
+            "Submission not found": status.HTTP_404_NOT_FOUND,
+            "Error updating submission data in the database": status.HTTP_500_INTERNAL_SERVER_ERROR,
+        }
+        return {"message": ret}, switcher.get(ret, status.HTTP_500_INTERNAL_SERVER_ERROR)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"An unexpected error occurred in update_submission")
 
 
-@app.delete("/api/controlPanelSubmission/{sub_id}")
+@app.delete("/api/deleteSubmission/{sub_id}")
 async def delete_submission(sub_id: int, current_user: str = Depends(get_current_user)):
-    return sub_service.delete_submission(sub_id)
+    ret = sub_service.delete_submission(sub_id)
+    switcher = {
+        "Submission deleted successfully": status.HTTP_200_OK,
+        "Submission not found": status.HTTP_404_NOT_FOUND,
+        "Error deleting submission data from the database": status.HTTP_500_INTERNAL_SERVER_ERROR,
+    }
+    return {"message": ret}, switcher.get(ret, status.HTTP_500_INTERNAL_SERVER_ERROR)
+

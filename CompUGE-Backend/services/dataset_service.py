@@ -1,14 +1,18 @@
 import json
+import logging
 from io import StringIO
 
 import pandas as pd
 
 from dtos import DatasetDTO
-import logging
 
 logging.basicConfig(level=logging.ERROR, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
 
+
+# ======================================================================================================================
+# Load datasets
+# ======================================================================================================================
 
 class DatasetMetadata:
     def __init__(self, task: str, name: str, description: str, link: str, folder: str, paper: str, paper_link: str):
@@ -84,30 +88,26 @@ for dataset in datasets_metadata:
 # Methods
 # ======================================================================================================================
 
-def get_dataset_dto(task: str, dataset: str):
-    for dataset_dto in datasetsDTOs:
-        if dataset_dto.task == task and dataset_dto.name == dataset:
-            return dataset_dto
-    logger.warning(f"Dataset not found: Task={task}, Dataset={dataset}")
-    return None
-
-
-def get_dataset_dtos_per_task(task: str):
-    datasets = [dataset for dataset in datasetsDTOs if dataset.task == task]
-    if not datasets:
-        logger.warning(f"No datasets found for task: {task}")
-    return datasets
-
 
 def get_dataset_dtos():
+    """
+    Get all datasets DTOs
+    :return: a list of datasets DTOs
+    """
     return datasetsDTOs
 
 
 def get_test_labels(task: str, dataset: str):
+    """
+    Get the test labels for a dataset belonging to a task
+    :param task: the task name
+    :param dataset: the dataset name
+    :return: a list of test labels or None if an error occurred
+    """
     dataset_metadata = next((dset for dset in datasets_metadata if dset.task == task and dset.name == dataset), None)
 
     if dataset_metadata is None:
-        logger.warning(f"Dataset metadata not found: Task={task}, Dataset={dataset}")
+        logger.error(f"Dataset metadata not found: Task={task}, Dataset={dataset}")
         return None
 
     try:
@@ -121,10 +121,14 @@ def get_test_labels(task: str, dataset: str):
         return None
 
 
-def get_labels_from_csv(csv_str: str):
+def get_predictions_from_csv(csv_str: str):
+    """
+    Extract the predictions from a CSV string
+    :param csv_str: the CSV string
+    :return: a list of predictions or None if an error occurred
+    """
     try:
         df = pd.read_csv(StringIO(csv_str))
-        return df[df.columns[1]].tolist()
     except pd.errors.EmptyDataError:
         logger.error("The provided CSV string is empty")
         return None
@@ -134,3 +138,9 @@ def get_labels_from_csv(csv_str: str):
     except Exception as e:
         logger.error(f"Unexpected error processing CSV string: {e}")
         return None
+
+    # check if the CSV has a predictions column
+    if "predictions" not in df.columns:
+        logger.error("No 'predictions' column found in the CSV")
+        return None
+    return df["predictions"].tolist()
