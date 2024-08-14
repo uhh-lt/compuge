@@ -35,7 +35,7 @@ import {error} from "@angular/compiler-cli/src/transformers/util";
   templateUrl: './submitting.component.html',
   styleUrl: './submitting.component.css'
 })
-export class SubmittingComponent implements OnInit{
+export class SubmittingComponent implements OnInit {
 
   tasks = this.stateService.state$.pipe(map(state => state.tasks));
   datasets = this.stateService.state$.pipe(map(state => state.datasets));
@@ -63,17 +63,16 @@ export class SubmittingComponent implements OnInit{
   }
 
 
-  ngOnInit(){
+  ngOnInit() {
   }
 
-  onSubmit () {
+  onSubmit() {
     this.message = '';
 
     if (this.form.invalid) {
       this.message = 'Invalid form';
       return;
     }
-
     this.message = 'Submitting...';
     this.stateService.submit(
       this.form.value.modelName,
@@ -86,28 +85,38 @@ export class SubmittingComponent implements OnInit{
       this.fileContent
     ).subscribe(
       {
-        next: (data) => {
-          this.message = 'Submission successful';
+        next: (response: any) => {
+          console.log(response);
+          this.message = response[0].message;
         },
-        error: (err) => {
-          // show error message that includes the error code
-          this.message = 'Submission failed: ' + err.message;
+        error: (error: any) => {
+          switch (error.status) {
+            case 400:
+              this.message = 'Submission rejected';
+              break;
+            case 500:
+              this.message = 'Internal server error';
+              break;
+            default:
+              this.message = 'An unexpected error occurred. Please try again later.';
+              break;
+          }
         }
       }
     );
   }
 
-  onFileSelected(event : any) {
+  onFileSelected(event: any) {
     const file: File = event.target.files[0];
     if (file) {
       this.chosenFileName = file.name;
-    // read file as text
-    const reader = new FileReader();
-    reader.onload = (e: any) => {
-      this.fileContent = e.target.result;
-    };
-    reader.readAsText(file);
-    }else {
+      // read file as text
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        this.fileContent = e.target.result;
+      };
+      reader.readAsText(file);
+    } else {
       this.chosenFileName = 'Invalid file';
     }
   }

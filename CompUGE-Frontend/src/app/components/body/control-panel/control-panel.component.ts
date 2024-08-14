@@ -78,7 +78,7 @@ export class ControlPanelComponent implements OnInit {
   }
 
   refresh() {
-    this.stateService.updateControlPanel();
+    this.stateService.refreshControlPanel();
   }
 
   editRow(entry: ControlPanelEntry) {
@@ -90,7 +90,7 @@ export class ControlPanelComponent implements OnInit {
     // Modify the entry in the local data source
     const index = this.dataSource.data.findIndex(e => e.id === entry.id);
     this.dataSource.data[index] = entry;
-    this.stateService.forceUpdateSubmission(entry);
+    this.stateService.updateSubmission(entry);
   }
 
   deleteRow(id: number) {

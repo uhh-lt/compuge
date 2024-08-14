@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {BehaviorSubject, catchError, Observable, tap, throwError} from "rxjs";
+import {BehaviorSubject, catchError, Observable, shareReplay, tap, throwError} from "rxjs";
 import {environment} from "../../../environments/environment";
 
 @Injectable({
@@ -41,21 +41,18 @@ export class AuthenticationService {
     const payload = new URLSearchParams();
     payload.set('username', 'admin'); // Username is not used in this case
     payload.set('password', password);
-
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/x-www-form-urlencoded',
+    });
     // Send POST request to the backend
     return this.http.post<{ access_token: string; token_type: string }>
-    (
-      this.apiUrl + '/token', payload.toString(),
-      {
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded', // Set content type for form data
-        },
-      }).pipe(
+    (this.apiUrl + '/token', payload.toString(), { headers }).pipe(
       tap(response => {
         this.token = response.access_token;
         localStorage.setItem('auth_token', this.token);
         this.$authStatus.next('authenticated');
       }),
+      shareReplay(1),
       catchError(error => {
         if (error.status === 401) {
           this.$authStatus.next('wrong password');
@@ -67,7 +64,6 @@ export class AuthenticationService {
       })
     );
   }
-
 
   public logout(): void {
     this.token = null;

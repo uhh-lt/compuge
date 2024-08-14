@@ -9,6 +9,7 @@ import {TaskComponent} from "./components/body/tasks/task/task.component";
 import {SubmittingComponent} from "./components/body/submitting/submitting.component";
 import {ControlPanelComponent} from "./components/body/control-panel/control-panel.component";
 import {AdminLoginComponent} from "./components/body/control-panel/admin-login/admin-login.component";
+import {NotFoundComponent} from "./error_handling/not-found/not-found.component";
 
 export const routes: Routes = [
   {path: '', component : BodyComponent},
@@ -20,5 +21,8 @@ export const routes: Routes = [
   {path: 'about', component: AboutComponent},
   {path: 'leaderboards', component: LeaderboardsComponent},
   {path: 'leaderboards/:task', component: LeaderboardsComponent},
-  {path: 'control', component: ControlPanelComponent},
+  {path: 'control', component: AdminLoginComponent},
+  {path: 'control-panel', component: ControlPanelComponent},
+  {path: '404', component: NotFoundComponent},
+  {path: '**', redirectTo: '/404'}
 ];

@@ -1,54 +1,128 @@
 import { Injectable } from '@angular/core';
-import {environment} from "../../../environments/environment";
-import {BehaviorSubject, catchError, Observable} from "rxjs";
-import {HttpClient} from "@angular/common/http";
-import {StateModel} from "../models/state.model";
-import {AuthenticationService} from "./authentication.service";
+import { environment } from '../../../environments/environment';
+import {BehaviorSubject, Observable, OperatorFunction, shareReplay, throwError, timer} from 'rxjs';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { StateModel } from '../models/state.model';
+import { AuthenticationService } from './authentication.service';
+import { catchError, retry } from 'rxjs/operators';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AppStateService {
   private readonly _apiUrl = environment.apiUrl;
 
-  private readonly _state = new BehaviorSubject<StateModel>(
-    {
-      leaderboards: [],
-      submissions: [],
-      datasets: [],
-      tasks: [],
-      controlPanelSubmissions: [],
-      adminSessionStatus: ''
-      }
-  );
+  private readonly _state = new BehaviorSubject<StateModel>({
+    leaderboards: [],
+    submissions: [],
+    datasets: [],
+    tasks: [],
+    controlPanelSubmissions: [],
+    adminSessionStatus: '',
+  });
 
   public readonly state$ = this._state.asObservable();
 
-  constructor(public http: HttpClient,
-              public authService: AuthenticationService) {
-    console.log(this._apiUrl)
-    this.updateTasks();
-    this.updateDatasets();
-    this.updateLeaderboards();
-    this.updateSubmissions();
-    authService.$authStatus.subscribe(
-      (status: string) => {
-        this._setState({
-          ...this.getState(),
-          adminSessionStatus: status
-        });
-      }
-    );
+  constructor(public http: HttpClient, public authService: AuthenticationService) {
+    console.log(this._apiUrl);
+    this.refreshTasks();
+    this.refreshDatasets();
+    this.refreshLeaderboards();
+    this.refreshSubmissions();
+    authService.$authStatus.subscribe((status: string) => {
+      this._setState({
+        ...this.getState(),
+        adminSessionStatus: status,
+      });
+    });
   }
 
   private _setState(state: StateModel): void {
     this._state.next(state);
   }
 
-  public getState() : StateModel {
+  public getState(): StateModel {
     return this._state.getValue();
   }
 
+  private makeRequest<T>(request: Observable<T>, stateKey?: keyof StateModel, callback?: (data: any) => void) {
+     let obs = request.pipe(
+       this.retryStrategy(),
+       shareReplay(1),
+       catchError(this.handleRequestError.bind(this))
+      );
+     obs.subscribe(
+       (data) => {
+         if (callback) {
+           callback(data);
+         } else if (stateKey) {
+           this._setState({
+             ...this.getState(),
+             [stateKey]: data
+           });
+         }
+       }
+     );
+      return obs;
+  }
+
+  private handleRequestError(error: any): Observable<never> {
+    let errorMessage = 'An unknown error occurred!';
+
+    if (error.error instanceof ErrorEvent) {
+      errorMessage = `Client Error: ${error.error.message}`;
+    } else {
+      switch (error.status) {
+        case 400:
+          errorMessage = `Bad Request: ${error.message}`;
+          break;
+        case 401:
+          errorMessage = 'Unauthorized: Please log in again.';
+          this.authService.logout();
+          break;
+        case 404:
+          errorMessage = `Not Found: The requested resource was not found.`;
+          break;
+        case 500:
+          errorMessage = `Internal Server Error: Please try again later.`;
+          break;
+        case 503:
+          errorMessage = `Service Unavailable: Please try again later.`;
+          break;
+        default:
+          errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+          break;
+      }
+    }
+    // Rethrow the error so it can be handled globally
+    return throwError(() => new Error(errorMessage));
+  }
+
+  // Improved retry strategy with exponential backoff and jitter
+  private retryStrategy<T>() {
+    return <OperatorFunction<T, T>>((source) =>
+        source.pipe(
+          retry({
+            count: 3, // Maximum of 3 retry attempts
+            delay: (error, retryCount) => {
+              if (![500, 503].includes(error.status)) {
+                // Do not retry for errors other than 500 and 503
+                return throwError(() => error);
+              }
+              // Exponential backoff with jitter
+              const jitter = Math.random() * 500; // Jitter value between 0-500ms
+              const backoffDelay = Math.pow(2, retryCount) * 1000 + jitter; // Exponential backoff
+              console.log(`Retrying request after ${backoffDelay}ms (attempt #${retryCount})`);
+              return timer(backoffDelay);
+            }
+          })
+        )
+    );
+  }
+
+  // ========================
+  // Public API
+  // ========================
   public submit(
     modelName: string,
     modelLink: string,
@@ -58,124 +132,71 @@ export class AppStateService {
     dataset: string,
     isPublic: boolean,
     fileContent: string
-  ) : Observable<Object> {
-    return this.http.post(this._apiUrl + '/submission/' + task + '/' + dataset, {
-      modelName: modelName,
-      modelLink: modelLink,
-      teamName: teamName,
-      contactEmail: contactEmail,
-      isPublic: isPublic,
-      fileContent: fileContent
-    });
+  ) {
+    return this.makeRequest(
+      this.http.post<Object>(`${this._apiUrl}/submission/${task}/${dataset}`, {
+        modelName,
+        modelLink,
+        teamName,
+        contactEmail,
+        isPublic,
+        fileContent,
+      })
+    );
   }
 
-  public updateTasks() {
-    this.http.get(this._apiUrl + '/tasks').subscribe(
-      (data: any) => {
+  public refreshTasks() {
+    return this.makeRequest(this.http.get(this._apiUrl + '/tasks'), 'tasks');
+  }
+
+  public refreshDatasets() {
+    return this.makeRequest(this.http.get(this._apiUrl + '/datasets'), 'datasets');
+  }
+
+  public refreshLeaderboards() {
+    return this.makeRequest(this.http.get(this._apiUrl + '/leaderboards'), 'leaderboards');
+  }
+
+  public refreshSubmissions() {
+    return this.makeRequest(this.http.get(this._apiUrl + '/submissions'), 'submissions');
+  }
+
+  public authenticate(password: string) {
+    let obs = this.authService.login(password);
+    obs.subscribe(
+      next => {
+        console.log('Login successful');
         this._setState({
           ...this.getState(),
-          tasks: data
+          adminSessionStatus: 'authenticated',
         });
-      }
-    );
+      });
+    return obs;
   }
 
-  public updateDatasets() {
-      this.http.get(this._apiUrl + '/datasets').subscribe(
-        (data: any) => {
-          this._setState({
-            ...this.getState(),
-            datasets: data
-          });
-        }
-      );
-  }
-
-  public updateLeaderboards() {
-      this.http.get(this._apiUrl + '/leaderboards').subscribe(
-        (data: any) => {
-          this._setState({
-            ...this.getState(),
-            leaderboards: data
-          });
-        }
-      );
-  }
-
-  public updateSubmissions() {
-    this.http.get(this._apiUrl + '/submissions').subscribe(
-      (data: any) => {
-        this._setState({
-          ...this.getState(),
-          submissions: data
-        });
-      }
-    );
-  }
-
-  public authenticate(password : string) {
-    this.authService.login(password).subscribe(
-      () => {
-        this.updateControlPanel();
-      }
-    );
-  }
-
-  public updateControlPanel() {
+  public refreshControlPanel() {
     const headers = this.authService.getAuthHeaders();
-    this.http.get(`${this._apiUrl}/controlPanelSubmissions`, { headers }).pipe(
-      catchError(error => {
-          if (error.status === 401) {
-            this.authService.logout();
-          }
-          console.log(error);
-          return error;
-        }
-      ))
-      .subscribe(
-      (data: any) => {
-        this._setState({
-          ...this.getState(),
-          controlPanelSubmissions: data
-        });
-      }
+    return this.makeRequest(
+      this.http.get(`${this._apiUrl}/control-panel-submissions`, { headers }),
+      'controlPanelSubmissions'
     );
   }
 
-  public forceUpdateSubmission(entry: any){
+  public updateSubmission(entry: any) {
     const headers = this.authService.getAuthHeaders();
-    this.http.put(`${this._apiUrl}/controlPanelSubmission/${entry.id}`, entry, { headers }).pipe(
-      catchError(error => {
-          if (error.status === 401) {
-            this.authService.logout();
-          }
-          console.log(error);
-          return error;
-        }
-      ))
-      .subscribe(
-        () => {
-          this.updateControlPanel();
-        }
-      );
+    return this.makeRequest(
+      this.http.put(`${this._apiUrl}/submission/${entry.id}`, entry, { headers }),
+      undefined,
+      () => this.refreshControlPanel() // Refresh control panel after update
+    );
   }
 
-  public deleteSubmission(id: number){
+  public deleteSubmission(id: number) {
     const headers = this.authService.getAuthHeaders();
-    this.http.delete(`${this._apiUrl}/controlPanelSubmission/` + id, { headers })
-      .pipe(
-        catchError(error => {
-          if (error.status === 401) {
-            this.authService.logout();
-          }
-          console.log(error);
-          return error;
-        }
-      ))
-      .subscribe(
-      () => {
-        this.updateControlPanel();
-      }
+    return this.makeRequest(
+      this.http.delete(`${this._apiUrl}/submission/${id}`, { headers }),
+      undefined,
+      () => this.refreshControlPanel() // Refresh control panel after deletion
     );
   }
 }

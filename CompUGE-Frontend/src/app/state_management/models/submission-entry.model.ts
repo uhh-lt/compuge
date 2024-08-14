@@ -9,4 +9,5 @@ export interface SubmissionEntry {
     status: string;
     time: string;
     is_public: boolean;
+    blob_url: string;
 }

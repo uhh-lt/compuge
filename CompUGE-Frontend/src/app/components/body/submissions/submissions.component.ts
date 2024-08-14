@@ -94,9 +94,13 @@ export class SubmissionsComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this.submissions.subscribe(
       data => {
-        this.dataSource.data = data;
+        this.dataSource.data = data.map(entry => {
+          entry.blob_url = this.getTextDownloadURL(entry.predictions); // Precompute Blob URL
+          return entry;
+        })
       }
     )
+    this.state.refreshSubmissions();
   }
 
   getTextDownloadURL(prediction: string) {
@@ -104,6 +108,6 @@ export class SubmissionsComponent implements OnInit, AfterViewInit {
   }
 
   refresh() {
-    this.state.updateSubmissions();
+    this.state.refreshSubmissions();
   }
 }

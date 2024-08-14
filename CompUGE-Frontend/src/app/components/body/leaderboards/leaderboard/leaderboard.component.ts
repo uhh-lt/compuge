@@ -75,14 +75,15 @@ export class LeaderboardComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this.leaderboards.subscribe(
       data => {
-        // choose only entries where task == this.task and dataset == this.dataset.
-        // assign the data to the dataSource
         this.dataSource.data = data.filter(
           entry => (entry.task == this.task && entry.dataset == this.dataset)
-        )
+        ).map(entry => {
+          entry.blob_url = this.getTextDownloadURL(entry.predictions); // Precompute Blob URL
+          return entry;
+        });
       }
     );
-    this.stateService.updateLeaderboards();
+    this.refresh();
   }
 
   getTextDownloadURL(prediction: string) {
@@ -90,6 +91,6 @@ export class LeaderboardComponent implements OnInit, AfterViewInit {
   }
 
   refresh() {
-    this.stateService.updateLeaderboards();
+    this.stateService.refreshLeaderboards();
   }
 }

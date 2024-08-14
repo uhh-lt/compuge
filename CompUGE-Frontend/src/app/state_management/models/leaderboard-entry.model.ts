@@ -6,4 +6,8 @@ export interface LeaderboardEntry {
     precision: number;
     recall: number;
     f1_score: number;
+    predictions: string;
+    team: string;
+    is_public: boolean;
+    blob_url: string;
 }

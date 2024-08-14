@@ -30,7 +30,7 @@
     <ng-container matColumnDef="predictions">
       <mat-header-cell *matHeaderCellDef> Predictions </mat-header-cell>
       <mat-cell *matCellDef="let entry">
-        <a *ngIf="entry.is_public" [href]="getTextDownloadURL(entry.predictions)" target="_blank" download="{{entry.model + '-predictions.txt'}}">Download</a>
+        <a *ngIf="entry.is_public" [href]="entry.blob_url" target="_blank" download="{{entry.model + '-predictions.txt'}}">Download</a>
         <span *ngIf="!entry.is_public">Private</span>
       </mat-cell>
     </ng-container>

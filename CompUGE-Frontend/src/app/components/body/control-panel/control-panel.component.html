@@ -1,5 +1,3 @@
-<app-admin-login *ngIf="(authenticationState | async) != 'authenticated'"></app-admin-login>
-
 <div *ngIf="(authenticationState | async) == 'authenticated'">
   <!-- Admin Control Panel -->
   <mat-card>
