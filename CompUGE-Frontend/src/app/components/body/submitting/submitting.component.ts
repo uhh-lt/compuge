@@ -11,6 +11,7 @@ import {AppStateService} from "../../../state_management/services/app-state.serv
 import {map, Observer} from "rxjs";
 import {FormGroup, FormBuilder, Validators} from "@angular/forms";
 import {error} from "@angular/compiler-cli/src/transformers/util";
+import {SubmittingGuideComponent} from "./submitting-guide/submitting-guide.component";
 
 
 @Component({
@@ -30,7 +31,8 @@ import {error} from "@angular/compiler-cli/src/transformers/util";
     ReactiveFormsModule,
     FormsModule,
     AsyncPipe,
-    MatError
+    MatError,
+    SubmittingGuideComponent
   ],
   templateUrl: './submitting.component.html',
   styleUrl: './submitting.component.css'
