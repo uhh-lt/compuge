@@ -36,11 +36,17 @@ def load_data(train_folder, test_folder):
 
 
 def save_test_results(results_folder, test_dataset, predictions, train_folder_name, test_folder_name, model_name):
+    # Generate prediction labels
     pred_labels = np.argmax(predictions, axis=1)
     test_df = pd.DataFrame(test_dataset)
     test_df['predictions'] = pred_labels
+
     results_file_name = f"{train_folder_name}_{test_folder_name}_{model_name}_test_results.csv"
     results_path = os.path.join(results_folder, results_file_name)
+
+    print(f"Saving test results to {results_path}")
+    os.makedirs(results_folder, exist_ok=True)
+
     test_df.to_csv(results_path, index=False)
     print(f"Test results saved to {results_path}")
 
