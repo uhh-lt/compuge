@@ -41,6 +41,10 @@ def save_test_results(results_folder, test_dataset, predictions, train_folder_na
     test_df = pd.DataFrame(test_dataset)
     test_df['predictions'] = pred_labels
 
+    # if model_name is a path, extract the model name from the path to use in the results file name
+    if '/' in model_name:
+        model_name = model_name.split('/')[-1]
+
     results_file_name = f"{train_folder_name}_{test_folder_name}_{model_name}_test_results.csv"
     results_path = os.path.join(results_folder, results_file_name)
 
