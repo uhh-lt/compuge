@@ -5,3 +5,4 @@ evaluate
 torch
 accelerate
 protobuf
+scikit-learn

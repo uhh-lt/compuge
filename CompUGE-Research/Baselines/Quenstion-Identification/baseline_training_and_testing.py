@@ -13,7 +13,7 @@ def load_data(folder_path):
       - train.csv
       - validate.csv
       - test.csv
-    Each CSV should have at least two columns: 'text' and 'label'.
+    Each CSV should have at least two columns: 'question' and 'label'.
     """
     dataset_dict = {}
     for split in ['train', 'validate', 'test']:
@@ -85,7 +85,7 @@ def main(folder_path, model_name, results_folder):
 
     # Tokenize the datasets
     def tokenize_function(examples):
-        return tokenizer(examples['text'], padding="max_length", truncation=True)
+        return tokenizer(examples['question'], padding="max_length", truncation=True)
 
     tokenized_datasets = datasets.map(tokenize_function, batched=True)
 
