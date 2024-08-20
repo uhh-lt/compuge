@@ -1,9 +1,9 @@
 import os
 import pandas as pd
 from transformers import AutoTokenizer, AutoModelForSequenceClassification, Trainer, TrainingArguments
-from datasets import Dataset, DatasetDict
+from datasets import Dataset, DatasetDict, load_metric
 import numpy as np
-
+from sklearn.metrics import accuracy_score, precision_recall_fscore_support
 
 def load_data(folder_path):
     """
@@ -59,6 +59,22 @@ def save_test_results(results_folder, test_dataset, predictions):
     print(f"Test results saved to {results_path}")
 
 
+def compute_metrics(p):
+    """
+    Computes accuracy, precision, recall, and F1 score using predictions and true labels.
+    """
+    preds = np.argmax(p.predictions, axis=1)
+    labels = p.label_ids
+    accuracy = accuracy_score(labels, preds)
+    precision, recall, f1, _ = precision_recall_fscore_support(labels, preds, average='weighted')
+    return {
+        'accuracy': accuracy,
+        'precision': precision,
+        'recall': recall,
+        'f1': f1
+    }
+
+
 def main(folder_path, model_name, results_folder):
     # Load the dataset
     datasets = load_data(folder_path)
@@ -69,14 +85,14 @@ def main(folder_path, model_name, results_folder):
 
     # Tokenize the datasets
     def tokenize_function(examples):
-        return tokenizer(examples['question'], padding="max_length", truncation=True)
+        return tokenizer(examples['text'], padding="max_length", truncation=True)
 
     tokenized_datasets = datasets.map(tokenize_function, batched=True)
 
     # Define the training arguments
     training_args = TrainingArguments(
         output_dir="./results",
-        eval_strategy="epoch",  # This triggers evaluation at the end of every epoch
+        evaluation_strategy="epoch",  # This triggers evaluation at the end of every epoch
         save_strategy="epoch",  # Ensure the model is saved at the end of every epoch
         logging_dir='./logs',
         logging_steps=10,
@@ -93,6 +109,7 @@ def main(folder_path, model_name, results_folder):
         args=training_args,
         train_dataset=tokenized_datasets["train"],
         eval_dataset=tokenized_datasets["validate"],
+        compute_metrics=compute_metrics  # Add the compute_metrics function
     )
 
     # Train the model
@@ -100,6 +117,12 @@ def main(folder_path, model_name, results_folder):
 
     # Evaluate on the test set
     test_results = trainer.predict(test_dataset=tokenized_datasets["test"])
+
+    # Print test set metrics
+    print(f"Test Accuracy: {test_results.metrics['test_accuracy']:.4f}")
+    print(f"Test Precision: {test_results.metrics['test_precision']:.4f}")
+    print(f"Test Recall: {test_results.metrics['test_recall']:.4f}")
+    print(f"Test F1: {test_results.metrics['test_f1']:.4f}")
 
     # Save test results with predictions
     save_test_results(results_folder, datasets["test"], test_results.predictions)
