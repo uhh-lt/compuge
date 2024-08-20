@@ -1,3 +1,7 @@
-torch
+datasets
 transformers
-pandas
+numpy
+evaluate
+torch
+accelerate
+protobuf
