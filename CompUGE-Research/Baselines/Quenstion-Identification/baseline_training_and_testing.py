@@ -45,7 +45,7 @@ def save_test_results(results_folder, test_dataset, predictions, train_folder_na
     if '/' in model_name:
         model_name = model_name.split('/')[-1]
 
-    results_file_name = f"{train_folder_name}_{test_folder_name}_{model_name}_test_results.csv"
+    results_file_name = f"{train_folder_name}_SEP_{test_folder_name}_SEP_{model_name}_test_results.csv"
     results_path = os.path.join(results_folder, results_file_name)
 
     print(f"Saving test results to {results_path}")
