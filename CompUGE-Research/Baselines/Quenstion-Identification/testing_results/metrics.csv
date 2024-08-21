@@ -1,0 +1,2 @@
+training on,tested on,model,accuracy,precision,recall,f1
+webis_comparative_questions_2020_qi,webis_comparative_questions_2020_qi,distilbert/distilbert-base-uncased-finetuned-sst-2-english,0.9713333333333334,0.9709509613668093,0.9713333333333334,0.9711143643390463
