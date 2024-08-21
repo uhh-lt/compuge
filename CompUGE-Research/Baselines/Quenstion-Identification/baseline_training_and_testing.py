@@ -144,6 +144,13 @@ def main(train_folder, test_folder, model_name, results_folder):
                       model_name)
     save_metrics(results_folder, train_folder_name, test_folder_name, model_name, test_results.metrics)
 
+    print("=========================================")
+    print("=========================================")
+    print(f"Finished testing {model_name} trained on {train_folder_name} and tested on {test_folder_name}.")
+    print("=========================================")
+    print("=========================================")
+
+
 # Checkpoint file path
 checkpoint_file = "checkpoint.json"
 
