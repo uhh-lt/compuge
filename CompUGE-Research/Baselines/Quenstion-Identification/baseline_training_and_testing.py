@@ -1,3 +1,4 @@
+import json
 import os
 import pandas as pd
 from transformers import AutoTokenizer, AutoModelForSequenceClassification, Trainer, TrainingArguments
@@ -16,6 +17,9 @@ def load_data(train_folder, test_folder):
             dataset_dict[split] = dataset
         except FileNotFoundError:
             print(f"File not found: {csv_path}")
+
+    if 'train' not in dataset_dict:
+        return None
 
     if 'validate' not in dataset_dict:
         train_data = pd.read_csv(os.path.join(train_folder, "train.csv"))
@@ -90,7 +94,12 @@ def compute_metrics(p):
 
 
 def main(train_folder, test_folder, model_name, results_folder):
+    os.makedirs(results_folder, exist_ok=True)
     datasets = load_data(train_folder, test_folder)
+    if datasets is None:
+        print(f"No training data found in folder {train_folder}. Exiting.")
+        return
+
     tokenizer = AutoTokenizer.from_pretrained(model_name)
     model = AutoModelForSequenceClassification.from_pretrained(model_name, num_labels=2)
 
@@ -135,11 +144,71 @@ def main(train_folder, test_folder, model_name, results_folder):
                       model_name)
     save_metrics(results_folder, train_folder_name, test_folder_name, model_name, test_results.metrics)
 
+# Checkpoint file path
+checkpoint_file = "checkpoint.json"
+
+# Function to load checkpoint data
+def load_checkpoint():
+    if os.path.exists(checkpoint_file):
+        with open(checkpoint_file, "r") as f:
+            return json.load(f)
+    else:
+        return {"model_index": 0, "dataset1_index": 0, "dataset2_index": 0}
+
+# Function to save checkpoint data
+def save_checkpoint(model_index, dataset1_index, dataset2_index):
+    checkpoint_data = {
+        "model_index": model_index,
+        "dataset1_index": dataset1_index,
+        "dataset2_index": dataset2_index
+    }
+    with open(checkpoint_file, "w") as f:
+        json.dump(checkpoint_data, f)
 
 if __name__ == "__main__":
-    train_folder = "../../Splits/webis_comparative_questions_2020_qi"
-    test_folder = "../../Splits/webis_comparative_questions_2020_qi"
-    model_name = "distilbert/distilbert-base-uncased-finetuned-sst-2-english"
-    results_folder = "./testing_results"
-    os.makedirs(results_folder, exist_ok=True)
-    main(train_folder, test_folder, model_name, results_folder)
+    # Load datasets metadata
+    with open("datasets-metadata.json") as f:
+        datasets_metadata = json.load(f)
+
+    models = [
+        "distilbert/distilbert-base-uncased-finetuned-sst-2-english",
+    ]
+
+    # Create results directory if it doesn't exist
+    os.makedirs("./testing_results", exist_ok=True)
+
+    # Load checkpoint data
+    checkpoint = load_checkpoint()
+    model_index = checkpoint["model_index"]
+    dataset1_index = checkpoint["dataset1_index"]
+    dataset2_index = checkpoint["dataset2_index"]
+
+    # Iterate over models
+    for m_idx, model in enumerate(models):
+        if m_idx < model_index:
+            continue  # Skip already processed models
+
+        # Iterate over first dataset
+        for d1_idx, dataset1 in enumerate(datasets_metadata["datasets"]):
+            if m_idx == model_index and d1_idx < dataset1_index:
+                continue  # Skip already processed datasets
+
+            # Iterate over second dataset
+            for d2_idx, dataset2 in enumerate(datasets_metadata["datasets"]):
+                if m_idx == model_index and d1_idx == dataset1_index and d2_idx < dataset2_index:
+                    continue  # Skip already processed comparisons
+
+                # Run your main function here
+                main(
+                    f"../../Splits/{dataset1['folder']}",
+                    f"../../Splits/{dataset2['folder']}",
+                    model,
+                    f"./testing_results/{model}"
+                )
+
+                # Save the current progress to the checkpoint file
+                save_checkpoint(m_idx, d1_idx, d2_idx)
+
+    # After all processing, remove the checkpoint file
+    if os.path.exists(checkpoint_file):
+        os.remove(checkpoint_file)
