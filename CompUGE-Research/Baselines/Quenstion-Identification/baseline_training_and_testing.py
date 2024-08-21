@@ -61,10 +61,10 @@ def save_metrics(results_folder, train_folder_name, test_folder_name, model_name
         'training on': [train_folder_name],
         'tested on': [test_folder_name],
         'model': [model_name],
-        'accuracy': [metrics['accuracy']],
-        'precision': [metrics['precision']],
-        'recall': [metrics['recall']],
-        'f1': [metrics['f1']]
+        'accuracy': [metrics['test_accuracy']],
+        'precision': [metrics['test_precision']],
+        'recall': [metrics['test_recall']],
+        'f1': [metrics['test_f1']]
     }
     metrics_df = pd.DataFrame(metrics_data)
 
