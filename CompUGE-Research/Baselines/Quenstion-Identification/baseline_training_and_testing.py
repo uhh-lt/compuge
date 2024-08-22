@@ -202,14 +202,14 @@ if __name__ == "__main__":
             for d1_idx, dataset1 in enumerate(datasets_metadata["datasets"]):
                 if m_idx == model_index and d1_idx < dataset1_index:
                     continue  # Skip already processed datasets
-                if dataset1["task"] != "question-identification":
+                if dataset1["task"] != "Question Identification":
                     continue
 
                 # Iterate over second dataset
                 for d2_idx, dataset2 in enumerate(datasets_metadata["datasets"]):
                     if m_idx == model_index and d1_idx == dataset1_index and d2_idx < dataset2_index:
                         continue  # Skip already processed comparisons
-                    if dataset2["task"] != "question-identification":
+                    if dataset2["task"] != "Question Identification":
                         continue
 
                     # Run your main function here
