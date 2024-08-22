@@ -5,7 +5,7 @@
             "name": "Webis Comparative Questions 2022",
             "description": "Webis Comparative Questions 2022 dataset contains about 31,000 questions labeled as comparative or not.\n\n",
             "link": "https://zenodo.org/records/7213397",
-            "folder": "qi_webis_comparative_questions_2022",
+            "folder": "qi_webis_2022",
             "paper": "Towards Understanding and Answering Comparative Questions",
             "paper_link": "https://dl.acm.org/doi/10.1145/3488560.3498534"
         },
@@ -14,7 +14,7 @@
             "name": "Webis Comparative Questions 2020",
             "description": "The Webis Comparative Web Search Questions 2020 (Webis-CompQuestions-20) corpus comprises 15,000 web questions collected from the public datasets MS Marco, Google Natural Questions and Quora. \n\nThe questions were manually annotated as comparative or not and with more fine-grained subclasses.\n\n",
             "link": "https://zenodo.org/records/4486547",
-            "folder": "qi_webis_comparative_questions_2020",
+            "folder": "qi_webis_2020",
             "paper": "Comparative Web Search Questions",
             "paper_link": "https://dl.acm.org/doi/10.1145/3336191.3371848"
         },
@@ -37,11 +37,47 @@
             "paper_link": "https://aclanthology.org/2022.lrec-1.402/"
         },
         {
+            "task": "Question Identification",
+            "name": "Webis 2020 meets Webis 2022",
+            "description": "",
+            "link": "",
+            "folder": "qi_webis_2020_webis_2022_merged",
+            "paper": "",
+            "paper_link": ""
+        },
+        {
+            "task": "Question Identification",
+            "name": "Mintaka meets Webis 2022",
+            "description": "",
+            "link": "",
+            "folder": "qi_mintaka_webis_2022_merged",
+            "paper": "",
+            "paper_link": ""
+        },
+        {
+            "task": "Question Identification",
+            "name": "Mintaka meets Webis 2020",
+            "description": "",
+            "link": "",
+            "folder": "qi_mintaka_webis_2020_merged",
+            "paper": "",
+            "paper_link": ""
+        },
+        {
+            "task": "Question Identification",
+            "name": "Mintaka, Webis 2020, Webis 2022",
+            "description": " i",
+            "link": "",
+            "folder": "qi_all",
+            "paper": "",
+            "paper_link": ""
+        },
+        {
             "task": "Object and Aspect Identification",
             "name": "Webis Comparative Questions 2022",
             "description": "Webis Comparative Questions 2022 dataset contains about 3,500 comparative questions are labeled on the token level with comparison objects, aspects, predicates, or none.",
             "link": "https://zenodo.org/records/7213397",
-            "folder": "oai_webis_comparative_questions_2022",
+            "folder": "oai_webis_2022",
             "paper": "Towards Understanding and Answering Comparative Questions",
             "paper_link": "https://dl.acm.org/doi/10.1145/3488560.3498534"
         },
@@ -59,7 +95,7 @@
             "name": "Chekalina et al. (2021)",
             "description": "",
             "link": "",
-            "folder": "oai_Chekalina_2021",
+            "folder": "oai_chekalina_2021",
             "paper": "Which is Better for Deep Learning: Python or MATLAB? Answering Comparative Questions in Natural Language",
             "paper_link": "https://aclanthology.org/2021.eacl-demos.36/"
         },
@@ -68,7 +104,7 @@
             "name": "Webis Comparative Questions 2022",
             "description": "Webis Comparative Questions 2022 dataset for 950 questions contains text passages that potentially answer the questions are labeled with the stance: pro first comparison object, pro second, neutral, or no stance.",
             "link": "https://zenodo.org/records/7213397",
-            "folder": "sc_webis_comparative_questions_2022",
+            "folder": "sc_webis_2022",
             "paper": "Towards Understanding and Answering Comparative Questions",
             "paper_link": "https://dl.acm.org/doi/10.1145/3488560.3498534"
         },
@@ -86,7 +122,7 @@
             "name": "Chekalina et al. (2021)",
             "description": "",
             "link": "",
-            "folder": "sg_Chekalina_2021",
+            "folder": "sg_chekalina_2021",
             "paper": "Which is Better for Deep Learning: Python or MATLAB? Answering Comparative Questions in Natural Language",
             "paper_link": "https://aclanthology.org/2021.eacl-demos.36/"
         }
