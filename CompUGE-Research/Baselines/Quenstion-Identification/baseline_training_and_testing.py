@@ -173,53 +173,56 @@ def save_checkpoint(model_index, dataset1_index, dataset2_index):
         json.dump(checkpoint_data, f)
 
 if __name__ == "__main__":
-    # Load datasets metadata
+    print("Starting training and testing...")
+
     with open("../../datasets-metadata.json") as f:
+        print("Loading datasets metadata...")
         datasets_metadata = json.load(f)
+        print("Datasets metadata loaded.")
 
-    models = [
-        "distilbert/distilbert-base-uncased-finetuned-sst-2-english",
-    ]
+        models = [
+            "distilbert/distilbert-base-uncased-finetuned-sst-2-english",
+        ]
 
-    # Create results directory if it doesn't exist
-    os.makedirs("./testing_results", exist_ok=True)
+        os.makedirs("./testing_results", exist_ok=True)
 
-    # Load checkpoint data
-    checkpoint = load_checkpoint()
-    model_index = checkpoint["model_index"]
-    dataset1_index = checkpoint["dataset1_index"]
-    dataset2_index = checkpoint["dataset2_index"]
+        print("Loading checkpoint data...")
+        checkpoint = load_checkpoint()
+        model_index = checkpoint["model_index"]
+        dataset1_index = checkpoint["dataset1_index"]
+        dataset2_index = checkpoint["dataset2_index"]
+        print("Checkpoint data loaded.")
 
-    # Iterate over models
-    for m_idx, model in enumerate(models):
-        if m_idx < model_index:
-            continue  # Skip already processed models
+        print("Starting training and testing loop...")
+        for m_idx, model in enumerate(models):
+            if m_idx < model_index:
+                continue  # Skip already processed models
 
-        # Iterate over first dataset
-        for d1_idx, dataset1 in enumerate(datasets_metadata["datasets"]):
-            if m_idx == model_index and d1_idx < dataset1_index:
-                continue  # Skip already processed datasets
-            if dataset1["task"] != "question-identification":
-                continue
-
-            # Iterate over second dataset
-            for d2_idx, dataset2 in enumerate(datasets_metadata["datasets"]):
-                if m_idx == model_index and d1_idx == dataset1_index and d2_idx < dataset2_index:
-                    continue  # Skip already processed comparisons
-                if dataset2["task"] != "question-identification":
+            # Iterate over first dataset
+            for d1_idx, dataset1 in enumerate(datasets_metadata["datasets"]):
+                if m_idx == model_index and d1_idx < dataset1_index:
+                    continue  # Skip already processed datasets
+                if dataset1["task"] != "question-identification":
                     continue
 
-                # Run your main function here
-                main(
-                    f"../../Splits/{dataset1['folder']}",
-                    f"../../Splits/{dataset2['folder']}",
-                    model,
-                    f"./testing_results/{model}"
-                )
+                # Iterate over second dataset
+                for d2_idx, dataset2 in enumerate(datasets_metadata["datasets"]):
+                    if m_idx == model_index and d1_idx == dataset1_index and d2_idx < dataset2_index:
+                        continue  # Skip already processed comparisons
+                    if dataset2["task"] != "question-identification":
+                        continue
 
-                # Save the current progress to the checkpoint file
-                save_checkpoint(m_idx, d1_idx, d2_idx)
+                    # Run your main function here
+                    main(
+                        f"../../Splits/{dataset1['folder']}",
+                        f"../../Splits/{dataset2['folder']}",
+                        model,
+                        f"./testing_results/{model}"
+                    )
 
-    # After all processing, remove the checkpoint file
-    if os.path.exists(checkpoint_file):
-        os.remove(checkpoint_file)
+                    # Save the current progress to the checkpoint file
+                    save_checkpoint(m_idx, d1_idx, d2_idx)
+
+        # After all processing, remove the checkpoint file
+        if os.path.exists(checkpoint_file):
+            os.remove(checkpoint_file)
