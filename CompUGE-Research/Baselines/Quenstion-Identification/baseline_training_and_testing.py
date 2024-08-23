@@ -170,8 +170,8 @@ if __name__ == "__main__":
             if dataset1["task"] != "Question Identification":
                 continue
 
-            test_folders = [f"../../Splits/{dataset2['folder']}" for dataset2 in datasets_metadata["datasets"] if
-                            dataset2["task"] == "Question Identification" and not dataset2["folder"].contains("merged")]
+            test_folders = [f"../../Splits/{dataset2['folder']}" for dataset2 in datasets_metadata["datasets"]
+                            if dataset2["task"] == "Question Identification" and "merged" not in dataset2["folder"]]
 
             main(f"../../Splits/{dataset1['folder']}", test_folders, model_name, results_folder)
             save_checkpoint(checkpoint_file, i + 1)
