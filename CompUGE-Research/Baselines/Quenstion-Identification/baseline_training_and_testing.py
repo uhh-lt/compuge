@@ -6,8 +6,8 @@ from datasets import Dataset, DatasetDict
 import numpy as np
 from sklearn.metrics import accuracy_score, precision_recall_fscore_support
 
-
-def load_data(train_folder, test_folder):
+# Function to load data
+def load_data(train_folder, test_folder=None):
     dataset_dict = {}
     for split in ['train', 'val']:
         try:
@@ -28,24 +28,19 @@ def load_data(train_folder, test_folder):
         dataset_dict['train'] = Dataset.from_pandas(train_data)
         dataset_dict['val'] = Dataset.from_pandas(val_data)
 
-    test_csv_path = os.path.join(test_folder, "test.csv")
-    test_data = pd.read_csv(test_csv_path)
-    dataset_dict['test'] = Dataset.from_pandas(test_data)
+    if test_folder:
+        test_csv_path = os.path.join(test_folder, "test.csv")
+        test_data = pd.read_csv(test_csv_path)
+        dataset_dict['test'] = Dataset.from_pandas(test_data)
 
-    return DatasetDict({
-        'train': dataset_dict['train'],
-        'val': dataset_dict['val'],
-        'test': dataset_dict['test'],
-    })
+    return DatasetDict(dataset_dict)
 
-
+# Function to save test results
 def save_test_results(results_folder, test_dataset, predictions, train_folder_name, test_folder_name, model_name):
-    # Generate prediction labels
     pred_labels = np.argmax(predictions, axis=1)
     test_df = pd.DataFrame(test_dataset)
     test_df['predictions'] = pred_labels
 
-    # if model_name is a path, extract the model name from the path to use in the results file name
     if '/' in model_name:
         model_name = model_name.split('/')[-1]
 
@@ -58,13 +53,13 @@ def save_test_results(results_folder, test_dataset, predictions, train_folder_na
     test_df.to_csv(results_path, index=False)
     print(f"Test results saved to {results_path}")
 
-
+# Function to save metrics
 def save_metrics(results_folder, train_folder_name, test_folder_name, model_name, metrics):
     metrics_file_path = os.path.join(results_folder, "metrics.csv")
     metrics_data = {
         'training on': [train_folder_name],
         'tested on': [test_folder_name],
-        'model': [model_name],
+        'model': [model_name.split('/')[0]],
         'accuracy': [metrics['test_accuracy']],
         'precision': [metrics['test_precision']],
         'recall': [metrics['test_recall']],
@@ -79,7 +74,7 @@ def save_metrics(results_folder, train_folder_name, test_folder_name, model_name
 
     print(f"Metrics saved to {metrics_file_path}")
 
-
+# Function to compute metrics
 def compute_metrics(p):
     preds = np.argmax(p.predictions, axis=1)
     labels = p.label_ids
@@ -92,10 +87,12 @@ def compute_metrics(p):
         'f1': f1
     }
 
-
-def main(train_folder, test_folder, model_name, results_folder):
+# Main function that separates training and testing
+def main(train_folder, test_folders, model_name, results_folder):
     os.makedirs(results_folder, exist_ok=True)
-    datasets = load_data(train_folder, test_folder)
+
+    # Load and tokenize the training data
+    datasets = load_data(train_folder)
     if datasets is None:
         print(f"No training data found in folder {train_folder}. Exiting.")
         return
@@ -121,6 +118,7 @@ def main(train_folder, test_folder, model_name, results_folder):
         load_best_model_at_end=True
     )
 
+    # Train the model
     trainer = Trainer(
         model=model,
         args=training_args,
@@ -130,48 +128,48 @@ def main(train_folder, test_folder, model_name, results_folder):
     )
 
     trainer.train()
-    test_results = trainer.predict(test_dataset=tokenized_datasets["test"])
 
-    print("====================================================================================")
-    print("====================================================================================")
-    print(f"Test Accuracy: {test_results.metrics['test_accuracy']:.4f}")
-    print(f"Test Precision: {test_results.metrics['test_precision']:.4f}")
-    print(f"Test Recall: {test_results.metrics['test_recall']:.4f}")
-    print(f"Test F1: {test_results.metrics['test_f1']:.4f}")
+    # Test the trained model on all test datasets
+    for test_folder in test_folders:
+        test_dataset = load_data(train_folder, test_folder)['test']
+        tokenized_test_dataset = test_dataset.map(tokenize_function, batched=True)
+        test_results = trainer.predict(test_dataset=tokenized_test_dataset)
 
-    train_folder_name = os.path.basename(os.path.normpath(train_folder))
-    test_folder_name = os.path.basename(os.path.normpath(test_folder))
+        print("====================================================================================")
+        print(f"Test Accuracy: {test_results.metrics['test_accuracy']:.4f}")
+        print(f"Test Precision: {test_results.metrics['test_precision']:.4f}")
+        print(f"Test Recall: {test_results.metrics['test_recall']:.4f}")
+        print(f"Test F1: {test_results.metrics['test_f1']:.4f}")
 
-    save_test_results(results_folder, datasets["test"], test_results.predictions, train_folder_name, test_folder_name,
-                      model_name)
-    save_metrics(results_folder, train_folder_name, test_folder_name, model_name, test_results.metrics)
+        train_folder_name = os.path.basename(os.path.normpath(train_folder))
+        test_folder_name = os.path.basename(os.path.normpath(test_folder))
 
-    print(f"Finished testing {model_name} trained on {train_folder_name} and tested on {test_folder_name}.")
-    print("====================================================================================")
-    print("====================================================================================")
+        save_test_results(results_folder, test_dataset, test_results.predictions, train_folder_name, test_folder_name, model_name)
+        save_metrics(results_folder, train_folder_name, test_folder_name, model_name, test_results.metrics)
 
+        print(f"Finished testing {model_name} trained on {train_folder_name} and tested on {test_folder_name}.")
+        print("====================================================================================")
 
 # Checkpoint file path
 checkpoint_file = "checkpoint.json"
 
-# Function to load checkpoint data
+# Load checkpoint data
 def load_checkpoint():
     if os.path.exists(checkpoint_file):
         with open(checkpoint_file, "r") as f:
             return json.load(f)
     else:
-        return {"model_index": 0, "dataset1_index": 0, "dataset2_index": 0}
+        return {"dataset1_index": 0}
 
-# Function to save checkpoint data
-def save_checkpoint(model_index, dataset1_index, dataset2_index):
+# Save checkpoint data
+def save_checkpoint(dataset1_index):
     checkpoint_data = {
-        "model_index": model_index,
         "dataset1_index": dataset1_index,
-        "dataset2_index": dataset2_index
     }
     with open(checkpoint_file, "w") as f:
         json.dump(checkpoint_data, f)
 
+# Main execution logic
 if __name__ == "__main__":
     print("Starting training and testing...")
 
@@ -180,48 +178,38 @@ if __name__ == "__main__":
         datasets_metadata = json.load(f)
         print("Datasets metadata loaded.")
 
-        models = [
-            "distilbert/distilbert-base-uncased-finetuned-sst-2-english",
-        ]
+        model_name = "distilbert/distilbert-base-uncased-finetuned-sst-2-english"
 
         os.makedirs("./testing_results", exist_ok=True)
 
         print("Loading checkpoint data...")
         checkpoint = load_checkpoint()
-        model_index = checkpoint["model_index"]
         dataset1_index = checkpoint["dataset1_index"]
-        dataset2_index = checkpoint["dataset2_index"]
         print("Checkpoint data loaded.")
 
         print("Starting training and testing loop...")
-        for m_idx, model in enumerate(models):
-            if m_idx < model_index:
-                continue  # Skip already processed models
+        for d1_idx, dataset1 in enumerate(datasets_metadata["datasets"]):
+            if d1_idx < dataset1_index:
+                continue  # Skip already processed datasets
+            if dataset1["task"] != "Question Identification":
+                continue
 
-            # Iterate over first dataset
-            for d1_idx, dataset1 in enumerate(datasets_metadata["datasets"]):
-                if m_idx == model_index and d1_idx < dataset1_index:
-                    continue  # Skip already processed datasets
-                if dataset1["task"] != "Question Identification":
-                    continue
+            # Prepare test folders list
+            test_folders = []
+            for dataset2 in datasets_metadata["datasets"]:
+                if dataset2["task"] == "Question Identification":
+                    test_folders.append(f"../../Splits/{dataset2['folder']}")
 
-                # Iterate over second dataset
-                for d2_idx, dataset2 in enumerate(datasets_metadata["datasets"]):
-                    if m_idx == model_index and d1_idx == dataset1_index and d2_idx < dataset2_index:
-                        continue  # Skip already processed comparisons
-                    if dataset2["task"] != "Question Identification":
-                        continue
+            # Train once and test on all
+            main(
+                f"../../Splits/{dataset1['folder']}",
+                test_folders,
+                model_name,
+                f"./testing_results/{model_name.split('/')[0]}"
+            )
 
-                    # Run your main function here
-                    main(
-                        f"../../Splits/{dataset1['folder']}",
-                        f"../../Splits/{dataset2['folder']}",
-                        model,
-                        f"./testing_results/{model}"
-                    )
-
-                    # Save the current progress to the checkpoint file
-                    save_checkpoint(m_idx, d1_idx, d2_idx)
+            # Save progress after training on each dataset
+            save_checkpoint(d1_idx)
 
         # After all processing, remove the checkpoint file
         if os.path.exists(checkpoint_file):
