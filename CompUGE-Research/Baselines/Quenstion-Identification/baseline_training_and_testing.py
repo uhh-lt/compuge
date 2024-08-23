@@ -6,7 +6,6 @@ from datasets import Dataset, DatasetDict
 import numpy as np
 from sklearn.metrics import accuracy_score, precision_recall_fscore_support
 
-# Load data function
 def load_data(train_folder, test_folder=None):
     dataset_dict = {}
 
@@ -31,7 +30,6 @@ def load_data(train_folder, test_folder=None):
 
     return DatasetDict(dataset_dict)
 
-# Save test results
 def save_test_results(results_folder, test_dataset, predictions, train_folder_name, test_folder_name, model_name):
     pred_labels = np.argmax(predictions, axis=1)
     test_df = pd.DataFrame(test_dataset)
@@ -45,7 +43,6 @@ def save_test_results(results_folder, test_dataset, predictions, train_folder_na
     test_df.to_csv(results_path, index=False)
     print(f"Test results saved to {results_path}")
 
-# Save metrics
 def save_metrics(results_folder, train_folder_name, test_folder_name, model_name, metrics):
     metrics_data = {
         'training on': train_folder_name,
@@ -62,20 +59,17 @@ def save_metrics(results_folder, train_folder_name, test_folder_name, model_name
     metrics_df.to_csv(metrics_file_path, mode='a', header=not os.path.exists(metrics_file_path), index=False)
     print(f"Metrics saved to {metrics_file_path}")
 
-# Compute metrics function
 def compute_metrics(p):
     preds = np.argmax(p.predictions, axis=1)
     accuracy = accuracy_score(p.label_ids, preds)
     precision, recall, f1, _ = precision_recall_fscore_support(p.label_ids, preds, average='weighted')
     return {'accuracy': accuracy, 'precision': precision, 'recall': recall, 'f1': f1}
 
-# Save checkpoint function
 def save_checkpoint(checkpoint_file, current_index):
     with open(checkpoint_file, 'w') as f:
         json.dump({"current_index": current_index}, f)
     print(f"Checkpoint saved at index {current_index}")
 
-# Load checkpoint function
 def load_checkpoint(checkpoint_file):
     if os.path.exists(checkpoint_file):
         with open(checkpoint_file, 'r') as f:
@@ -83,13 +77,11 @@ def load_checkpoint(checkpoint_file):
             return checkpoint.get("current_index", 0)
     return 0
 
-# Remove checkpoint file
 def remove_checkpoint_file(checkpoint_file):
     if os.path.exists(checkpoint_file):
         os.remove(checkpoint_file)
         print(f"Checkpoint file {checkpoint_file} removed.")
 
-# Main function
 def main(train_folder, test_folders, model_name, results_folder):
     datasets = load_data(train_folder)
     if datasets is None:
@@ -144,14 +136,14 @@ def main(train_folder, test_folders, model_name, results_folder):
         save_test_results(results_folder, test_dataset, test_results.predictions, train_folder_name, test_folder_name, model_name)
         save_metrics(results_folder, train_folder_name, test_folder_name, model_name, test_results.metrics)
 
-# Main execution
+
 if __name__ == "__main__":
     checkpoint_file = "checkpoint.json"
     start_index = load_checkpoint(checkpoint_file)
 
     with open("../../datasets-metadata.json") as f:
         datasets_metadata = json.load(f)
-        model_name = "distilbert/distilbert-base-uncased-finetuned-sst-2-english"
+        model_name = "roberta-base"
         results_folder = f"./testing_results/{model_name.split('/')[0]}"
         os.makedirs(results_folder, exist_ok=True)
 
