@@ -11,7 +11,7 @@ When was the first Donkey Kong arcade game released?,0,0
 "Which movie, starring Al Jolson, is generally considered to be the first talking picture?",0,0
 What state is the author of Misery from?,0,0
 "Which movie came out first, Monsters, Inc. or Lilo and Stitch?",1,1
-Did Avatar come out after Children of Men?,1,0
+Did Avatar come out after Children of Men?,1,1
 Is Titanic longer than Back to the Future?,1,1
 Was 2 Fast 2 Furious more expensive to film than The Fast and The Furious?,1,1
 "Which movie had a bigger budget, Avatar or Training Day?",1,1
@@ -30,16 +30,16 @@ Is Chris Evans older than Scarlett Johansson?,1,1
 "Which movie had a higher box office return, Moon or Eternal Sunshine of a Spotless Mind?",1,1
 Did Moon come out before or after Eternal Sunshine of a Spotless Mind?,1,1
 "Who is younger, Emma Watson or Saoirse Ronan?",1,1
-Did the movie The Spy Who Loved Me come out after 1970?,1,0
+Did the movie The Spy Who Loved Me come out after 1970?,1,1
 "Which movie came out first, Transformers or Toy Story 2?",1,1
 "Which movie had a higher domestic gross, Iron Man or Iron Man 2?",1,1
 "Who is younger, Drew Barrymore or Reese Witherspoon?",1,1
-Did The Martian come out before 2013?,1,0
-Did Apollo 13 come out before 2000?,1,0
+Did The Martian come out before 2013?,1,1
+Did Apollo 13 come out before 2000?,1,1
 Is Ben Platt taller than Lin-Manuel Miranda?,1,1
 "Which movie had a bigger budget, Disney's Up or Frozen 2?",1,1
-Did Bicentennial Man come out before 1997?,1,0
-Was Liar Liar released the same year as My Best Friend's Wedding?,1,0
+Did Bicentennial Man come out before 1997?,1,1
+Was Liar Liar released the same year as My Best Friend's Wedding?,1,1
 "Who has more kids, Jim Carrey or Adam Sandler?",1,1
 "Which director made more money in the movies they directed, James Cameron or Tim Burton?",1,1
 "Which director made less money in the movies they directed, Clint Eastwood or Michael Bay?",1,1
@@ -257,7 +257,7 @@ Which of the Stars Wars movies is the longest?,0,0
 Which of the Harry Potter movies is the longest?,0,0
 Which Pirates of the Caribbean movie is the longest?,0,0
 What is the most profitable movie of all time?,0,0
-What is the movie with the most protagonists in the Avengers saga?,0,1
+What is the movie with the most protagonists in the Avengers saga?,0,0
 What is the lowest-grossing movie in movie history?,0,0
 What is the least-famous movie where John Travolta has acted?,0,0
 Does Blade Runner have a sequel?,0,0
@@ -277,7 +277,7 @@ Did Ryan Reynolds star in the Deadpool movies?,0,0
 Did Anthony Hopkins win an Academy Award for Best Actor in The Father?,0,0
 Did Ewan McGregor star in Star Wars: Episode I?,0,0
 Did Tom Hanks voice Buzz Lightyear in Toy Story?,0,0
-Did Snow White come out before The Little Mermaid?,0,0
+Did Snow White come out before The Little Mermaid?,0,1
 Did 8 Mile win Best Original Song?,0,0
 Was Seth Rogen in Superbad?,0,0
 Are there 3 Hobbit movies by Peter Jackson?,0,0
@@ -296,20 +296,20 @@ Did Ryan Reynolds star in the movie Deadpool?,0,0
 Was From Russia With Love the first James Bond movie?,0,0
 Did Jodie Foster act as Clarice in Silence of the Lambs 2?,0,0
 Has Tom Hanks ever been in a movie with Daniel Radcliffe?,0,0
-Has Quentin Tarantino won more than one Academy Award for Best Original Screenplay?,0,1
+Has Quentin Tarantino won more than one Academy Award for Best Original Screenplay?,0,0
 Was there a wizard in The Hobbit movies?,0,0
 Is Lorde older than Billie Eilish?,1,1
 "Which band came first, NSYNC or Backstreet Boys?",1,1
-Did Elvis Presley's first hit come out before 1960?,1,0
+Did Elvis Presley's first hit come out before 1960?,1,1
 "Who is taller, Elvis Presley or Michael Jackson?",1,1
 "Who won more Grammys, Britney Spears or Beyoncé?",1,1
-Did Face Me come out before 1970?,1,0
+Did Face Me come out before 1970?,1,1
 "Was Katy Perry's ""Prism"" album released before her ""Witness"" album?",1,0
 "Was Drake's ""God's Plan"" song released before his ""Hold On, We're Going Home"" song?",1,0
 Is Jay-Z older than Eminem?,1,1
 "Who has won more awards, Britney spears or Beyoncé?",1,1
 "Who was born first, Elvis Presley or Johnny Cash?",1,1
-Did Shivers come out in the same year as Don't Start Now?,1,0
+Did Shivers come out in the same year as Don't Start Now?,1,1
 "Who has more subscribers on YouTube, Justin Bieber or Beyoncé?",1,1
 "Which Beyoncé album has sold more copies worldwide, Dangerously in Love or B'Day?",1,1
 "Who is older, Eminem or Kanye West?",1,1
@@ -319,7 +319,7 @@ Did Shivers come out in the same year as Don't Start Now?,1,0
 "Who is younger, Lil Nas X or Nas?",1,1
 Who is older Taylor Swift or Pink?,1,1
 Was Michael Jackson or Prince born first?,1,1
-Was the Star Spangled Banner written before 1970?,1,0
+Was the Star Spangled Banner written before 1970?,1,1
 "Who is older, Keith Richards or Mick Jagger?",1,1
 "Who has sold more records, Kanye West or Eminem?",1,1
 "Who released their debut album first, Britney Spears or Christina Aguilera?",1,1
@@ -542,7 +542,7 @@ Who is the youngest musician to be inducted to the Rock N' Roll Hall of Fame?,0,
 Who is the youngest person to win American Idol?,0,0
 Did Drake release an album in 2021?,0,0
 Did Sweetener win the Grammy Award for Best Pop Vocal Album?,0,0
-Did the Taylor Swift album Red come out after 1989?,0,0
+Did the Taylor Swift album Red come out after 1989?,0,1
 Are R.E.M. in the Rock n' Roll Hall of Fame?,0,0
 Did R.E.M. ever write a song with the B-52's?,0,0
 Does Diana Ross have a star on the Hollywood Walk of Fame?,0,0
@@ -555,7 +555,7 @@ Was Kendrick Lamar a part of TDE?,0,0
 Has Mac Miller ever made a song with Camila Cabello?,0,0
 Did The Beatles ever have a number one hit in the charts?,0,0
 Has The Weeknd ever won a Grammy Award?,0,0
-Did Michael Jackson's Thriller come out before Off the Wall?,0,0
+Did Michael Jackson's Thriller come out before Off the Wall?,0,1
 Was Saving All My Love for You Whitney Houston's first Grammy win?,0,0
 Did T.Rex ever make an album with other artists?,0,0
 Did J. Cole release a studio album in 2021?,0,0
@@ -573,23 +573,23 @@ Did Timbaland ever produce music for Aaliyah?,0,0
 Has Sam Smith made a song with Adele?,0,0
 "Was ""Tim McGraw"" the first song Taylor Swift released?",0,0
 Does Daft Punk have 10 studio albums?,0,0
-Did LeBron James join Los Angeles Lakers before 2018?,1,0
+Did LeBron James join Los Angeles Lakers before 2018?,1,1
 "Who won more MVPs, LeBron James or Steph Curry?",1,1
 Is LeBron James taller than Michael Jordan?,1,1
 "Who won more World Series games, the White Sox or the Red Sox?",1,1
 "Who has won more tennis grand slam titles, Venus Williams or Serena Williams?",1,1
 Is Bogdan Bogdanović taller than Cam Reddish?,1,1
-Did Max Scherzer join the Dodgers before 2020?,1,0
+Did Max Scherzer join the Dodgers before 2020?,1,1
 Have the Patriots or The Giants won more Super Bowls?,1,1
 Is Ichiro older than Mitch Haniger?,1,1
 Is Jarred Kelenic older than Walter Johnson?,1,1
-Did the Philadelphia 76ers win the NBA championship before 2005?,1,0
+Did the Philadelphia 76ers win the NBA championship before 2005?,1,1
 "Who has assisted more times, David Beckham or Ronaldinho?",1,1
 "Who has more league division titles, the Dallas Cowboys or the Philadelphia Eagles?",1,1
 "Who is younger, Venus Williams or Serena Williams?",1,1
 "Who has played fewer seasons in the NFL, Tom Brady or Ben Roethlisberger?",1,1
 Was Tom Brady drafted before the second round?,1,0
-Did Michael Phelps compete in his first Olympic Games before 2008?,1,0
+Did Michael Phelps compete in his first Olympic Games before 2008?,1,1
 Did Tom Brady win more Super Bowls than Aaron Rodgers?,1,1
 "Who won more major golf championships, Jack Nicklaus or Tiger Woods?",1,1
 "Which NBA team has more championships, the LA Lakers or the Boston Celtics?",1,1
@@ -600,7 +600,7 @@ Has Mike Trout won more than 1 MVP award?,1,1
 Have the United States won more all-time grand slams than Great Britain?,1,1
 "Who has won more NBA Season MVPs, LeBron James or Steph Curry?",1,1
 "Who has won more Ballon d'Ors, Messi or Ronaldo?",1,1
-Did LeBron James join the Los Angeles Lakers before 2014?,1,0
+Did LeBron James join the Los Angeles Lakers before 2014?,1,1
 "Who won more NBA Championships, LeBron James or Kobe Bryant?",1,1
 "Who won more Super Bowls, Tim Brady or Peyton Manning?",1,1
 "Who lost more Super Bowls, the Buffalo Bills or the Cleveland Browns?",1,1
@@ -682,9 +682,9 @@ Which years did Brazil make the FIFA World Cup Finals but not win?,0,0
 How many Olympic medals does Paavo Nurmi have that are not gold?,0,0
 How many Olympic medals does Gao Ling have that are not gold?,0,0
 How many Olympic medals does Teresa Edwards have that are not gold?,0,0
-Which NBA Finals in the 90s did not feature the Bulls or Rockets?,0,1
+Which NBA Finals in the 90s did not feature the Bulls or Rockets?,0,0
 "Between 1957 and 1969, what years did the Boston Celtics not win the NBA title?",0,0
-"Which football team had one of the worst losing streaks, not winning 29 games during the years 1942 to 1945?",0,1
+"Which football team had one of the worst losing streaks, not winning 29 games during the years 1942 to 1945?",0,0
 What team ended Jow DiMaggio's record-breaking hitting streak?,0,0
 Which year did Mauricio Roberto Pochettino's Tottenham Hotspur Football Club play the UEFA Champions League Final but did not win it?,0,0
 "In 2016, which gymnastics individual events did Simone Biles NOT win at the Rio Olympics?",0,0
@@ -698,7 +698,7 @@ Who was part of the Dream Team and was born in 1963?,0,0
 Which pitcher for the New York Yankees has the most strikeouts?,0,0
 Who is a 6-time NBA champion and attended college at the University of North Carolina?,0,0
 Which MLB manager reached the World Series with both the Tampa Bay Rays and Chicago Cubs?,0,0
-Which player won the UEFA Champions League 2021 and UEFA EURO 2020?,0,1
+Which player won the UEFA Champions League 2021 and UEFA EURO 2020?,0,0
 "Which superstar, having played in multiple teams who have won the UEFA Champions League, is yet to win the title?",0,0
 Which team did Kobe Bryant used to play in 2016 that founded was in 1947?,0,0
 What team has made it to the World Series the most times and won the most World Series titles?,0,0
@@ -873,52 +873,52 @@ Has Jokic ever won an NBA MVP?,0,0
 Did Michael Phelps win a silver medal at the 2004 Summer Olympics?,0,0
 Has Ben Roethlisberger retired yet?,0,0
 Did the Tampa Bay Bucs win the Super Bowl in 2020?,0,0
-Have the Denver Broncos won more than one Super Bowl?,0,1
+Have the Denver Broncos won more than one Super Bowl?,0,0
 Did the Lakers win the 2021 NBA championship?,0,0
 Has Peyton Manning won multiple Super Bowls?,0,0
 Are the Knicks a NY team?,0,0
 Is Micheal Jordan retired?,0,0
 Did Barry Bonds hit the most home runs in one season in MLB?,0,0
 "Which series has more books, The Hunger Games or Harry Potter?",1,1
-Did the last Harry Potter book come out after 2005?,1,0
+Did the last Harry Potter book come out after 2005?,1,1
 Is Tracy Hickman older than Margaret Weis?,1,1
 Has Twilight: New Moon sold more copies than Twilight: Eclipse?,1,1
 "Which series sold more books, Twilight or Harry Potter?",1,1
 "Which Stephen King's novel has more pages, It or Pet Sematary?",1,1
-Did The Call of the Wild come out before 1900?,1,0
+Did The Call of the Wild come out before 1900?,1,1
 Which series has more books: The Magic Treehouse or the Boxcar Children?,1,1
 Has the Harry Potter series sold more than 500 million copies?,1,1
 Did Harry Potter or Divergent book series start at an earlier date?,1,1
-Did Star By Star come out after 1998?,1,0
+Did Star By Star come out after 1998?,1,1
 "Which series has more books, Kane Chronicles or The MacGregors?",1,1
 "Which has more series, Magnus Chase or The MacKade Brothers?",1,1
 "Which book is ranked higher on 20th Century's Greatest Hits: 100 English-Language Books of Fiction, Pale Fire or Ulysses?",1,1
 Did the Fifty Shades of Grey books sell more than the Hunger Game books?,1,1
-Did Jane Eyre come out before 1953?,1,0
+Did Jane Eyre come out before 1953?,1,1
 "Which series has more books, The Hunger Games or Divergent?",1,1
 Is Erin Hunter older than J.K. Rowling?,1,1
 "Which series has the more books, The Southern Vampire Mysteries or The Wheel of Time?",1,1
-Did To Kill A Mockingbird come out before 1975?,1,0
+Did To Kill A Mockingbird come out before 1975?,1,1
 "What series has more books, Hunger Games or Game of Thrones?",1,1
-Did Lord of the Flies come out before 1940?,1,0
+Did Lord of the Flies come out before 1940?,1,1
 Is Harper Lee older than Virginia Woolf?,1,1
 "Which book series has sold more total books, Narnia or Twilight?",1,1
-Did Don Quixote come out before 1541?,1,0
-Did The Picture of Dorian Grey come out before 1910?,1,0
+Did Don Quixote come out before 1541?,1,1
+Did The Picture of Dorian Grey come out before 1910?,1,1
 "Which series has more books, Truly Devious or Lord of the Rings?",1,1
 Was The Hobbit written before or after the Lord of the Rings series?,1,1
-Which Alexander novel by Mary Renault came before The Persian Boy?,1,0
-Was Moby Dick published before 1900?,1,0
-Did The Hunger Games come out before 2010?,1,0
-Was The Woman in Black published after 1980?,1,0
+Which Alexander novel by Mary Renault came before The Persian Boy?,1,1
+Was Moby Dick published before 1900?,1,1
+Did The Hunger Games come out before 2010?,1,1
+Was The Woman in Black published after 1980?,1,1
 "Which sold more books, Harry Potter or Lord of the Rings?",1,1
 Is J.K. Rowling younger than Stephen King?,1,1
 "Which came out first, The Hobbit or The Lord of the Rings?",1,1
 Is Harry Potter older than Ron Weasley?,1,1
-Was Hell's Angels written before Fear and Loathing in Las Vegas?,1,0
-Was the Green Mile written before 2012?,1,0
+Was Hell's Angels written before Fear and Loathing in Las Vegas?,1,1
+Was the Green Mile written before 2012?,1,1
 "Which series has more books, Twilight or Hunger Games?",1,1
-Did Gone With the Wind get released before 1930?,1,0
+Did Gone With the Wind get released before 1930?,1,1
 "In The Lord of the Rings, how many members are part of the Fellowship of the Ring?",0,0
 How many books are in the Maze Runner series?,0,0
 How many Harry Potter books have been made into movies?,0,0
@@ -1229,7 +1229,7 @@ How many countries are there in the continent of Australia?,0,0
 How many countries have a population of over 1 billion?,0,0
 How many U.S. states have more than 20 million people living in them?,0,0
 How many U.S. states have a population of less than 1 million?,0,0
-What is the widest river not on the North American continent?,0,1
+What is the widest river not on the North American continent?,0,0
 Which of the top 5 longest rivers are not located in China?,0,0
 What is the tallest mountain that is not located in Asia?,0,0
 Which named oceans do not reach the North Pole?,0,0
@@ -1252,7 +1252,7 @@ Which California 14er is not in the Sierra Nevada?,0,0
 Which continent does not have a desert?,0,0
 The equator crosses which South American nations?,0,0
 Which South American countries do not border the sea?,0,0
-What is the deepest canyon in North America but not as deep as Hells Canyon?,0,1
+What is the deepest canyon in North America but not as deep as Hells Canyon?,0,0
 Which of the top 3 smallest United States is not considered to be in the Northeastern area of the United States?,0,0
 Which Gulf states don't share a border with Florida?,0,0
 Which of the Great Lakes is not located partly in Canada?,0,0
@@ -1263,7 +1263,7 @@ Which state has the tallest mountain and the most rivers?,0,0
 Which river flows through Egypt and is the longest river in the world?,0,0
 What is the second longest River in the U.S. and flows through 10 states?,0,0
 Which state is the tenth largest by area and also contains an active volcano?,0,0
-Which African freshwater lake is the most polluted as of 2021?,0,1
+Which African freshwater lake is the most polluted as of 2021?,0,0
 Which city is the capital of the Philippines and holds the title of the world's fourth most densely populated city?,0,0
 Which country has the most yearly rainfall and a population of approximately 50 million people?,0,0
 Which country has the most islands and a cross in the national flag?,0,0
@@ -1370,9 +1370,9 @@ What is the tallest volcano in the world?,0,0
 What is the largest freshwater lake in the U.S.?,0,0
 What is the largest city in America by population?,0,0
 Which United States state has the smallest land mass?,0,0
-What is the hottest average country in the world?,0,1
+What is the hottest average country in the world?,0,0
 Which state has the highest mean elevation of any other U.S. state?,0,0
-Which is the smallest planet in our solar system?,0,0
+Which is the smallest planet in our solar system?,0,1
 What is the largest desert in North America?,0,0
 What is the tallest mountain in the U.S.?,0,0
 What is the largest city in Germany by population?,0,0
@@ -1394,7 +1394,7 @@ What is the largest city in Mexico by population according to the UN 2018 popula
 What is the tallest mountain in the U.S. by elevation (feet)?,0,0
 Which U.S. state has the largest population?,0,0
 What is the tallest mountain on the South American continent?,0,0
-Where is the coldest place on earth?,0,1
+Where is the coldest place on earth?,0,0
 Is Tokyo colder on average than Seoul?,0,1
 Is India the largest country in the world?,0,0
 Is the Pacific Ocean the largest ocean in the world?,0,0
@@ -1417,8 +1417,8 @@ Is New York City the most populated city in the United States?,0,0
 Is the Mississippi River the longest river in North America?,0,0
 Is Alaska the newest US state?,0,0
 "Is the capital of France, Paris?",0,0
-Are there more than 150 active volcanos in the United States?,0,1
-Does Japan include more than 6000 islands?,0,1
+Are there more than 150 active volcanos in the United States?,0,0
+Does Japan include more than 6000 islands?,0,0
 Is there a crater in the Yucatán Peninsula?,0,0
 Is Reykjavik the capital of Iceland?,0,0
 Is Istanbul the capital of Turkey?,0,0
@@ -1436,31 +1436,31 @@ Is the Middle East part of Asia?,0,0
 Is George H. W. Bush older than Jimmy Carter?,1,1
 "Which state has more electoral votes, Pennsylvania or Georgia?",1,1
 "Who was younger when they became president of the United States, Abraham Lincoln or George Washington?",1,1
-Was Joe Biden vice president before 1990?,1,0
+Was Joe Biden vice president before 1990?,1,1
 Did California or Texas have a higher turnout?,1,1
 "Who was elected president first, George Washington or Thomas Jefferson?",1,1
 Was Donald Trump impeached more times than Bill Clinton?,1,1
 Is Donald Trump older than Joe Biden?,1,1
-Did Donald Trump become president before Barack Obama?,1,0
+Did Donald Trump become president before Barack Obama?,1,1
 "Which state has more electoral votes, Texas or Florida?",1,1
 Did Gerard R. Ford die at an older age than Ronald Reagan?,1,1
 Did John F. Kenny die at an older age than Abraham Lincoln?,1,1
 "Which state has more electoral votes, North Carolina or South Carolina?",1,1
 Is Bill Clinton younger than Barack Obama?,1,1
 "Which state has more electoral votes, Delaware or Florida?",1,1
-Was Bill Clinton elected president before 1988?,1,0
+Was Bill Clinton elected president before 1988?,1,1
 "Which state has more electoral votes, Minnesota or Iowa?",1,1
-Was Theodore Roosevelt president before Franklin Roosevelt?,1,0
+Was Theodore Roosevelt president before Franklin Roosevelt?,1,1
 Is Chuck Grassley older than Sheldon Whitehouse?,1,1
 "Which state has more electoral votes, Pennsylvania or Florida?",1,1
 "What state has more representatives federally, Texas or Utah?",1,1
-Did John F. Kennedy become president before 1962?,1,0
+Did John F. Kennedy become president before 1962?,1,1
 "Which state has more electoral votes, Rhode Island or South Carolina?",1,1
 Is Senator Bernie Sanders older than President Donald Trump?,1,1
-Did Donald Trump become president before 2015?,1,0
+Did Donald Trump become president before 2015?,1,1
 "Which state is more conservative, Florida or Alabama?",1,1
 "Who was president first, Franklin or Theodore Roosevelt?",1,1
-Did Joe Biden become president after 2020?,1,0
+Did Joe Biden become president after 2020?,1,1
 Is Kamala Harris younger than Hillary Clinton?,1,1
 California has more electoral votes than Texas?,1,1
 Does South Carolina have more electoral votes than Oklahoma?,1,1
@@ -1552,7 +1552,7 @@ Who was a former CIA director and president of the United States?,0,0
 Who ran for president in 1992 and graduated from Georgetown University?,0,0
 Who ran for president in 2012 and graduated from Brigham Young University?,0,0
 Who is a current senator from South Carolina and is a racial minority?,0,0
-Who is a current or former president of the United States and served in office for more than 12 years?,0,1
+Who is a current or former president of the United States and served in office for more than 12 years?,0,0
 "Who was a U.S. president and was born on October 30, 1735?",0,0
 Who was the first woman who have run for US president and are affiliated as a Republican?,0,0
 "Who was born in Laurel, MS and a current senator of Tennessee?",0,0
@@ -1722,47 +1722,47 @@ Is California a mostly democrat leaning state?,0,0
 Did China's Mao Zedong announce The Great Leap Forward in 1958?,0,0
 Did Iraq hold its first democratic elections in 2005?,0,0
 "Which video game series has more titles released, Zelda or Mario?",1,1
-Was Oregon Trail released before Super Mario Kart?,1,0
+Was Oregon Trail released before Super Mario Kart?,1,1
 Was Stardew Valley rated higher by IGN or Game Informer?,1,1
 Did Stardew Valley have more designers than The Long Dark?,1,1
 "Which series has more games, Jak and Daxter or Ratchet & Clank?",1,1
-Did Sony release a gaming console before Microsoft?,1,0
+Did Sony release a gaming console before Microsoft?,1,1
 "Which game required more development cost before their initial release, World of Warcraft or Final Fantasy 14?",1,1
-Was Fortnite released after 2015?,1,0
+Was Fortnite released after 2015?,1,1
 "Which series has more games, Street Fighter or Mortal Kombat?",1,1
 "Which series has more games, Halo or Call of Duty?",1,1
 "Which game series has more games, Final Fantasy or Tales?",1,1
-Did Quake come out before Doom?,1,0
+Did Quake come out before Doom?,1,1
 "Which series had more games on NES, Castlevania or Mega Man?",1,1
 "Which system was released first in North America, Sega Genesis or Super Nintendo?",1,1
 Did Minecraft have more sales than Grand Theft Auto V?,1,1
-Did RuneScape out before Fortnite?,1,0
-Did RuneScape come out before League of Legends?,1,0
-Did the first Pokémon game come out before the firs Grand Theft Auto game?,1,0
-Did the first Pokémon game come out before the first Resident Evil game?,1,0
+Did RuneScape out before Fortnite?,1,1
+Did RuneScape come out before League of Legends?,1,1
+Did the first Pokémon game come out before the firs Grand Theft Auto game?,1,1
+Did the first Pokémon game come out before the first Resident Evil game?,1,1
 "Which was released first, Mortal Kombat or Street Fighter?",1,1
-Did the Trails in the Sky series come out after 2003?,1,0
+Did the Trails in the Sky series come out after 2003?,1,1
 Did the Crossbell arc games release before the Trails in the Sky games?,1,0
 Is Mario taller than Luigi?,1,1
-Did the first Grand Theft Auto game come out before the first Red Dead game?,1,0
-Did the first Mario Kart game come out before the first Forza game?,1,0
-Did the first Mass Effect game come out before the first Dragon Age game?,1,0
-Did Mass Effect come out before 2010?,1,0
-Did Fallout 2 come out before 2000?,1,0
-Did the Sonic the Hedgehog game come out before Super Mario World?,1,0
+Did the first Grand Theft Auto game come out before the first Red Dead game?,1,1
+Did the first Mario Kart game come out before the first Forza game?,1,1
+Did the first Mass Effect game come out before the first Dragon Age game?,1,1
+Did Mass Effect come out before 2010?,1,1
+Did Fallout 2 come out before 2000?,1,1
+Did the Sonic the Hedgehog game come out before Super Mario World?,1,1
 "Which game has more levels to play, Fall Guys or Among Us?",1,1
-Did the first Sonic game come out before the first Mario game?,1,0
+Did the first Sonic game come out before the first Mario game?,1,1
 "Which was released earlier, Goldeneye 007 or Quantum of Solace?",1,1
-Was Kirby's Dream Land released before 1995?,1,0
-Was Castlevania (NES) released after 1990?,1,0
-Did The Sims 4 come out before 2001?,1,0
-Did Dota 2 come out before 2000?,1,0
-Did Path of Exile come out before Diablo 3?,1,0
+Was Kirby's Dream Land released before 1995?,1,1
+Was Castlevania (NES) released after 1990?,1,1
+Did The Sims 4 come out before 2001?,1,1
+Did Dota 2 come out before 2000?,1,1
+Did Path of Exile come out before Diablo 3?,1,1
 "Which came out first, Xbox or Playstation?",1,1
 Did Halo 1 or Halo 2 sell more copies?,1,1
-Did Halo 3 come out before 2005?,1,0
-Did The Legend of Zelda come out before 1988?,1,0
-Was Game Boy released before Gamegear?,1,0
+Did Halo 3 come out before 2005?,1,1
+Did The Legend of Zelda come out before 1988?,1,1
+Was Game Boy released before Gamegear?,1,1
 "What franchise has more games, Pokémon or Digimon?",1,1
 How many characters can be played within the Mercenaries minigame for horror game Resident Evil 4?,0,0
 How many Final Fantasy games were released on the Playstation 2?,0,0
@@ -2017,10 +2017,10 @@ Was V the main character of Cyberpunk 2077?,0,0
 Is Yoshi a character in the Halo series?,0,0
 Does Chrono Trigger involve traveling through time?,0,0
 Can you fight as Sub Zero in Street Fighter 2?,0,0
-Is Wario the arch-rival of Mario and Luigi?,0,1
-Does Final Fantasy have more than one game?,0,1
+Is Wario the arch-rival of Mario and Luigi?,0,0
+Does Final Fantasy have more than one game?,0,0
 Is Daisy the sister of Princess Peach?,0,0
-Are Wario and Waluigi related?,0,1
+Are Wario and Waluigi related?,0,0
 Is Luigi the main character of a video game?,0,0
 Did Ubisoft develop the Assassins Creed games?,0,0
 Has Assassins Creed released a game on the Playstation 5 yet?,0,0
@@ -2037,7 +2037,7 @@ Is Bulbasaur the first Pokemon in the Pokedex?,0,0
 Is the main character of the God of War series a female?,0,0
 Is Nick Foles on the cover of Madden 18?,0,0
 Has there ever been two players on the cover of any Madden game?,0,0
-Was Pokemon Blue created before 2000?,0,0
+Was Pokemon Blue created before 2000?,0,1
 Is the main character in Grand Theft Auto: San Andreas referred to as CJ in the game?,0,0
 Was Knuckles an Echidnia?,0,0
 Did Bethesda create the Grand Theft Auto series?,0,0
@@ -2051,7 +2051,7 @@ Did Bethesda create the Grand Theft Auto series?,0,0
 "Which Pope had a longer reign, Pius IX or Leo XIII?",1,1
 "Who was married more times, King Henry VII or King Henry VIII?",1,1
 "Which war lasted longer, the Spanish American War or the French and Indian War?",1,1
-Did the Civil War start before the Emancipation Proclamation?,1,0
+Did the Civil War start before the Emancipation Proclamation?,1,1
 "Who lost the most soldiers during World War II, the United States or Russia?",1,1
 "Which state was admitted to the Union earlier, Illinois or Indiana?",1,1
 "Who was younger when they became vice president, Al Gore or Kamala Harris?",1,1
@@ -2059,10 +2059,10 @@ Did the Civil War start before the Emancipation Proclamation?,1,0
 "Who was younger at the age of their ascension, Mary, Queen of Scots or Queen Victoria?",1,1
 "Which war was longer, Iraq War or World War II?",1,1
 "Which war lasted longer, the Iran-Iraq War or the Yugoslav Wars?",1,1
-Were the states of Rhode Island and Montana formed at the same time?,1,0
+Were the states of Rhode Island and Montana formed at the same time?,1,1
 "Which European monarchy is older, the Spanish monarchy or the Danish monarchy?",1,1
 "Which country has more pyramids, Egypt or Sudan?",1,1
-Was Julius Caesar born before Augustus?,1,0
+Was Julius Caesar born before Augustus?,1,1
 "Who was born first, Queen Victoria or Elizabeth Cady Stanton?",1,1
 "Which Civil War battle occurred first, Antietam or Gettysburg?",1,1
 "Which of these states became states first, Kentucky or Michigan?",1,1
@@ -2079,13 +2079,13 @@ Was Julius Caesar born before Augustus?,1,0
 "Who had a larger empire, Alexander the Great or Genghis Khan?",1,1
 "Which was shorter, the War in Afghanistan or the Iraq War?",1,1
 "Who had a shorter reign, Elizabeth I or Henry VIII?",1,1
-Was the Statue of Liberty erected before 1900?,1,0
+Was the Statue of Liberty erected before 1900?,1,1
 Did the Korean War occur before or after World War II?,1,1
 "Which war lasted longer, World War II or the Korean War?",1,1
 "Which war lasted longer, the Revolutionary War or the Civil War?",1,1
 "Which war lasted longer, the War of 1812 or the Persian Gulf War?",1,1
 "Which was larger, the Umayyad Caliphate or the Mongol Empire?",1,1
-Was the Korean War started before 1940?,1,0
+Was the Korean War started before 1940?,1,1
 "Which battle lasted longer, the Battle of Verdun or the Anglo-Zanzibar War?",1,1
 "Which war had the most deaths, World War I or World War II?",1,1
 "Who walked on the moon earlier, Alan Bean or Charles Duke?",1,1
@@ -2141,7 +2141,7 @@ Which US president was impeached twice but not removed?,0,0
 Which candidate in the 2020 US Presidential Election did not win?,0,0
 Who was the only US president to not be elected?,0,0
 Which countries were not colonized in Africa?,0,0
-Which president was never elected as a president or vice president?,0,1
+Which president was never elected as a president or vice president?,0,0
 Who was the only English king who did not ever marry in his life?,0,0
 Which U.S. president never got married?,0,0
 Which king of Thailand did not live past 21 years old?,0,0
@@ -2212,7 +2212,7 @@ What country is the oldest constitutional republic in the world and is located i
 Who was the king of Egypt and was married to Ankhesenamun?,0,0
 Who initiated the strands of systematics and natural history for ornithology in the late 1600s?,0,0
 Who was both a winner of an Emmy and a First Lady?,0,0
-What country is located north of Mexico and south of Canada?,0,1
+What country is located north of Mexico and south of Canada?,0,0
 Which European nation is a democracy and still retains a monarchy?,0,0
 What state was the last added to the United States of America and is a set of islands?,0,0
 "Who was vice president of the United States, and female?",0,0
@@ -2374,7 +2374,7 @@ Was the Battle of Hastings fought in 1066?,0,0
 Was Julius Caesar assassinated by friends and colleagues?,0,0
 Did Salvador Dalí paint the Mona Lisa?,0,0
 Did Astronaut John Glenn land on the moon?,0,0
-Did Virginia become a U.S. state before Tennessee?,0,0
+Did Virginia become a U.S. state before Tennessee?,0,1
 Was China involved in battle in World War I?,0,0
 Did Marie Antoinette die by execution?,0,0
 Did Confucius have any children?,0,0
@@ -2420,10 +2420,10 @@ Was Genghis Khan born with that name?,0,0
 Was John Adams the first president to live in the White House?,0,0
 Was emperor Jimmu the first emperor of Japan?,0,0
 Did Martin Luther King Jr. get assassinated?,0,0
-Was Avengers released before Black Widow?,1,0
-Was The Empire Strikes Back released the same year as E.T. The Extraterrestrial?,1,0
+Was Avengers released before Black Widow?,1,1
+Was The Empire Strikes Back released the same year as E.T. The Extraterrestrial?,1,1
 "Which movie was bigger budget, Terminator or Speed?",1,1
-Was Iron Man released in the same year as The Avengers?,1,0
+Was Iron Man released in the same year as The Avengers?,1,1
 Did Leonardo DiCaprio win an Oscar for the Revenant?,1,0
 "Which movie premiere had more ticket sales, Tombstone or Dances with Wolves?",1,1
 "Which movie made more money at the box office, Avengers: Endgame or Avengers: Infinity War?",1,1
@@ -2510,18 +2510,18 @@ Did George Lucas direct Empire Strikes Back?,0,0
 Did Guillermo Del Toro work on direct Pacific Rim 2?,0,0
 Was Hugh Jackman nominated for an Oscar for Logan?,0,0
 Did Peter Farrelly direct Green Book?,0,0
-Did Smells Like Teen Spirit come out before 2004?,1,0
+Did Smells Like Teen Spirit come out before 2004?,1,1
 "Who is older, Jay Z or Macklemore?",1,1
-Did Blinding Lights and Lost in the Fire come out in the same year?,1,0
+Did Blinding Lights and Lost in the Fire come out in the same year?,1,1
 Who is younger out of Elton John and Cher?,1,1
 What is taller; Camron or Juelz Santana?,1,1
 Who has more albums in their discography out of Rick Ross and DMX?,1,1
 Does Nas have more Grammys than Eminem does?,1,1
-Did All Star come out the same year as I Don't Want to Miss a Thing?,1,0
+Did All Star come out the same year as I Don't Want to Miss a Thing?,1,1
 "Who is older, Jay Z or Pharrell Williams?",1,1
 "Which Franz Ferdinand album had more songs, Tonight or Franz Ferdinand?",1,1
-Did Blister in the Sun come out after 1980?,1,0
-Did The Doors form before Fleetwood Mac?,1,0
+Did Blister in the Sun come out after 1980?,1,1
+Did The Doors form before Fleetwood Mac?,1,1
 Did Like a Virgin come out after Papa Don't Preach?,1,0
 "Who performed at an earlier date, Prince or Michael Jackson?",1,1
 "Who is taller, Madonna or Britney Spears?",1,1
@@ -2622,7 +2622,7 @@ Is Adele an American singer?,0,0
 Did Dr. Dre make a song with 2Pac?,0,0
 Did Shiskabob Diskabob win a Grammy for Best Video?,0,0
 Has Lady Gaga won any major awards?,0,0
-Did Taylor Swift's first album come out before Nicki Minaj's first album?,0,0
+Did Taylor Swift's first album come out before Nicki Minaj's first album?,0,1
 Did Alan Jackson sing Red Solo Cup?,0,0
 Did Russel Westbrook win more championships than Stephen Curry?,1,1
 "Who has more championships, LeBron James or Kevin Durant?",1,1
@@ -2694,7 +2694,7 @@ Which NHL team has the most Stanley Cup wins?,0,0
 Has the Minnesota Vikings ever won the Super Bowl?,0,0
 Did Mike Ditka play for the Miami Dolphins?,0,0
 Did John Elway win a Super Bowl?,0,0
-Is Simone Biles the world's most decorated gymnast?,0,0
+Is Simone Biles the world's most decorated gymnast?,0,1
 Does Michael Phelps hold the record for most medals won in the Olympics?,0,0
 Does LeBron James currently play for the Lakers?,0,0
 Did Serena Williams win a gold medal in 2021?,0,0
@@ -2703,14 +2703,14 @@ Did the Tampa Bay Buccaneers win the Super Bowl this year?,0,0
 Did Peyton Manning win a Super Bowl with the Colts?,0,0
 Did Aly Raisman win a gold medal in the 2012 Olympics?,0,0
 Did Neymar leave PSG for another team when Messi arrived?,0,0
-Did the USA win more than 10 gold medals in the 2020 Summer Olympics?,0,1
+Did the USA win more than 10 gold medals in the 2020 Summer Olympics?,0,0
 Did Tom Clancy or Stephen King write more novels?,1,1
 Who was older at death between Carl Sagan and Ray Bradbury?,1,1
 Which series has more pages between The Lord of the Rings and Ranger's Apprentice?,1,1
-Did Fahrenheit 451 come out before 1960?,1,0
+Did Fahrenheit 451 come out before 1960?,1,1
 Is George R.R. Martin older than Stephen King?,1,1
 "Which series has more books, the Outlander series or A Song of Ice and Fire?",1,1
-Have more than 50 Berenstain Bears books been published?,1,0
+Have more than 50 Berenstain Bears books been published?,1,1
 "Which book series is older, Paddington Bear or Winnie the Pooh?",1,1
 How many novels were published by Jane Austen during her lifetime?,0,0
 How many books are there in the A Song of Ice and Fire series?,0,0
@@ -2824,7 +2824,7 @@ Which Canadian territory borders Alaska and also contains Dawson City?,0,0
 Which Hawaiian island contains the state's most active volcano and is also the largest Hawaiian island?,0,0
 Which state has the four largest cities in the United States and also does not share any borders with any other U.S. States?,0,0
 What river flows through Canada and is the second largest river of North America?,0,0
-Which state connects to Mississippi and Arkansas?,0,1
+Which state connects to Mississippi and Arkansas?,0,0
 Which state features the Brooklyn Bridge and the Statue of Liberty?,0,0
 Which river is located in South America and is the second longest river in the world?,0,0
 What is the name of the tallest mountain in Africa that is known as the highest free standing mountain in the world?,0,0
@@ -2842,7 +2842,7 @@ What is the population of the city where the National Civil Rights Museum in loc
 What is the name of the capital city of the country that only shares a border with Spain?,0,0
 What is the name of the river that runs through the capital city of England?,0,0
 "What is the population of the country where the ""Spanish Steps"" are located?",0,0
-What is the ocean that is closest to where the South Pole is?,0,1
+What is the ocean that is closest to where the South Pole is?,0,0
 What state is the largest building in America in?,0,0
 What is the capital of the state where Mount Rushmore is located?,0,0
 What is the tallest building in the capital city of Portugal?,0,0
@@ -2863,16 +2863,16 @@ What is the smallest ocean in the world?,0,0
 What is the tallest mountain in Washington state?,0,0
 What is the longest river in Asia?,0,0
 What is the tallest mountain in the United States?,0,0
-What is the deepest point in all of the oceans of the world?,0,1
+What is the deepest point in all of the oceans of the world?,0,0
 What is the oldest hotel in London?,0,0
 What is the biggest lake in the world?,0,0
-What is the widest waterfall system in the world?,0,1
-Which is the largest ocean on earth?,0,0
+What is the widest waterfall system in the world?,0,0
+Which is the largest ocean on earth?,0,1
 What is the shortest river in the U.S.?,0,0
 What is the largest city in North America by population?,0,0
 What is the largest country in North America by population?,0,0
 What is the smallest country in Africa by size?,0,0
-"Is the smallest country in the world, by area, Vatican City?",0,1
+"Is the smallest country in the world, by area, Vatican City?",0,0
 "Is Barcelona the largest city in Spain, by population?",0,0
 Is Mount Rainier a volcano?,0,0
 Is Mount Everest the tallest in the world?,0,0
@@ -2886,8 +2886,8 @@ Is the Missouri River the longest river in North America?,0,0
 "Which state has more electoral votes, California or New York?",1,1
 Is Kamala Harris older than Michelle Obama?,1,1
 Is Barack Obama older than George Bush?,1,1
-Was Ronald Reagan elected president after Jimmy Carter?,1,0
-Was Barack Obama elected president before George H.W. Bush?,1,0
+Was Ronald Reagan elected president after Jimmy Carter?,1,1
+Was Barack Obama elected president before George H.W. Bush?,1,1
 Is Hillary Clinton older than Barack Obama?,1,1
 Does Georgia have more electoral votes than Texas?,1,1
 Does the House of Representatives currently have more Democrats or Republicans?,1,1
@@ -2962,8 +2962,8 @@ Was Barack Obama a Republican?,0,0
 Did Mark Warner previously serve as governor of Virginia?,0,0
 Has there ever been an independent party U.S. president?,0,0
 Was Donald Trump re-elected in 2020?,0,0
-Was Parasite released the same year as Knives Out?,1,0
-Did Titanic come out before 1995?,1,0
+Was Parasite released the same year as Knives Out?,1,1
+Did Titanic come out before 1995?,1,1
 How many children does the director of Gladiator have?,0,0
 "Who is older, Cardi B or Megan Thee Stallion?",1,1
 How many Grammy Awards did Billie Eilish win in 2020?,0,0
@@ -2978,7 +2978,7 @@ Which New England states did Biden not win in the 2020 Democratic Party Primarie
 Which governors of Massachusetts since 2000 have not been Republican?,0,0
 Who is a former astronaut and the current senator of Arizona?,0,0
 Which state has the most representatives in the House?,0,0
-Did The Great Gatsby come out before 1930?,1,0
+Did The Great Gatsby come out before 1930?,1,1
 Is Ian McEwan older than Margaret Atwood?,1,1
 How many of William Faulkner's books won a Pulitzer Prize?,0,0
 Which Tribute in the Hunger Games was from District 11 and 12 years old?,0,0
@@ -2987,7 +2987,7 @@ What is the sixth book in the Harry Potter series?,0,0
 Who was the youngest tribute in the Hunger Games?,0,0
 Are there seven Harry Potter books?,0,0
 "Which country has a larger population, Greece or Italy?",1,1
-Has Mount Vesuvius erupted after 1940?,1,0
+Has Mount Vesuvius erupted after 1940?,1,1
 How many active volcanoes are there in Italy?,0,0
 How many U.S. states have a population over 15 million?,0,0
 Which of Italy's active volcanos is not located on an island?,0,0
@@ -3145,7 +3145,7 @@ What was the last Star Trek to star William Shatner as Captain Kirk?,0,0
 What is the last Marvel movie chronologically?,0,0
 What was the last Indiana Jones movie released?,0,0
 What is the second Marvel Cinematic Universe movie chronologically?,0,0
-Did Clueless come out before 2008?,1,0
+Did Clueless come out before 2008?,1,1
 "In the Tom Hanks catalog, did Forrest Gump come out before Catch Me If You Can?",1,0
 When did the second Throne of Glass book come out?,0,0
 When did the fifth Throne of Glass book come out?,0,0
@@ -3168,8 +3168,8 @@ What is the subtitle for the third Xenosaga game?,0,0
 "Who is taller, Mario or Luigi?",1,1
 Are there more Dynasty Warrior games than Street Fighter games?,1,1
 Has Nintendo sold more Switch consoles than Wii consoles?,1,1
-Did the first Resident Evil come out before the first Silent Hill?,1,0
-Did the first Doom game come out before the first Wolfenstein game?,1,0
+Did the first Resident Evil come out before the first Silent Hill?,1,1
+Did the first Doom game come out before the first Wolfenstein game?,1,1
 "Which series has more games, Call of Duty or The Sims?",1,1
 Which Elder Scrolls game was set in Vvardenfell and released in 2002?,0,0
 Which game is a Vanillaware game and has Gwendolyn the Valkyrie in it?,0,0
@@ -3594,7 +3594,7 @@ What city is called the City of Lights?,0,0
 What city is the capital of Texas?,0,0
 What is the biggest monument in the world?,0,0
 Which city is called the Big D?,0,0
-Which is the oldest inhabited city?,0,0
+Which is the oldest inhabited city?,0,1
 How tall is the Washington Monument?,0,0
 What city is nicknamed Beantown?,0,0
 Where is the Basilica of Bom Jesus?,0,0
@@ -3628,7 +3628,7 @@ Do you have to pay to see Mount Rushmore?,0,0
 What is the most populated city in the world?,0,0
 Where is the city of Buffalo?,0,0
 What year was the Statue of Liberty dedicated?,0,0
-What city in the US is the driest?,0,1
+What city in the US is the driest?,0,0
 What city has the nickname The Big Easy?,0,0
 When was the Taj Mahal built?,0,0
 What state is the Carrizo Plain National Monument located in?,0,0
@@ -3650,7 +3650,7 @@ Where is Moai Statues located?,0,0
 What's the population of San Francisco?,0,0
 Which city has the tallest building in the world?,0,0
 How many columns are there in the Lincoln Memorial?,0,0
-What is the coldest city in the world?,0,1
+What is the coldest city in the world?,0,0
 Which coast is Philadelphia on?,0,0
 What year did the construction of the Leaning Tower of Pisa begin?,0,0
 What is the capital city of Iraq?,0,0
@@ -3737,7 +3737,7 @@ Which state holds the most electoral votes for the president?,0,0
 Who won the 2012 Presidential Election?,0,0
 Who was the 40th president?,0,0
 Which president served the least amount of time in office?,0,0
-"ANC the largest political party in South Africa, what does ANC stand for?",0,1
+"ANC the largest political party in South Africa, what does ANC stand for?",0,0
 Whst is the name of the head of state and highest ranking political and religious authority in Iran?,0,0
 How many official languages are there in the EU?,0,0
 Who was Abraham Lincoln's vice president from 1861 to 1865?,0,0
@@ -3758,7 +3758,7 @@ When was Barry Goldwater first elected to the US Senate?,0,0
 The first American president to travel outside the US?,0,0
 When were the US presidential debates first televised?,0,0
 How old is Kim Jong-un?,0,0
-What is the poorest European country?,0,1
+What is the poorest European country?,0,0
 In which year did Israel become a country?,0,0
 Who won the Michigan Senate seat in 2018?,0,0
 The House of Representatives has how many voting members?,0,0
@@ -3793,7 +3793,7 @@ When was Winston Churchill born?,0,0
 What was the name of the treaty that ended WW I?,0,0
 Who became king of England in 1135?,0,0
 How many gods did the Incas believe in?,0,0
-"What was the side in WW I that had Germany, Austria, Hungry, Bulgaria and the Ottoman Empire?",0,1
+"What was the side in WW I that had Germany, Austria, Hungry, Bulgaria and the Ottoman Empire?",0,0
 The Korean War was how many years?,0,0
 Who was the 3rd president of the United States?,0,0
 Who is known as the Father of Medicine?,0,0
@@ -3845,7 +3845,7 @@ How long did Alexander the Great rule?,0,0
 Which two leading Greek city states fought against each other in the Peloponnesian war?,0,0
 Who was the fifth president of the US?,0,0
 What civilization was Hannibal from?,0,0
-Which is the oldest civilization?,0,0
+Which is the oldest civilization?,0,1
 Who was the first king of Israel?,0,0
 Who was the most distinguished Spartan officer during the second Peloponnesian War?,0,0
 When did the Vietnam War start?,0,0
@@ -3880,7 +3880,7 @@ Which city is nicknamed the City of Light?,0,0
 Which president received his nomination for presidency late because he refused all postage due correspondence?,0,0
 What type of government does Angola have?,0,0
 Which state has the most seats in the house?,0,0
-What is the main political party in China?,0,0
+What is the main political party in China?,0,1
 Which ancient civilization was the first to use democracy?,0,0
 Who authored the Divine Comedy?,0,0
 Who was the last Egyptian pharaoh?,0,0
@@ -3980,7 +3980,7 @@ When did Madden 25 come out?,0,0
 What studio developed Minecraft?,0,0
 Who created Minecraft?,0,0
 Who is the antagonist in Super Mario World?,0,0
-What's one of Yoshi's unique superpowers?,0,1
+What's one of Yoshi's unique superpowers?,0,0
 What was the name of Final Fantasy 4's main protagonist?,0,0
 When did Kingdom Hearts come out?,0,0
 Who is the protagonist of Fallout 4?,0,0
