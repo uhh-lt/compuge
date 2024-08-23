@@ -6,7 +6,6 @@ from datasets import Dataset, DatasetDict
 import numpy as np
 from sklearn.metrics import accuracy_score, precision_recall_fscore_support
 
-
 # Load data function
 def load_data(train_folder, test_folder=None):
     dataset_dict = {}
@@ -32,7 +31,6 @@ def load_data(train_folder, test_folder=None):
 
     return DatasetDict(dataset_dict)
 
-
 # Save test results
 def save_test_results(results_folder, test_dataset, predictions, train_folder_name, test_folder_name, model_name):
     pred_labels = np.argmax(predictions, axis=1)
@@ -46,7 +44,6 @@ def save_test_results(results_folder, test_dataset, predictions, train_folder_na
     os.makedirs(results_folder, exist_ok=True)
     test_df.to_csv(results_path, index=False)
     print(f"Test results saved to {results_path}")
-
 
 # Save metrics
 def save_metrics(results_folder, train_folder_name, test_folder_name, model_name, metrics):
@@ -65,7 +62,6 @@ def save_metrics(results_folder, train_folder_name, test_folder_name, model_name
     metrics_df.to_csv(metrics_file_path, mode='a', header=not os.path.exists(metrics_file_path), index=False)
     print(f"Metrics saved to {metrics_file_path}")
 
-
 # Compute metrics function
 def compute_metrics(p):
     preds = np.argmax(p.predictions, axis=1)
@@ -73,6 +69,25 @@ def compute_metrics(p):
     precision, recall, f1, _ = precision_recall_fscore_support(p.label_ids, preds, average='weighted')
     return {'accuracy': accuracy, 'precision': precision, 'recall': recall, 'f1': f1}
 
+# Save checkpoint function
+def save_checkpoint(checkpoint_file, current_index):
+    with open(checkpoint_file, 'w') as f:
+        json.dump({"current_index": current_index}, f)
+    print(f"Checkpoint saved at index {current_index}")
+
+# Load checkpoint function
+def load_checkpoint(checkpoint_file):
+    if os.path.exists(checkpoint_file):
+        with open(checkpoint_file, 'r') as f:
+            checkpoint = json.load(f)
+            return checkpoint.get("current_index", 0)
+    return 0
+
+# Remove checkpoint file
+def remove_checkpoint_file(checkpoint_file):
+    if os.path.exists(checkpoint_file):
+        os.remove(checkpoint_file)
+        print(f"Checkpoint file {checkpoint_file} removed.")
 
 # Main function
 def main(train_folder, test_folders, model_name, results_folder):
@@ -126,34 +141,45 @@ def main(train_folder, test_folders, model_name, results_folder):
         train_folder_name = os.path.basename(train_folder)
         test_folder_name = os.path.basename(test_folder)
 
-        save_test_results(results_folder, test_dataset, test_results.predictions, train_folder_name, test_folder_name,
-                          model_name)
+        save_test_results(results_folder, test_dataset, test_results.predictions, train_folder_name, test_folder_name, model_name)
         save_metrics(results_folder, train_folder_name, test_folder_name, model_name, test_results.metrics)
-
 
 # Main execution
 if __name__ == "__main__":
+    checkpoint_file = "checkpoint.json"
+    start_index = load_checkpoint(checkpoint_file)
+
     with open("../../datasets-metadata.json") as f:
         datasets_metadata = json.load(f)
         model_name = "distilbert/distilbert-base-uncased-finetuned-sst-2-english"
         results_folder = f"./testing_results/{model_name.split('/')[0]}"
         os.makedirs(results_folder, exist_ok=True)
+
         print("---------------------------------------------------------------------------------------------------------")
         print("total datasets: ")
         print(len(datasets_metadata["datasets"]))
         print("total datasets with task Question Identification: ")
         print(len([dataset for dataset in datasets_metadata["datasets"] if dataset["task"] == "Question Identification"]))
         print("---------------------------------------------------------------------------------------------------------")
-        for dataset1 in datasets_metadata["datasets"]:
+
+        for i, dataset1 in enumerate(datasets_metadata["datasets"]):
+            if i < start_index:
+                continue
+
             print("Training on: ", dataset1["folder"])
             if dataset1["task"] != "Question Identification":
                 continue
 
             test_folders = [f"../../Splits/{dataset2['folder']}" for dataset2 in datasets_metadata["datasets"] if
-                            dataset2["task"] == "Question Identification"]
+                            dataset2["task"] == "Question Identification" and not dataset2["folder"].contains("merged")]
 
             main(f"../../Splits/{dataset1['folder']}", test_folders, model_name, results_folder)
+            save_checkpoint(checkpoint_file, i + 1)
+
             print("---------------------------------------------------------------------------------------------------------")
             print(f"Finished training and testing {model_name} on {dataset1['folder']}.")
             print("---------------------------------------------------------------------------------------------------------")
+
+        # Remove checkpoint file after all loops are finished
+        remove_checkpoint_file(checkpoint_file)
         print("Finished all training and testing.")
