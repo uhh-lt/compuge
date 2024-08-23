@@ -9,7 +9,7 @@ from sklearn.metrics import accuracy_score, precision_recall_fscore_support
 
 def load_data(train_folder, test_folder):
     dataset_dict = {}
-    for split in ['train', 'validate']:
+    for split in ['train', 'val']:
         try:
             csv_path = os.path.join(train_folder, f"{split}.csv")
             data = pd.read_csv(csv_path)
@@ -21,12 +21,12 @@ def load_data(train_folder, test_folder):
     if 'train' not in dataset_dict:
         return None
 
-    if 'validate' not in dataset_dict:
+    if 'val' not in dataset_dict:
         train_data = pd.read_csv(os.path.join(train_folder, "train.csv"))
         val_data = train_data.sample(frac=0.1, random_state=42)
         train_data = train_data.drop(val_data.index)
         dataset_dict['train'] = Dataset.from_pandas(train_data)
-        dataset_dict['validate'] = Dataset.from_pandas(val_data)
+        dataset_dict['val'] = Dataset.from_pandas(val_data)
 
     test_csv_path = os.path.join(test_folder, "test.csv")
     test_data = pd.read_csv(test_csv_path)
@@ -34,7 +34,7 @@ def load_data(train_folder, test_folder):
 
     return DatasetDict({
         'train': dataset_dict['train'],
-        'validate': dataset_dict['validate'],
+        'val': dataset_dict['val'],
         'test': dataset_dict['test'],
     })
 
@@ -125,7 +125,7 @@ def main(train_folder, test_folder, model_name, results_folder):
         model=model,
         args=training_args,
         train_dataset=tokenized_datasets["train"],
-        eval_dataset=tokenized_datasets["validate"],
+        eval_dataset=tokenized_datasets["val"],
         compute_metrics=compute_metrics
     )
 
