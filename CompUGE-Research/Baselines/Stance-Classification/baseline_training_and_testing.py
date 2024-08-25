@@ -63,7 +63,7 @@ def save_metrics(results_folder, train_folder_name, test_folder_name, model_name
 def compute_metrics(p):
     preds = np.argmax(p.predictions, axis=1)
     accuracy = accuracy_score(p.label_ids, preds)
-    precision, recall, f1, _ = precision_recall_fscore_support(p.label_ids, preds, average='weighted')
+    precision, recall, f1, _ = precision_recall_fscore_support(p.label_ids, preds, average='weighted',zero_division=0)
     return {'accuracy': accuracy, 'precision': precision, 'recall': recall, 'f1': f1}
 
 def save_checkpoint(checkpoint_file, current_index):
