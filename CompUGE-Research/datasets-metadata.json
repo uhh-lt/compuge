@@ -118,6 +118,15 @@
             "paper_link": "https://aclanthology.org/W19-4516/"
         },
         {
+            "task": "Stance Classification",
+            "name": "CompSent19, Webis2022",
+            "description": "",
+            "link": "",
+            "folder": "sc_all",
+            "paper": "",
+            "paper_link": ""
+        },
+        {
             "task": "Summary Generation",
             "name": "Chekalina et al. (2021)",
             "description": "",
