@@ -109,8 +109,8 @@ def main(train_folder, test_folders, model_name, results_folder):
         save_strategy="epoch",  # Save checkpoint at the end of every epoch
         logging_dir='./logs',
         logging_steps=10,
-        per_device_train_batch_size=16,  # Use batch size of 16 for training
-        per_device_eval_batch_size=16,   # Use batch size of 16 for evaluation
+        per_device_train_batch_size=8,  # Use batch size of 16 for training
+        per_device_eval_batch_size=8,   # Use batch size of 16 for evaluation
         num_train_epochs=13,  # Train for 13 epochs
         weight_decay=0.1,  # Weight decay for AdamW optimizer
         learning_rate=3e-5,  # Learning rate for AdamW optimizer
@@ -158,7 +158,7 @@ if __name__ == "__main__":
 
     with open("../../datasets-metadata.json") as f:
         datasets_metadata = json.load(f)
-        model_name = "microsoft/deberta-v3-large"
+        model_name = "google-bert/bert-base-uncased"
         results_folder = f"./testing_results/{model_name.split('/')[0]}"
         os.makedirs(results_folder, exist_ok=True)
 
