@@ -6,3 +6,4 @@ torch
 accelerate
 protobuf
 scikit-learn
+sentencepiece

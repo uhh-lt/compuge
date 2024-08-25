@@ -93,7 +93,12 @@ def main(train_folder, test_folders, model_name, results_folder):
     model = AutoModelForSequenceClassification.from_pretrained(model_name, num_labels=3)
 
     def tokenize_function(examples):
-        return tokenizer(examples['sentence'], padding="max_length", truncation=True)
+        return tokenizer(
+            examples['sentence'],
+            padding="max_length",  # Ensure all sequences are padded to the same length
+            truncation=True,  # Truncate sequences that are longer than max_length
+            max_length=342  # Set a fixed max length (you can adjust this value)
+        )
 
     tokenized_datasets = datasets.map(tokenize_function, batched=True)
 
