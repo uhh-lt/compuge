@@ -1,11 +1,12 @@
 import json
 import os
-import pandas as pd
-from transformers import AutoTokenizer, AutoModelForSequenceClassification, Trainer, TrainingArguments
-from datasets import Dataset, DatasetDict
+
 import numpy as np
+import pandas as pd
+from datasets import Dataset, DatasetDict
 from sklearn.metrics import accuracy_score, precision_recall_fscore_support
-from transformers import AdamW, get_scheduler
+from transformers import AutoTokenizer, AutoModelForSequenceClassification, Trainer, TrainingArguments
+
 
 def load_data(train_folder, test_folder=None):
     dataset_dict = {}
@@ -31,6 +32,7 @@ def load_data(train_folder, test_folder=None):
 
     return DatasetDict(dataset_dict)
 
+
 def save_test_results(results_folder, test_dataset, predictions, train_folder_name, test_folder_name, model_name):
     pred_labels = np.argmax(predictions, axis=1)
     test_df = pd.DataFrame(test_dataset)
@@ -43,6 +45,7 @@ def save_test_results(results_folder, test_dataset, predictions, train_folder_na
     os.makedirs(results_folder, exist_ok=True)
     test_df.to_csv(results_path, index=False)
     print(f"Test results saved to {results_path}")
+
 
 def save_metrics(results_folder, train_folder_name, test_folder_name, model_name, metrics):
     metrics_data = {
@@ -60,16 +63,19 @@ def save_metrics(results_folder, train_folder_name, test_folder_name, model_name
     metrics_df.to_csv(metrics_file_path, mode='a', header=not os.path.exists(metrics_file_path), index=False)
     print(f"Metrics saved to {metrics_file_path}")
 
+
 def compute_metrics(p):
     preds = np.argmax(p.predictions, axis=1)
     accuracy = accuracy_score(p.label_ids, preds)
-    precision, recall, f1, _ = precision_recall_fscore_support(p.label_ids, preds, average='weighted',zero_division=0)
+    precision, recall, f1, _ = precision_recall_fscore_support(p.label_ids, preds, average='weighted', zero_division=0)
     return {'accuracy': accuracy, 'precision': precision, 'recall': recall, 'f1': f1}
+
 
 def save_checkpoint(checkpoint_file, current_index):
     with open(checkpoint_file, 'w') as f:
         json.dump({"current_index": current_index}, f)
     print(f"Checkpoint saved at index {current_index}")
+
 
 def load_checkpoint(checkpoint_file):
     if os.path.exists(checkpoint_file):
@@ -78,10 +84,12 @@ def load_checkpoint(checkpoint_file):
             return checkpoint.get("current_index", 0)
     return 0
 
+
 def remove_checkpoint_file(checkpoint_file):
     if os.path.exists(checkpoint_file):
         os.remove(checkpoint_file)
         print(f"Checkpoint file {checkpoint_file} removed.")
+
 
 def main(train_folder, test_folders, model_name, results_folder):
     datasets = load_data(train_folder)
@@ -110,7 +118,7 @@ def main(train_folder, test_folders, model_name, results_folder):
         logging_dir='./logs',
         logging_steps=10,
         per_device_train_batch_size=8,  # Use batch size of 16 for training
-        per_device_eval_batch_size=8,   # Use batch size of 16 for evaluation
+        per_device_eval_batch_size=8,  # Use batch size of 16 for evaluation
         num_train_epochs=13,  # Train for 13 epochs
         weight_decay=0.1,  # Weight decay for AdamW optimizer
         learning_rate=3e-5,  # Learning rate for AdamW optimizer
@@ -147,9 +155,9 @@ def main(train_folder, test_folders, model_name, results_folder):
         train_folder_name = os.path.basename(train_folder)
         test_folder_name = os.path.basename(test_folder)
 
-        save_test_results(results_folder, test_dataset, test_results.predictions, train_folder_name, test_folder_name, model_name)
+        save_test_results(results_folder, test_dataset, test_results.predictions, train_folder_name, test_folder_name,
+                          model_name)
         save_metrics(results_folder, train_folder_name, test_folder_name, model_name, test_results.metrics)
-
 
 
 if __name__ == "__main__":
@@ -162,12 +170,14 @@ if __name__ == "__main__":
         results_folder = f"./testing_results/{model_name.split('/')[0]}"
         os.makedirs(results_folder, exist_ok=True)
 
-        print("---------------------------------------------------------------------------------------------------------")
+        print(
+            "---------------------------------------------------------------------------------------------------------")
         print("total datasets: ")
         print(len(datasets_metadata["datasets"]))
         print("total datasets with task Stance Classification: ")
         print(len([dataset for dataset in datasets_metadata["datasets"] if dataset["task"] == "Stance Classification"]))
-        print("---------------------------------------------------------------------------------------------------------")
+        print(
+            "---------------------------------------------------------------------------------------------------------")
 
         for i, dataset1 in enumerate(datasets_metadata["datasets"]):
             if i < start_index:
@@ -183,9 +193,11 @@ if __name__ == "__main__":
             main(f"../../Splits/{dataset1['folder']}", test_folders, model_name, results_folder)
             save_checkpoint(checkpoint_file, i + 1)
 
-            print("---------------------------------------------------------------------------------------------------------")
+            print(
+                "---------------------------------------------------------------------------------------------------------")
             print(f"Finished training and testing {model_name} on {dataset1['folder']}.")
-            print("---------------------------------------------------------------------------------------------------------")
+            print(
+                "---------------------------------------------------------------------------------------------------------")
 
         # Remove checkpoint file after all loops are finished
         remove_checkpoint_file(checkpoint_file)
