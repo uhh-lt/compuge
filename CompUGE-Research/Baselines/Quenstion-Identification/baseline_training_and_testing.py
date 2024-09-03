@@ -92,7 +92,7 @@ def main(train_folder, test_folders, model_name, results_folder):
     model = AutoModelForSequenceClassification.from_pretrained(model_name, num_labels=2)
 
     def tokenize_function(examples):
-        return tokenizer(examples['question'], padding="max_length", truncation=True, model_max_length = 128)
+        return tokenizer(examples['question'], padding="max_length", truncation=True, max_length=128)
 
     tokenized_datasets = datasets.map(tokenize_function, batched=True)
 
