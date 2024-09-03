@@ -102,13 +102,13 @@ def main(train_folder, test_folders, model_name, results_folder):
         save_strategy="epoch",
         logging_dir='./logs',
         logging_steps=10,
-        per_device_train_batch_size=16,
-        per_device_eval_batch_size=16,
+        per_device_train_batch_size=9,
+        per_device_eval_batch_size=9,
         num_train_epochs=3,
         weight_decay=0.01,
         load_best_model_at_end=True,
-        learning_rate=3.12349072212078e-05,
-        seed=25,
+        learning_rate=2.6070247583707743e-05,
+        seed=40,
     )
     trainer = Trainer(
         model=model,
@@ -144,7 +144,7 @@ if __name__ == "__main__":
 
     with open("../../datasets-metadata.json") as f:
         datasets_metadata = json.load(f)
-        model_name = "distilbert-base-uncased"
+        model_name = "microsoft/deberta-base"
         results_folder = f"./testing_results/{model_name.split('/')[0]}"
         os.makedirs(results_folder, exist_ok=True)
 
