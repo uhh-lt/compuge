@@ -104,11 +104,12 @@ def main(train_folder, test_folders, model_name, results_folder):
         logging_steps=10,
         per_device_train_batch_size=8,
         per_device_eval_batch_size=8,
-        num_train_epochs=3,
+        num_train_epochs=5,
         weight_decay=0.01,
-        load_best_model_at_end=True
+        load_best_model_at_end=True,
+        learning_rate=4.325432427964566e-05,
+        seed=2,
     )
-
     trainer = Trainer(
         model=model,
         args=training_args,
@@ -143,7 +144,7 @@ if __name__ == "__main__":
 
     with open("../../datasets-metadata.json") as f:
         datasets_metadata = json.load(f)
-        model_name = "microsoft/deberta-base"
+        model_name = "prajjwal1/bert-tiny"
         results_folder = f"./testing_results/{model_name.split('/')[0]}"
         os.makedirs(results_folder, exist_ok=True)
 
