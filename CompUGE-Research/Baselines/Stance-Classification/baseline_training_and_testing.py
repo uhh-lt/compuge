@@ -166,7 +166,7 @@ if __name__ == "__main__":
 
     with open("../../datasets-metadata.json") as f:
         datasets_metadata = json.load(f)
-        model_name = "microsoft/deberta-v3-base"
+        model_name = "FacebookAI/roberta-base"
         results_folder = f"./testing_results/{model_name.split('/')[0]}"
         os.makedirs(results_folder, exist_ok=True)
 
