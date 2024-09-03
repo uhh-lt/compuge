@@ -92,7 +92,7 @@ def main(train_folder, test_folders, model_name, results_folder):
     model = AutoModelForSequenceClassification.from_pretrained(model_name, num_labels=2)
 
     def tokenize_function(examples):
-        return tokenizer(examples['question'], padding="max_length", truncation=True)
+        return tokenizer(examples['question'], padding="max_length", truncation=True, model_max_length = 128)
 
     tokenized_datasets = datasets.map(tokenize_function, batched=True)
 
@@ -102,12 +102,12 @@ def main(train_folder, test_folders, model_name, results_folder):
         save_strategy="epoch",
         logging_dir='./logs',
         logging_steps=10,
-        per_device_train_batch_size=10,
-        per_device_eval_batch_size=10,
-        num_train_epochs=4,
+        per_device_train_batch_size=4,
+        per_device_eval_batch_size=4,
+        num_train_epochs=5,
         weight_decay=0.01,
         load_best_model_at_end=True,
-        learning_rate=1.5751320499779757e-05,
+        learning_rate=4.325432427964566e-05,
         seed=8,
     )
     trainer = Trainer(
@@ -144,7 +144,7 @@ if __name__ == "__main__":
 
     with open("../../datasets-metadata.json") as f:
         datasets_metadata = json.load(f)
-        model_name = "roberta-base"
+        model_name = "prajjwal1/bert-tiny"
         results_folder = f"./testing_results/{model_name.split('/')[0]}"
         os.makedirs(results_folder, exist_ok=True)
 
