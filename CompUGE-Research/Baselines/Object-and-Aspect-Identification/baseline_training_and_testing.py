@@ -17,6 +17,7 @@ import evaluate
 id2label = {0: "O", 1: "B-OBJ", 2: "I-OBJ", 3: "B-ASPECT", 4: "I-ASPECT"}
 
 def compute_metrics(eval_preds):
+    print("Computing metrics...")
     predictions, labels = eval_preds.predictions, eval_preds.label_ids
 
     # Convert predictions to label indices by taking the argmax across the last dimension
@@ -48,22 +49,23 @@ def compute_metrics(eval_preds):
         else:
             results_unfolded[key] = value
 
+    print(f"Metrics computed: {results_unfolded}")
     return results_unfolded
 
 
 def model_init_helper(model_name, num_labels):
     def model_init():
         # Load the model with label mappings
+        print(f"Loading model {model_name} with {num_labels} labels...")
         model = AutoModelForTokenClassification.from_pretrained(
             model_name,
             num_labels=num_labels,  # Set the number of labels here
             ignore_mismatched_sizes=True,
         )
-        print(f"{model.config.num_labels = }")
+        print(f"Model loaded with configuration: {model.config.num_labels}")
         return model
 
     return model_init
-
 
 
 def tokenize_and_align_labels(examples, one_label_per_word=True, **kwargs):
@@ -74,6 +76,7 @@ def tokenize_and_align_labels(examples, one_label_per_word=True, **kwargs):
     labels = [eval(label_list) for label_list in examples["labels"]]
 
     # Tokenize inputs while keeping word boundaries
+    print("Tokenizing and aligning labels...")
     tokenized_inputs = tokenizer(
         words, truncation=True, is_split_into_words=True
     )
@@ -99,23 +102,29 @@ def tokenize_and_align_labels(examples, one_label_per_word=True, **kwargs):
 
     # Add the processed labels back to the tokenized inputs
     tokenized_inputs["labels"] = aligned_labels
+    print("Labels aligned.")
     return tokenized_inputs
 
 
-
 def load_data(train_folder, test_folder=None):
+    print(f"Loading data from {train_folder}...")
     dataset_dict = {}
 
     for split in ['train', 'val']:
         csv_path = os.path.join(train_folder, f"{split}.csv")
         if os.path.exists(csv_path):
+            print(f"Found {split} data at {csv_path}.")
             data = pd.read_csv(csv_path)
             dataset_dict[split] = Dataset.from_pandas(data)
+        else:
+            print(f"No {split} data found at {csv_path}.")
 
     if 'train' not in dataset_dict:
+        print("No training data found. Exiting.")
         return None
 
     if 'val' not in dataset_dict:
+        print("No validation data found. Creating validation set from training data.")
         train_data = pd.read_csv(os.path.join(train_folder, "train.csv"))
         val_data = train_data.sample(frac=0.1, random_state=42)
         dataset_dict['train'] = Dataset.from_pandas(train_data.drop(val_data.index))
@@ -124,11 +133,13 @@ def load_data(train_folder, test_folder=None):
     if test_folder:
         test_data = pd.read_csv(os.path.join(test_folder, "test.csv"))
         dataset_dict['test'] = Dataset.from_pandas(test_data)
+        print(f"Loaded test data from {test_folder}.")
 
     return DatasetDict(dataset_dict)
 
 
 def save_metrics(results_folder, train_folder_name, test_folder_name, model_name, metrics):
+    print("Saving metrics...")
     # Prepare the metrics data in a structured format
     metrics_data = {
         'training on': train_folder_name,
@@ -150,6 +161,7 @@ def save_metrics(results_folder, train_folder_name, test_folder_name, model_name
 
 
 def save_test_results(results_folder, test_dataset, predictions, train_folder_name, test_folder_name, model_name):
+    print("Saving test results...")
     # Convert the model's output logits to predicted label IDs
     pred_labels = np.argmax(predictions.predictions, axis=-1)
 
@@ -173,21 +185,26 @@ def save_test_results(results_folder, test_dataset, predictions, train_folder_na
 
 
 def train_and_test_on_datasets(train_folder, test_folders, results_folder, model_name):
+    print(f"Training and testing with model {model_name}...")
     datasets = load_data(train_folder)
     if datasets is None:
         print(f"No training data found in folder {train_folder}. Exiting.")
         return
 
+    print("Loading tokenizer...")
     tokenizer = AutoTokenizer.from_pretrained(model_name, model_max_length=64, add_prefix_space=True)
 
+    print("Tokenizing datasets...")
     tokenized_datasets = datasets.map(
         tokenize_and_align_labels,
         batched=True,
         fn_kwargs={"tokenizer": tokenizer},
     )
 
+    print("Setting up data collator...")
     data_collator = DataCollatorForTokenClassification(tokenizer)
 
+    print("Setting up training arguments...")
     training_args = TrainingArguments(
         output_dir="./results",
         evaluation_strategy="epoch",
@@ -203,6 +220,7 @@ def train_and_test_on_datasets(train_folder, test_folders, results_folder, model
         seed=42,
     )
 
+    print("Initializing Trainer...")
     trainer = Trainer(
         model_init=model_init_helper(model_name, 5),
         args=training_args,
@@ -213,43 +231,30 @@ def train_and_test_on_datasets(train_folder, test_folders, results_folder, model
         compute_metrics=compute_metrics,
     )
 
-    print("Training")
+    print("Training...")
     trainer.train()
 
     for test_folder in test_folders:
-        test_dataset = load_data(train_folder, test_folder)['test']
-        tokenized_test_dataset = test_dataset.map(lambda examples: tokenizer(examples['words'], truncation=True, padding="max_length"), batched=True)
-        test_results = trainer.predict(test_dataset=tokenized_test_dataset)
+        print(f"Testing on dataset from folder: {test_folder}...")
+        test_dataset = load_data(train_folder, test_folder)
+        if test_dataset is None or "test" not in test_dataset:
+            print(f"No test data found in folder {test_folder}. Skipping.")
+            continue
 
-        print(f"Test results for model trained on {train_folder} and tested on {test_folder}:")
-        print(f"Test Accuracy: {test_results.metrics['test_accuracy']:.4f}")
-        print(f"Test Precision: {test_results.metrics['test_precision']:.4f}")
-        print(f"Test Recall: {test_results.metrics['test_recall']:.4f}")
-        print(f"Test F1: {test_results.metrics['test_f1']:.4f}")
-
-        train_folder_name = os.path.basename(train_folder)
-        test_folder_name = os.path.basename(test_folder)
-
-        save_test_results(results_folder, test_dataset, test_results.predictions, train_folder_name, test_folder_name, model_name)
-        save_metrics(results_folder, train_folder_name, test_folder_name, model_name, test_results.metrics)
-
-
-def main():
-    model_name = "google-bert/bert-base-uncased"  # Set the model name here
-    with open("../../datasets-metadata.json") as f:
-        datasets_metadata = json.load(f)
-        results_folder = f"./testing_results/{model_name.replace('/', '-')}"
-        os.makedirs(results_folder, exist_ok=True)
-
-        for dataset_info in datasets_metadata["datasets"]:
-            if dataset_info["task"] != "Object and Aspect Identification":
-                continue
-
-            train_folder = f"../../Splits/{dataset_info['folder']}"
-            test_folders = [f"../../Splits/{other_dataset['folder']}" for other_dataset in datasets_metadata["datasets"] if other_dataset["task"] == "Named Entity Recognition"]
-
-            train_and_test_on_datasets(train_folder, test_folders, results_folder, model_name)
-
-
-if __name__ == "__main__":
-    main()
+        test_results = trainer.predict(test_dataset["test"])
+        save_test_results(
+            results_folder,
+            test_dataset["test"],
+            test_results,
+            train_folder.split('/')[-1],
+            test_folder.split('/')[-1],
+            model_name
+        )
+        metrics = compute_metrics(test_results)
+        save_metrics(
+            results_folder,
+            train_folder.split('/')[-1],
+            test_folder.split('/')[-1],
+            model_name,
+            metrics
+        )
