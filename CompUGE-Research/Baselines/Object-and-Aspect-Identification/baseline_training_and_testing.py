@@ -178,7 +178,6 @@ def save_test_results(results_folder, test_dataset, predictions, train_folder_na
     print(f"Test results saved to {results_path}")
 
 
-
 def train_and_test_on_datasets(train_folder, test_folders, results_folder, model_name):
     datasets = load_data(train_folder)
     if datasets is None:
@@ -226,9 +225,14 @@ def train_and_test_on_datasets(train_folder, test_folders, results_folder, model
     print("Training")
     trainer.train()
 
+    print("Testing")
     for test_folder in test_folders:
         test_dataset = load_data(train_folder, test_folder)['test']
-        tokenized_test_dataset = test_dataset.map(lambda examples: tokenizer(examples['words'], truncation=True, padding="max_length"), batched=True)
+        tokenized_test_dataset = test_dataset.map(
+            tokenize_and_align_labels,
+            batched=True,
+            fn_kwargs={"tokenizer": tokenizer},
+        )
         test_results = trainer.predict(test_dataset=tokenized_test_dataset)
         print("=========================================")
         print(f"Test results for model trained on {train_folder} and tested on {test_folder}:")
