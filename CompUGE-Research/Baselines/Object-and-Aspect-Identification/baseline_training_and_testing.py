@@ -151,13 +151,19 @@ def save_metrics(results_folder, train_folder_name, test_folder_name, model_name
 
 def save_test_results(results_folder, test_dataset, predictions, train_folder_name, test_folder_name, model_name):
     # Convert the model's output logits to predicted label IDs
-    pred_labels = np.argmax(predictions.predictions, axis=-1)
+    pred_labels = np.argmax(predictions, axis=-1)
+
+    # Convert predictions to a more usable format
+    formatted_predictions = []
+    for i, label_list in enumerate(pred_labels):
+        word_ids = test_dataset[i]['words']
+        formatted_predictions.append([int(pred_labels[i][j]) for j in range(len(word_ids)) if word_ids[j] != -100])
 
     # Create a DataFrame with the test dataset
     test_df = pd.DataFrame(test_dataset)
 
     # Add the predicted labels as a new column
-    test_df['predictions'] = pred_labels
+    test_df['predictions'] = formatted_predictions
 
     # Create a file name and path to save the test results
     model_name = model_name.split('/')[0]  # Get base model name
@@ -170,6 +176,7 @@ def save_test_results(results_folder, test_dataset, predictions, train_folder_na
     # Save the test DataFrame to a CSV file
     test_df.to_csv(results_path, index=False)
     print(f"Test results saved to {results_path}")
+
 
 
 def train_and_test_on_datasets(train_folder, test_folders, results_folder, model_name):
@@ -199,8 +206,8 @@ def train_and_test_on_datasets(train_folder, test_folders, results_folder, model
         logging_steps=10,
         per_device_train_batch_size=16,
         per_device_eval_batch_size=8,
-        num_train_epochs=3,
-        weight_decay=0.01,
+        num_train_epochs=8,
+        weight_decay=0.1,
         load_best_model_at_end=True,
         learning_rate=2e-5,
         seed=42,
