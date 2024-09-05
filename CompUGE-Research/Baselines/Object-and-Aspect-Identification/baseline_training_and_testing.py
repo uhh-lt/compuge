@@ -45,17 +45,19 @@ def compute_metrics(eval_preds):
     return results_unfolded
 
 
-def model_init_helper(model_name):
+def model_init_helper(model_name, num_labels):
     def model_init():
-        # Directly load the model without label mappings
+        # Load the model with label mappings
         model = AutoModelForTokenClassification.from_pretrained(
             model_name,
+            num_labels=num_labels,  # Set the number of labels here
             ignore_mismatched_sizes=True,
         )
         print(f"{model.config.num_labels = }")
         return model
 
     return model_init
+
 
 
 def tokenize_and_align_labels(examples, one_label_per_word=True, **kwargs):
@@ -92,6 +94,7 @@ def tokenize_and_align_labels(examples, one_label_per_word=True, **kwargs):
     # Add the processed labels back to the tokenized inputs
     tokenized_inputs["labels"] = aligned_labels
     return tokenized_inputs
+
 
 
 def load_data(train_folder, test_folder=None):
@@ -195,7 +198,7 @@ def train_and_test_on_datasets(train_folder, test_folders, results_folder, model
     )
 
     trainer = Trainer(
-        model_init=model_init_helper(model_name),
+        model_init=model_init_helper(model_name, 5),
         args=training_args,
         train_dataset=tokenized_datasets["train"],
         eval_dataset=tokenized_datasets["val"],
