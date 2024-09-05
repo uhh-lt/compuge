@@ -61,29 +61,36 @@ def model_init_helper(model_name):
 def tokenize_and_align_labels(examples, one_label_per_word=True, **kwargs):
     tokenizer = kwargs["tokenizer"]
 
+    # Convert string representations of lists to actual lists
+    words = [eval(word_list) for word_list in examples["words"]]
+    labels = [eval(label_list) for label_list in examples["labels"]]
+
+    # Tokenize inputs while keeping word boundaries
     tokenized_inputs = tokenizer(
-        examples["words"], truncation=True, is_split_into_words=True
+        words, truncation=True, is_split_into_words=True
     )
 
-    labels = []
-    for i, label in enumerate(examples["labels"]):
-        word_ids = tokenized_inputs.word_ids(batch_index=i)
+    aligned_labels = []
+    for i, label in enumerate(labels):
+        word_ids = tokenized_inputs.word_ids(batch_index=i)  # Get word IDs for the batch
         current_word = None
         new_labels = []
         for word_id in word_ids:
-            if word_id is None:
-                new_labels.append(-100)
-            elif word_id != current_word:
+            if word_id is None:  # Token is a special token (like [CLS] or [SEP])
+                new_labels.append(-100)  # Mask out special tokens for loss calculation
+            elif word_id != current_word:  # New word
                 current_word = word_id
-                new_labels.append(label[word_id])
+                new_labels.append(label[word_id])  # Use the label for the new word
             else:
-                lab = label[word_id]
-                if lab % 2 == 1:
+                lab = int(label[word_id])  # Ensure the label is an integer
+                if lab % 2 == 1:  # Convert to "B" (Beginning) tag if "I" (Inside) tag
                     lab += 1
+                # Mask out non-beginning tokens or include them depending on 'one_label_per_word'
                 new_labels.append(-100 if one_label_per_word else lab)
-        labels.append(new_labels)
+        aligned_labels.append(new_labels)
 
-    tokenized_inputs["labels"] = labels
+    # Add the processed labels back to the tokenized inputs
+    tokenized_inputs["labels"] = aligned_labels
     return tokenized_inputs
 
 
