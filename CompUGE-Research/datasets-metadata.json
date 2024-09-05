@@ -86,7 +86,7 @@
             "name": "Beloucif et al. (2022)",
             "description": "For this task annotators were asked to label each component of the comparison as follows: \n\"who\tis [better\tASPECT] manny\t[OBJ-1] or\t[ortiz\tOBJ-2]?\".",
             "link": "https://github.com/uhh-lt/Dataset-CompQA/tree/main/Labeling%20Task",
-            "folder": "oai_beloucif_2022",
+            "folder": "oai_beloucif",
             "paper": "Elvis vs. M. Jackson: Who has More Albums? Classification and Identification of Elements in Comparative Questions",
             "paper_link": "https://aclanthology.org/2022.lrec-1.402/"
         },
