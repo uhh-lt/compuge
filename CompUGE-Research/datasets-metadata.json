@@ -100,6 +100,39 @@
             "paper_link": "https://aclanthology.org/2021.eacl-demos.36/"
         },
         {
+            "task": "Object and Aspect Identification",
+            "name": "chekalina, webis, beloucif",
+            "description": "",
+            "link": "",
+            "folder": "oai_all",
+            "paper": "",
+            "paper_link": ""
+        },{
+            "task": "Object and Aspect Identification",
+            "name": "chekalina, webis",
+            "description": "",
+            "link": "",
+            "folder": "oai_chekalina_webis_merged",
+            "paper": "",
+            "paper_link": ""
+        },{
+            "task": "Object and Aspect Identification",
+            "name": "chekalina, beloucif",
+            "description": "",
+            "link": "",
+            "folder": "oai_chekalina_beloucif_merged",
+            "paper": "",
+            "paper_link": ""
+        },{
+            "task": "Object and Aspect Identification",
+            "name": "webis, beloucif",
+            "description": "",
+            "link": "",
+            "folder": "oai_webis_beloucif_merged",
+            "paper": "",
+            "paper_link": ""
+        },
+        {
             "task": "Stance Classification",
             "name": "Webis Comparative Questions 2022",
             "description": "Webis Comparative Questions 2022 dataset for 950 questions contains text passages that potentially answer the questions are labeled with the stance: pro first comparison object, pro second, neutral, or no stance.",

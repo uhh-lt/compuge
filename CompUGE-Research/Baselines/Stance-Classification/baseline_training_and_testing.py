@@ -119,7 +119,7 @@ def main(train_folder, test_folders, model_name, results_folder):
         logging_steps=10,
         per_device_train_batch_size=8,  # Use batch size of 16 for training
         per_device_eval_batch_size=8,  # Use batch size of 16 for evaluation
-        num_train_epochs=13,  # Train for 13 epochs
+        num_train_epochs=8,  # Train for 13 epochs
         weight_decay=0.1,  # Weight decay for AdamW optimizer
         learning_rate=3e-5,  # Learning rate for AdamW optimizer
         load_best_model_at_end=True,  # Load the best model when finished
