@@ -13,6 +13,8 @@ from transformers import (
 import numpy as np
 import evaluate
 
+# Example label mapping; replace with your actual labels
+id2label = {0: "O", 1: "B-OBJ", 2: "I-OBJ", 3: "B-ASPECT", 4: "I-ASPECT"}
 
 def compute_metrics(eval_preds):
     predictions, labels = eval_preds.predictions, eval_preds.label_ids
@@ -26,6 +28,10 @@ def compute_metrics(eval_preds):
         [p for (p, l) in zip(prediction, label) if l != -100]
         for prediction, label in zip(predictions, labels)
     ]
+
+    # Convert numeric labels to string labels
+    true_labels = [[id2label[l] for l in label] for label in true_labels]
+    true_predictions = [[id2label[p] for p in prediction] for prediction in true_predictions]
 
     # Load the evaluation metric (seqeval is often used for sequence labeling tasks)
     metric = evaluate.load("seqeval")
