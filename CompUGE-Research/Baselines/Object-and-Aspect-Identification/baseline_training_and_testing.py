@@ -48,6 +48,8 @@ def compute_metrics(eval_preds):
         else:
             results_unfolded[key] = value
 
+    print(f"Results: {results_unfolded}")
+    print(results_unfolded.keys())
     return results_unfolded
 
 
