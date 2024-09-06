@@ -49,7 +49,6 @@ def compute_metrics(eval_preds):
             results_unfolded[key] = value
 
     print(f"Results: {results_unfolded}")
-    print(results_unfolded.keys())
     return results_unfolded
 
 
@@ -161,6 +160,7 @@ def save_test_results(results_folder, test_dataset, predictions, train_folder_na
 
     # Convert predictions to a more usable format
     formatted_predictions = []
+    print(test_dataset[0].keys())
     for i, label_list in enumerate(pred_labels):
         word_ids = test_dataset[i]['word_ids']  # Now `word_ids` should be present
 
