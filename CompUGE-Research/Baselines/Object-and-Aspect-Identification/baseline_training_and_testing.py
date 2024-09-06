@@ -237,6 +237,7 @@ def train_and_test_on_datasets(train_folder, test_folders, results_folder, model
         print("=========================================")
         # dict_keys(['ASPECT_precision', 'ASPECT_recall', 'ASPECT_f1', 'ASPECT_number', 'OBJ_precision', 'OBJ_recall', 'OBJ_f1', 'OBJ_number', 'overall_precision', 'overall_recall', 'overall_f1', 'overall_accuracy'])
         print(f"Test results for model trained on {train_folder} and tested on {test_folder}:")
+        print(test_results.metrics.keys())
         print(f"Test Accuracy: {test_results.metrics['overall_accuracy']:.4f}")
         print(f"Test Precision: {test_results.metrics['overall_precision']:.4f}")
         print(f"Test Recall: {test_results.metrics['overall_recall']:.4f}")
