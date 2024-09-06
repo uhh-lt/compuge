@@ -154,15 +154,15 @@ def save_metrics(results_folder, train_folder_name, test_folder_name, model_name
     print(f"Metrics saved to {metrics_file_path}")
 
 
-def save_test_results(results_folder, test_dataset, predictions, train_folder_name, test_folder_name, model_name):
+def save_test_results(results_folder, tokenized_test_dataset, predictions, train_folder_name, test_folder_name, model_name):
     # Convert the model's output logits to predicted label IDs
     pred_labels = np.argmax(predictions, axis=-1)
 
     # Convert predictions to a more usable format
     formatted_predictions = []
-    print(test_dataset[0].keys())
+    print(tokenized_test_dataset[0].keys())
     for i, label_list in enumerate(pred_labels):
-        word_ids = test_dataset[i]['word_ids']  # Now `word_ids` should be present
+        word_ids = tokenized_test_dataset[i]['word_ids']  # Now `word_ids` should be present
 
         # Ensure that we only consider valid word indices, excluding special tokens
         valid_predictions = []
@@ -175,7 +175,7 @@ def save_test_results(results_folder, test_dataset, predictions, train_folder_na
         formatted_predictions.append(valid_predictions)
 
     # Create a DataFrame with the test dataset
-    test_df = pd.DataFrame(test_dataset)
+    test_df = pd.DataFrame(tokenized_test_dataset)
 
     # Add the predicted labels as a new column
     test_df['predictions'] = formatted_predictions
@@ -191,7 +191,6 @@ def save_test_results(results_folder, test_dataset, predictions, train_folder_na
     # Save the test DataFrame to a CSV file
     test_df.to_csv(results_path, index=False)
     print(f"Test results saved to {results_path}")
-
 
 def train_and_test_on_datasets(train_folder, test_folders, results_folder, model_name):
     datasets = load_data(train_folder)
@@ -264,8 +263,7 @@ def train_and_test_on_datasets(train_folder, test_folders, results_folder, model
         train_folder_name = os.path.basename(train_folder)
         test_folder_name = os.path.basename(test_folder)
 
-        save_test_results(results_folder, test_dataset, test_results.predictions, train_folder_name, test_folder_name,
-                          model_name)
+        save_test_results(results_folder, tokenized_test_dataset, test_results.predictions, train_folder_name, test_folder_name, model_name)
         save_metrics(results_folder, train_folder_name, test_folder_name, model_name, test_results.metrics)
 
 
