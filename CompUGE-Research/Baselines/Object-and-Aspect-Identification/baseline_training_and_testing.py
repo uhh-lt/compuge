@@ -213,12 +213,12 @@ def train_and_test_on_datasets(train_folder, test_folders, results_folder, model
         output_dir="./results",
         evaluation_strategy="epoch",
         save_strategy="epoch",
-        per_device_train_batch_size=16,
-        per_device_eval_batch_size=16,
+        per_device_train_batch_size=8,
+        per_device_eval_batch_size=8,
         num_train_epochs=8,
-        weight_decay=0.01,
+        weight_decay=0.001,
         load_best_model_at_end=True,
-        learning_rate=7e-5,
+        learning_rate=1e-4,
         seed=0,
     )
 
@@ -263,7 +263,7 @@ def train_and_test_on_datasets(train_folder, test_folders, results_folder, model
 
 
 def main():
-    model_name = "microsoft/deberta-v3-base"
+    model_name = "dslim/bert-base-NER-uncased"
     with open("../../datasets-metadata.json") as f:
         datasets_metadata = json.load(f)
         results_folder = f"./testing_results/{model_name.replace('/', '-')}"
