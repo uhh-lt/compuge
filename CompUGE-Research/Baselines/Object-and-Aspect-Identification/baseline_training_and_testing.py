@@ -81,8 +81,10 @@ def tokenize_and_align_labels(examples, one_label_per_word=True, **kwargs):
     )
 
     aligned_labels = []
+    all_word_ids = []
     for i, label in enumerate(labels):
         word_ids = tokenized_inputs.word_ids(batch_index=i)  # Get word IDs for the batch
+        all_word_ids.append(word_ids)  # Store the word_ids for later use
         current_word = None
         new_labels = []
         for word_id in word_ids:
@@ -99,9 +101,11 @@ def tokenize_and_align_labels(examples, one_label_per_word=True, **kwargs):
                 new_labels.append(-100 if one_label_per_word else lab)
         aligned_labels.append(new_labels)
 
-    # Add the processed labels back to the tokenized inputs
+    # Add the processed labels and word_ids back to the tokenized inputs
     tokenized_inputs["labels"] = aligned_labels
+    tokenized_inputs["word_ids"] = all_word_ids
     return tokenized_inputs
+
 
 
 
@@ -158,7 +162,7 @@ def save_test_results(results_folder, test_dataset, predictions, train_folder_na
     # Convert predictions to a more usable format
     formatted_predictions = []
     for i, label_list in enumerate(pred_labels):
-        word_ids = test_dataset[i]['word_ids']
+        word_ids = test_dataset[i]['word_ids']  # Now `word_ids` should be present
 
         # Ensure that we only consider valid word indices, excluding special tokens
         valid_predictions = []
