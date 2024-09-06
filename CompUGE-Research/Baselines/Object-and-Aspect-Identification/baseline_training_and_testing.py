@@ -1,5 +1,7 @@
 import json
 import os
+from operator import contains
+
 import pandas as pd
 import transformers
 from datasets import Dataset, DatasetDict
@@ -279,7 +281,10 @@ def main():
                 continue
 
             train_folder = f"../../Splits/{dataset_info['folder']}"
-            test_folders = [f"../../Splits/{other_dataset['folder']}" for other_dataset in datasets_metadata["datasets"] if other_dataset["task"] == "Object and Aspect Identification"]
+            test_folders = [f"../../Splits/{other_dataset['folder']}" for other_dataset in datasets_metadata["datasets"] if
+                            other_dataset["task"] == "Object and Aspect Identification"
+                            and "merged" not in other_dataset["folder"]]
+
 
             train_and_test_on_datasets(train_folder, test_folders, results_folder, model_name)
 
