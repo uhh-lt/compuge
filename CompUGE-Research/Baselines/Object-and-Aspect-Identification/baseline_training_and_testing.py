@@ -203,7 +203,7 @@ def train_and_test_on_datasets(train_folder, test_folders, results_folder, model
     print(f"Training on {train_folder}")
     print("=========================================")
 
-    tokenizer = AutoTokenizer.from_pretrained(model_name, model_max_length=64, add_prefix_space=True)
+    tokenizer = AutoTokenizer.from_pretrained(model_name, model_max_length=128, add_prefix_space=True)
 
     tokenized_datasets = datasets.map(
         tokenize_and_align_labels,
