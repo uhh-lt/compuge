@@ -158,8 +158,17 @@ def save_test_results(results_folder, test_dataset, predictions, train_folder_na
     # Convert predictions to a more usable format
     formatted_predictions = []
     for i, label_list in enumerate(pred_labels):
-        word_ids = test_dataset[i]['words']
-        formatted_predictions.append([int(pred_labels[i][j]) for j in range(len(word_ids)) if word_ids[j] != -100])
+        word_ids = test_dataset[i]['word_ids']
+
+        # Ensure that we only consider valid word indices, excluding special tokens
+        valid_predictions = []
+        for j, word_id in enumerate(word_ids):
+            if word_id is None or word_id == -100:
+                continue
+            # Append the label only if it matches a word_id
+            valid_predictions.append(int(pred_labels[i][j]))
+
+        formatted_predictions.append(valid_predictions)
 
     # Create a DataFrame with the test dataset
     test_df = pd.DataFrame(test_dataset)
