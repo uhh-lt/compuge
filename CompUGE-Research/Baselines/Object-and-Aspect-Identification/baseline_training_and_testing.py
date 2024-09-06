@@ -139,10 +139,10 @@ def save_metrics(results_folder, train_folder_name, test_folder_name, model_name
         'training on': train_folder_name,
         'tested on': test_folder_name,
         'model': model_name.split('/')[0],
-        'accuracy': metrics['overall_accuracy'],
-        'precision': metrics['overall_precision'],
-        'recall': metrics['overall_recall'],
-        'f1': metrics['overall_f1']
+        'accuracy': metrics['test_overall_accuracy'],
+        'precision': metrics['test_overall_precision'],
+        'recall': metrics['test_overall_recall'],
+        'f1': metrics['test_overall_f1']
     }
 
     # Create or append the metrics data to a CSV file
