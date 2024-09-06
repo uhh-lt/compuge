@@ -269,15 +269,6 @@ def train_and_test_on_datasets(train_folder, test_folders, results_folder, model
 
 def main():
     model_name = "google-bert/bert-base-uncased"
-    # Set the model name here
-    train_and_test_on_datasets(
-        "../../Splits/oai_beloucif",
-        ["../../Splits/oai_beloucif"],
-        "./testing_results",
-        model_name
-    )
-    '''
-    f
     with open("../../datasets-metadata.json") as f:
         datasets_metadata = json.load(f)
         results_folder = f"./testing_results/{model_name.replace('/', '-')}"
@@ -291,7 +282,7 @@ def main():
             test_folders = [f"../../Splits/{other_dataset['folder']}" for other_dataset in datasets_metadata["datasets"] if other_dataset["task"] == "Object and Aspect Identification"]
 
             train_and_test_on_datasets(train_folder, test_folders, results_folder, model_name)
-    '''
+
 
 if __name__ == "__main__":
     main()
