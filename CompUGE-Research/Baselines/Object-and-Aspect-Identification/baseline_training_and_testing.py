@@ -50,9 +50,7 @@ def compute_metrics(eval_preds):
         else:
             results_unfolded[key] = value
 
-    print(f"Results: {results_unfolded}")
     return results_unfolded
-
 
 def model_init_helper(model_name, num_labels):
     def model_init():
@@ -62,12 +60,9 @@ def model_init_helper(model_name, num_labels):
             num_labels=num_labels,  # Set the number of labels here
             ignore_mismatched_sizes=True,
         )
-        print(f"{model.config.num_labels = }")
         return model
 
     return model_init
-
-
 
 def tokenize_and_align_labels(examples, one_label_per_word=True, **kwargs):
     tokenizer = kwargs["tokenizer"]
@@ -107,9 +102,6 @@ def tokenize_and_align_labels(examples, one_label_per_word=True, **kwargs):
     tokenized_inputs["word_ids"] = all_word_ids
     return tokenized_inputs
 
-
-
-
 def load_data(train_folder, test_folder=None):
     dataset_dict = {}
 
@@ -134,7 +126,6 @@ def load_data(train_folder, test_folder=None):
 
     return DatasetDict(dataset_dict)
 
-
 def save_metrics(results_folder, train_folder_name, test_folder_name, model_name, metrics):
     # Prepare the metrics data in a structured format
     metrics_data = {
@@ -144,7 +135,15 @@ def save_metrics(results_folder, train_folder_name, test_folder_name, model_name
         'accuracy': metrics['test_overall_accuracy'],
         'precision': metrics['test_overall_precision'],
         'recall': metrics['test_overall_recall'],
-        'f1': metrics['test_overall_f1']
+        'f1': metrics['test_overall_f1'],
+        'object_accuracy': metrics['test_OBJ_accuracy'],
+        'object_precision': metrics['test_OBJ_precision'],
+        'object_recall': metrics['test_OBJ_recall'],
+        'object_f1': metrics['test_OBJ_f1'],
+        'aspect_accuracy': metrics['test_ASPECT_accuracy'],
+        'aspect_precision': metrics['test_ASPECT_precision'],
+        'aspect_recall': metrics['test_ASPECT_recall'],
+        'aspect_f1': metrics['test_ASPECT_f1'],
     }
 
     # Create or append the metrics data to a CSV file
@@ -162,7 +161,6 @@ def save_test_results(results_folder, tokenized_test_dataset, predictions, train
 
     # Convert predictions to a more usable format
     formatted_predictions = []
-    print(tokenized_test_dataset[0].keys())
     for i, label_list in enumerate(pred_labels):
         word_ids = tokenized_test_dataset[i]['word_ids']  # Now `word_ids` should be present
 
@@ -247,9 +245,6 @@ def train_and_test_on_datasets(train_folder, test_folders, results_folder, model
             batched=True,
             fn_kwargs={"tokenizer": tokenizer},
         )
-
-        # Debug: Check if word_ids exist
-        print(f"Keys in the tokenized test dataset: {tokenized_test_dataset[0].keys()}")
 
         if 'word_ids' not in tokenized_test_dataset[0]:
             raise ValueError("`word_ids` not found in tokenized test dataset. Please check the tokenization process.")
