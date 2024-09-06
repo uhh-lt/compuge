@@ -250,7 +250,7 @@ def main():
     # Set the model name here
     train_and_test_on_datasets(
         "../../Splits/oai_beloucif",
-        [],
+        ["../../Splits/oai_beloucif"],
         "./testing_results",
         model_name
     )
