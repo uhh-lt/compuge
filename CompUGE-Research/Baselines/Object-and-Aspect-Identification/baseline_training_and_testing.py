@@ -136,10 +136,10 @@ def save_metrics(results_folder, train_folder_name, test_folder_name, model_name
         'training on': train_folder_name,
         'tested on': test_folder_name,
         'model': model_name.split('/')[0],
-        'accuracy': metrics['test_accuracy'],
-        'precision': metrics['test_precision'],
-        'recall': metrics['test_recall'],
-        'f1': metrics['test_f1']
+        'accuracy': metrics['overall_accuracy'],
+        'precision': metrics['overall_precision'],
+        'recall': metrics['overall_recall'],
+        'f1': metrics['overall_f1']
     }
 
     # Create or append the metrics data to a CSV file
@@ -235,11 +235,12 @@ def train_and_test_on_datasets(train_folder, test_folders, results_folder, model
         )
         test_results = trainer.predict(test_dataset=tokenized_test_dataset)
         print("=========================================")
+        # dict_keys(['ASPECT_precision', 'ASPECT_recall', 'ASPECT_f1', 'ASPECT_number', 'OBJ_precision', 'OBJ_recall', 'OBJ_f1', 'OBJ_number', 'overall_precision', 'overall_recall', 'overall_f1', 'overall_accuracy'])
         print(f"Test results for model trained on {train_folder} and tested on {test_folder}:")
-        print(f"Test Accuracy: {test_results.metrics['test_accuracy']:.4f}")
-        print(f"Test Precision: {test_results.metrics['test_precision']:.4f}")
-        print(f"Test Recall: {test_results.metrics['test_recall']:.4f}")
-        print(f"Test F1: {test_results.metrics['test_f1']:.4f}")
+        print(f"Test Accuracy: {test_results.metrics['overall_accuracy']:.4f}")
+        print(f"Test Precision: {test_results.metrics['overall_precision']:.4f}")
+        print(f"Test Recall: {test_results.metrics['overall_recall']:.4f}")
+        print(f"Test F1: {test_results.metrics['overall_f1']:.4f}")
         train_folder_name = os.path.basename(train_folder)
         test_folder_name = os.path.basename(test_folder)
 
