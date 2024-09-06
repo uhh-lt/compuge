@@ -246,9 +246,15 @@ def train_and_test_on_datasets(train_folder, test_folders, results_folder, model
             batched=True,
             fn_kwargs={"tokenizer": tokenizer},
         )
+
+        # Debug: Check if word_ids exist
+        print(f"Keys in the tokenized test dataset: {tokenized_test_dataset[0].keys()}")
+
+        if 'word_ids' not in tokenized_test_dataset[0]:
+            raise ValueError("`word_ids` not found in tokenized test dataset. Please check the tokenization process.")
+
         test_results = trainer.predict(test_dataset=tokenized_test_dataset)
         print("=========================================")
-        # dict_keys(['ASPECT_precision', 'ASPECT_recall', 'ASPECT_f1', 'ASPECT_number', 'OBJ_precision', 'OBJ_recall', 'OBJ_f1', 'OBJ_number', 'overall_precision', 'overall_recall', 'overall_f1', 'overall_accuracy'])
         print(f"Test results for model trained on {train_folder} and tested on {test_folder}:")
         print(test_results.metrics.keys())
         print(f"Test Accuracy: {test_results.metrics['test_overall_accuracy']:.4f}")
@@ -258,7 +264,8 @@ def train_and_test_on_datasets(train_folder, test_folders, results_folder, model
         train_folder_name = os.path.basename(train_folder)
         test_folder_name = os.path.basename(test_folder)
 
-        save_test_results(results_folder, test_dataset, test_results.predictions, train_folder_name, test_folder_name, model_name)
+        save_test_results(results_folder, test_dataset, test_results.predictions, train_folder_name, test_folder_name,
+                          model_name)
         save_metrics(results_folder, train_folder_name, test_folder_name, model_name, test_results.metrics)
 
 
