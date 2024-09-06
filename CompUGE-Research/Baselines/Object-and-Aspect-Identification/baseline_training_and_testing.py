@@ -201,15 +201,13 @@ def train_and_test_on_datasets(train_folder, test_folders, results_folder, model
         output_dir="./results",
         evaluation_strategy="epoch",
         save_strategy="epoch",
-        logging_dir='./logs',
-        logging_steps=10,
         per_device_train_batch_size=16,
-        per_device_eval_batch_size=8,
+        per_device_eval_batch_size=16,
         num_train_epochs=8,
         weight_decay=0.1,
         load_best_model_at_end=True,
         learning_rate=2e-5,
-        seed=42,
+        seed=0,
     )
 
     trainer = Trainer(
@@ -222,10 +220,10 @@ def train_and_test_on_datasets(train_folder, test_folders, results_folder, model
         compute_metrics=compute_metrics,
     )
 
-    print("Training")
+    print("Training =========================================")
     trainer.train()
 
-    print("Testing")
+    print("Testing =========================================")
     for test_folder in test_folders:
         test_dataset = load_data(train_folder, test_folder)['test']
         tokenized_test_dataset = test_dataset.map(
@@ -248,7 +246,16 @@ def train_and_test_on_datasets(train_folder, test_folders, results_folder, model
 
 
 def main():
-    model_name = "google-bert/bert-base-uncased"  # Set the model name here
+    model_name = "google-bert/bert-base-uncased"
+    # Set the model name here
+    train_and_test_on_datasets(
+        "../../Splits/oai_beloucif",
+        [],
+        "./testing_results",
+        model_name
+    )
+    '''
+    f
     with open("../../datasets-metadata.json") as f:
         datasets_metadata = json.load(f)
         results_folder = f"./testing_results/{model_name.replace('/', '-')}"
@@ -262,7 +269,7 @@ def main():
             test_folders = [f"../../Splits/{other_dataset['folder']}" for other_dataset in datasets_metadata["datasets"] if other_dataset["task"] == "Object and Aspect Identification"]
 
             train_and_test_on_datasets(train_folder, test_folders, results_folder, model_name)
-
+    '''
 
 if __name__ == "__main__":
     main()
