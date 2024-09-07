@@ -4,15 +4,15 @@
       <h2 style="margin-top: 15px">{{ datasetModel.name }} ({{ datasetModel.task }})</h2>
     </mat-panel-title>
   </mat-expansion-panel-header>
+
   <p>{{ datasetModel.description }}</p>
-  <p>
+
+  <p *ngIf="datasetModel.paper_link">
     This dataset was introduced in the following paper:
     <a href="{{datasetModel.paper_link}}" target="_blank">{{ datasetModel.paper }}</a>
   </p>
 
-  <button mat-raised-button (click)="goToUrl(datasetModel.link)" style="width: 99%; margin: 0.5%">Link to the
-    Dataset
-  </button>
+  <button *ngIf="datasetModel.link" mat-raised-button (click)="goToUrl(datasetModel.link)" style="width: 99%; margin: 0.5%">Link to the Dataset </button>
 
   <!-- Training Data Button -->
   <button *ngIf="datasetModel.train"
