@@ -10,7 +10,6 @@ from transformers import AutoTokenizer, AutoModelForSequenceClassification, Trai
 
 def load_data(train_folder, test_folder=None):
     dataset_dict = {}
-
     for split in ['train', 'val']:
         csv_path = os.path.join(train_folder, f"{split}.csv")
         if os.path.exists(csv_path):
@@ -37,11 +36,9 @@ def save_test_results(results_folder, test_dataset, predictions, train_folder_na
     pred_labels = np.argmax(predictions, axis=1)
     test_df = pd.DataFrame(test_dataset)
     test_df['predictions'] = pred_labels
-
     model_name = model_name.split('/')[0]
     results_file_name = f"{train_folder_name}_{test_folder_name}_{model_name}_test_results.csv"
     results_path = os.path.join(results_folder, results_file_name)
-
     os.makedirs(results_folder, exist_ok=True)
     test_df.to_csv(results_path, index=False)
     print(f"Test results saved to {results_path}")
@@ -59,7 +56,6 @@ def save_metrics(results_folder, train_folder_name, test_folder_name, model_name
     }
     metrics_file_path = os.path.join(results_folder, "metrics.csv")
     metrics_df = pd.DataFrame([metrics_data])
-
     metrics_df.to_csv(metrics_file_path, mode='a', header=not os.path.exists(metrics_file_path), index=False)
     print(f"Metrics saved to {metrics_file_path}")
 
@@ -103,32 +99,30 @@ def main(train_folder, test_folders, model_name, results_folder):
     def tokenize_function(examples):
         return tokenizer(
             examples['sentence'],
-            padding="max_length",  # Ensure all sequences are padded to the same length
-            truncation=True,  # Truncate sequences that are longer than max_length
-            max_length=342  # Set a fixed max length (you can adjust this value)
+            padding="max_length",
+            truncation=True,
+            max_length=342
         )
 
     tokenized_datasets = datasets.map(tokenize_function, batched=True)
 
-    # Define Training Arguments
     training_args = TrainingArguments(
         output_dir="./results",
-        evaluation_strategy="epoch",  # Evaluate at the end of every epoch
-        save_strategy="epoch",  # Save checkpoint at the end of every epoch
+        evaluation_strategy="epoch",
+        save_strategy="epoch",
         logging_dir='./logs',
         logging_steps=10,
-        per_device_train_batch_size=8,  # Use batch size of 16 for training
-        per_device_eval_batch_size=8,  # Use batch size of 16 for evaluation
-        num_train_epochs=8,  # Train for 13 epochs
-        weight_decay=0.1,  # Weight decay for AdamW optimizer
-        learning_rate=3e-5,  # Learning rate for AdamW optimizer
-        load_best_model_at_end=True,  # Load the best model when finished
-        metric_for_best_model="f1",  # Use F1 score to select the best model
-        warmup_steps=100,  # Warmup steps for learning rate scheduler
-        lr_scheduler_type="cosine",  # Use cosine learning rate scheduler
+        per_device_train_batch_size=8,
+        per_device_eval_batch_size=8,
+        num_train_epochs=8,
+        weight_decay=0.1,
+        learning_rate=3e-5,
+        load_best_model_at_end=True,
+        metric_for_best_model="f1",
+        warmup_steps=100,
+        lr_scheduler_type="cosine",
     )
 
-    # Initialize the Trainer
     trainer = Trainer(
         model=model,
         args=training_args,
@@ -137,10 +131,8 @@ def main(train_folder, test_folders, model_name, results_folder):
         compute_metrics=compute_metrics
     )
 
-    # Train the model
     trainer.train()
 
-    # Evaluate on test datasets
     for test_folder in test_folders:
         test_dataset = load_data(train_folder, test_folder)['test']
         tokenized_test_dataset = test_dataset.map(tokenize_function, batched=True)
@@ -155,8 +147,7 @@ def main(train_folder, test_folders, model_name, results_folder):
         train_folder_name = os.path.basename(train_folder)
         test_folder_name = os.path.basename(test_folder)
 
-        save_test_results(results_folder, test_dataset, test_results.predictions, train_folder_name, test_folder_name,
-                          model_name)
+        save_test_results(results_folder, test_dataset, test_results.predictions, train_folder_name, test_folder_name, model_name)
         save_metrics(results_folder, train_folder_name, test_folder_name, model_name, test_results.metrics)
 
 
@@ -170,14 +161,12 @@ if __name__ == "__main__":
         results_folder = f"./testing_results/{model_name.split('/')[0]}"
         os.makedirs(results_folder, exist_ok=True)
 
-        print(
-            "---------------------------------------------------------------------------------------------------------")
+        print("---------------------------------------------------------------------------------------------------------")
         print("total datasets: ")
         print(len(datasets_metadata["datasets"]))
         print("total datasets with task Stance Classification: ")
         print(len([dataset for dataset in datasets_metadata["datasets"] if dataset["task"] == "Stance Classification"]))
-        print(
-            "---------------------------------------------------------------------------------------------------------")
+        print("---------------------------------------------------------------------------------------------------------")
 
         for i, dataset1 in enumerate(datasets_metadata["datasets"]):
             if i < start_index:
@@ -193,12 +182,9 @@ if __name__ == "__main__":
             main(f"../../Splits/{dataset1['folder']}", test_folders, model_name, results_folder)
             save_checkpoint(checkpoint_file, i + 1)
 
-            print(
-                "---------------------------------------------------------------------------------------------------------")
+            print("---------------------------------------------------------------------------------------------------------")
             print(f"Finished training and testing {model_name} on {dataset1['folder']}.")
-            print(
-                "---------------------------------------------------------------------------------------------------------")
+            print("---------------------------------------------------------------------------------------------------------")
 
-        # Remove checkpoint file after all loops are finished
         remove_checkpoint_file(checkpoint_file)
         print("Finished all training and testing.")
