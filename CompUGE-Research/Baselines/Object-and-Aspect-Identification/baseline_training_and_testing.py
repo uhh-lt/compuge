@@ -203,7 +203,7 @@ def main():
     model_name = "microsoft/deberta-v3-base"
     with open("../../datasets-metadata.json") as f:
         datasets_metadata = json.load(f)
-        results_folder = f"./testing_results/{model_name.replace('/', '-')}"
+        results_folder = f"./testing_results_predsless/{model_name.replace('/', '-')}"
         os.makedirs(results_folder, exist_ok=True)
         for dataset_info in datasets_metadata["datasets"]:
             if dataset_info["task"] != "Object and Aspect Identification":
