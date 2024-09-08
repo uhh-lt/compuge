@@ -159,10 +159,10 @@ def train_and_test_on_datasets(train_folder, test_folders, results_folder, model
         save_strategy="epoch",
         per_device_train_batch_size=16,
         per_device_eval_batch_size=16,
-        num_train_epochs=7,
-        weight_decay=0.1,
+        num_train_epochs=8,
+        weight_decay=0.01,
         load_best_model_at_end=True,
-        learning_rate=5e-5,
+        learning_rate=7e-5,
         seed=0,
     )
     trainer = Trainer(
@@ -200,7 +200,7 @@ def train_and_test_on_datasets(train_folder, test_folders, results_folder, model
         save_metrics(results_folder, train_folder_name, test_folder_name, model_name, test_results.metrics)
 
 def main():
-    model_name = "google-bert/bert-base-uncased"
+    model_name = "microsoft/deberta-v3-base"
     with open("../../datasets-metadata.json") as f:
         datasets_metadata = json.load(f)
         results_folder = f"./testing_results/{model_name.replace('/', '-')}"
