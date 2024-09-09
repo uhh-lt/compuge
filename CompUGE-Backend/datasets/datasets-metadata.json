@@ -2,6 +2,15 @@
   "datasets": [
     {
       "task": "Question Identification",
+      "name": "CompUGE",
+      "description": "This is a merged dataset, combining the Mintaka dataset with the Webis Comparative Questions 2020 and 2022 datasets. The Testset is based on Beloucif",
+      "link": "",
+      "folder": "qi_all",
+      "paper": "",
+      "paper_link": ""
+    },
+    {
+      "task": "Question Identification",
       "name": "Webis Comparative Questions 2022",
       "description": "Webis Comparative Questions 2022 dataset contains about 31,000 questions labeled as comparative or not.\n\n",
       "link": "https://zenodo.org/records/7213397",
@@ -19,11 +28,11 @@
       "paper_link": "https://dl.acm.org/doi/10.1145/3336191.3371848"
     },
     {
-      "task": "Question Identification",
+      "task": "Object and Aspect Identification",
       "name": "CompUGE",
-      "description": "This is a merged dataset, combining the Mintaka dataset with the Webis Comparative Questions 2020 and 2022 datasets. The Testset is based on Beloucif",
+      "description": "This is a merged dataset, combining the Webis Comparative Questions 2022 dataset with the Beloucif et al. (2022) dataset. After processing the data.",
       "link": "",
-      "folder": "qi_all",
+      "folder": "oai_webis_beloucif_merged",
       "paper": "",
       "paper_link": ""
     },
@@ -46,11 +55,11 @@
       "paper_link": "https://aclanthology.org/2022.lrec-1.402/"
     },
     {
-      "task": "Object and Aspect Identification",
+      "task": "Stance Classification",
       "name": "CompUGE",
-      "description": "This is a merged dataset, combining the Webis Comparative Questions 2022 dataset with the Beloucif et al. (2022) dataset. After processing the data.",
+      "description": "This is a merged dataset, combining the CompSent-19 dataset with the Webis Comparative Questions 2022 dataset. After processing the data.",
       "link": "",
-      "folder": "oai_webis_beloucif_merged",
+      "folder": "sc_all",
       "paper": "",
       "paper_link": ""
     },
@@ -71,15 +80,6 @@
       "folder": "sc_compsent_19",
       "paper": "Categorizing Comparative Sentences",
       "paper_link": "https://aclanthology.org/W19-4516/"
-    },
-    {
-      "task": "Stance Classification",
-      "name": "CompUGE",
-      "description": "This is a merged dataset, combining the CompSent-19 dataset with the Webis Comparative Questions 2022 dataset. After processing the data.",
-      "link": "",
-      "folder": "sc_all",
-      "paper": "",
-      "paper_link": ""
     },
     {
       "task": "Summary Generation",
