@@ -20,26 +20,8 @@
     },
     {
       "task": "Question Identification",
-      "name": "Mintaka",
-      "description": "Mintaka is a complex, natural, and multilingual question answering (QA) dataset composed of 20,000 question-answer pairs elicited from MTurk workers and annotated with Wikidata question and answer entities.",
-      "link": "https://github.com/amazon-science/mintaka/tree/main",
-      "folder": "qi_mintaka",
-      "paper": "Mintaka: A Complex, Natural, and Multilingual Dataset for End-to-End Question Answering",
-      "paper_link": "https://aclanthology.org/2022.coling-1.138/"
-    },
-    {
-      "task": "Question Identification",
-      "name": "Beloucif et al. (2022)",
-      "description": "In this dataset, we only \ntake into consideration binary comparatives; meaning that the input sentence should only compare two objects. An example of this would be: \"What's faster, Python or Matlab?\"\nWe consider open questions such as: \"Who's the best football player? to be none comparative\". \n\nFor this task, we asked Mechanical Turk annotators to label the questions as: comparative, not comparative or not a question. ",
-      "link": "https://github.com/uhh-lt/Dataset-CompQA/tree/main/Classification%20Task",
-      "folder": "qi_beloucif",
-      "paper": "Elvis vs. M. Jackson: Who has More Albums? Classification and Identification of Elements in Comparative Questions",
-      "paper_link": "https://aclanthology.org/2022.lrec-1.402/"
-    },
-    {
-      "task": "Question Identification",
-      "name": "Mintaka, Webis 2020, Webis 2022",
-      "description": "This is a merged dataset, combining the Mintaka dataset with the Webis Comparative Questions 2020 and 2022 datasets.",
+      "name": "CompUGE",
+      "description": "This is a merged dataset, combining the Mintaka dataset with the Webis Comparative Questions 2020 and 2022 datasets. The Testset is based on Beloucif",
       "link": "",
       "folder": "qi_all",
       "paper": "",
@@ -65,8 +47,8 @@
     },
     {
       "task": "Object and Aspect Identification",
-      "name": "Webis, Beloucif",
-      "description": "This is a merged dataset, combining the Webis Comparative Questions 2022 dataset with the Beloucif et al. (2022) dataset.",
+      "name": "CompUGE",
+      "description": "This is a merged dataset, combining the Webis Comparative Questions 2022 dataset with the Beloucif et al. (2022) dataset. After processing the data.",
       "link": "",
       "folder": "oai_webis_beloucif_merged",
       "paper": "",
@@ -74,12 +56,30 @@
     },
     {
       "task": "Stance Classification",
+      "name": "Webis Comparative Questions 2022",
+      "description": "Webis Comparative Questions 2022 dataset for 950 questions contains text passages that potentially answer the questions are labeled with the stance: pro first comparison object, pro second, neutral, or no stance.",
+      "link": "https://zenodo.org/records/7213397",
+      "folder": "sc_webis_2022",
+      "paper": "Towards Understanding and Answering Comparative Questions",
+      "paper_link": "https://dl.acm.org/doi/10.1145/3488560.3498534"
+    },
+    {
+      "task": "Stance Classification",
       "name": "CompSent-19",
-      "description": "The CompSent-19 dataset consists of 7,199 sentences annotated as BETTER, WORSE, or NONE, indicating whether the first object is better, worse, or not compared to the second object. The dataset spans three domains: computer science, brands, and random objects, minimizing domain-specific biases. Sentences were mined from the Common Crawl corpus using pairs of objects and comparative cue words to bias selection towards comparisons. Annotated via crowdsourcing, the dataset ensures high confidence in the labels, with 271 distinct object pairs and over 72% of sentences being non-comparative. In 70% of comparative sentences, the favored object is named first. \n \n Our version of this dataset has it's labels converted to 0,1,2 indicating NONE, BETTER, WORSE.",
+      "description": "The CompSent-19 dataset consists of 7,199 sentences annotated as BETTER, WORSE, or NONE, indicating whether the first object is better, worse, or not compared to the second object. The dataset spans three domains: computer science, brands, and random objects, minimizing domain-specific biases. Sentences were mined from the Common Crawl corpus using pairs of objects and comparative cue words to bias selection towards comparisons. Annotated via crowdsourcing, the dataset ensures high confidence in the labels, with 271 distinct object pairs and over 72% of sentences being non-comparative. In 70% of comparative sentences, the favored object is named first.",
       "link": "https://zenodo.org/records/3237552",
       "folder": "sc_compsent_19",
       "paper": "Categorizing Comparative Sentences",
       "paper_link": "https://aclanthology.org/W19-4516/"
+    },
+    {
+      "task": "Stance Classification",
+      "name": "CompUGE",
+      "description": "This is a merged dataset, combining the CompSent-19 dataset with the Webis Comparative Questions 2022 dataset. After processing the data.",
+      "link": "",
+      "folder": "sc_all",
+      "paper": "",
+      "paper_link": ""
     },
     {
       "task": "Summary Generation",
