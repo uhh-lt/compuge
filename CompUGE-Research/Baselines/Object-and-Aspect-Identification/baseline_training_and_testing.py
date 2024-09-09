@@ -138,7 +138,7 @@ def save_test_results(results_folder, tokenized_test_dataset, predictions, train
     test_df.to_csv(results_path, index=False)
     print(f"Test results saved to {results_path}")
 
-def train_and_test_on_datasets(train_folder, test_folders, results_folder, model_name):
+def train_and_test_on_datasets(train_folder, test_folders, results_folder, model_name, patch_size, learning_rate, weight_decay, num_train_epochs):
     datasets = load_data(train_folder)
     if datasets is None:
         print(f"No training data found in folder {train_folder}. Exiting.")
@@ -146,7 +146,7 @@ def train_and_test_on_datasets(train_folder, test_folders, results_folder, model
     print("=========================================")
     print(f"Training on {train_folder}")
     print("=========================================")
-    tokenizer = AutoTokenizer.from_pretrained(model_name, model_max_length=128, add_prefix_space=True)
+    tokenizer = AutoTokenizer.from_pretrained(model_name, model_max_length=patch_size, add_prefix_space=True)
     tokenized_datasets = datasets.map(
         tokenize_and_align_labels,
         batched=True,
@@ -159,10 +159,10 @@ def train_and_test_on_datasets(train_folder, test_folders, results_folder, model
         save_strategy="epoch",
         per_device_train_batch_size=16,
         per_device_eval_batch_size=16,
-        num_train_epochs=8,
-        weight_decay=0.01,
+        num_train_epochs=num_train_epochs,
+        weight_decay=weight_decay,
         load_best_model_at_end=True,
-        learning_rate=7e-5,
+        learning_rate=learning_rate,
         seed=0,
     )
     trainer = Trainer(
@@ -200,17 +200,58 @@ def train_and_test_on_datasets(train_folder, test_folders, results_folder, model
         save_metrics(results_folder, train_folder_name, test_folder_name, model_name, test_results.metrics)
 
 def main():
-    model_name = "microsoft/deberta-v3-base"
-    with open("../../datasets-metadata.json") as f:
-        datasets_metadata = json.load(f)
-        results_folder = f"./testing_results_predsless/{model_name.replace('/', '-')}"
-        os.makedirs(results_folder, exist_ok=True)
-        for dataset_info in datasets_metadata["datasets"]:
-            if dataset_info["task"] != "Object and Aspect Identification":
-                continue
-            train_folder = f"../../Splits/{dataset_info['folder']}"
-            test_folders = [f"../../Splits/oai_webis_beloucif_merged"]
-            train_and_test_on_datasets(train_folder, test_folders, results_folder, model_name)
+    models_data = [
+        {
+            "model": "google-bert/bert-base-uncased",
+            "train_batch_size": 16,
+            "num_train_epochs": 8,
+            "weight_decay": 0.1,
+            "learning_rate": 0.00005
+        },
+        {
+            "model": "FacebookAI/roberta-base",
+            "train_batch_size": 16,
+            "num_train_epochs": 8,
+            "weight_decay": 0.0001,
+            "learning_rate": 0.0001
+        },
+        {
+            "model": "distilbert/distilbert-base-uncased",
+            "train_batch_size": 16,
+            "num_train_epochs": 8,
+            "weight_decay": 0.001,
+            "learning_rate": 0.0001
+        },
+        {
+            "model": "microsoft/deberta-v3-base",
+            "train_batch_size": 16,
+            "num_train_epochs": 8,
+            "weight_decay": 0.01,
+            "warmup_steps": 100,
+            "learning_rate": 0.00007
+        }
+    ]
+
+    for model_data in models_data:
+        with open("../../datasets-metadata.json") as f:
+            datasets_metadata = json.load(f)
+            results_folder = f"./testing_results_predsless/{model_data["model"].replace('/', '-')}"
+            os.makedirs(results_folder, exist_ok=True)
+            for dataset_info in datasets_metadata["datasets"]:
+                if dataset_info["task"] != "Object and Aspect Identification":
+                    continue
+                train_folder = f"../../Splits/{dataset_info['folder']}"
+                test_folders = [f"../../Splits/{test_folder}" for test_folder in dataset_info["test_splits"]]
+                train_and_test_on_datasets(
+                    train_folder,
+                    test_folders,
+                    results_folder,
+                    model_data["model"],
+                    patch_size=512,
+                    learning_rate=model_data["learning_rate"],
+                    weight_decay=model_data["weight_decay"],
+                    num_train_epochs=model_data["num_train_epochs"],
+                )
 
 if __name__ == "__main__":
     main()
