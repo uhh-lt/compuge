@@ -115,11 +115,11 @@ def main(train_folder, test_folders, model_name, results_folder):
         per_device_train_batch_size=16,
         per_device_eval_batch_size=16,
         num_train_epochs=8,
-        weight_decay=0.01,
-        learning_rate=5e-5,
+        weight_decay=0.1,
+        learning_rate=7e-5,
         load_best_model_at_end=True,
         metric_for_best_model="f1",
-        warmup_steps=400,
+        warmup_steps=300,
         lr_scheduler_type="cosine",
     )
 
@@ -157,7 +157,7 @@ if __name__ == "__main__":
 
     with open("../../datasets-metadata.json") as f:
         datasets_metadata = json.load(f)
-        model_name = "microsoft/deberta-v3-base"
+        model_name = "google-bert/bert-base-uncased"
         results_folder = f"./testing_results_new/{model_name.split('/')[0]}"
         os.makedirs(results_folder, exist_ok=True)
 
