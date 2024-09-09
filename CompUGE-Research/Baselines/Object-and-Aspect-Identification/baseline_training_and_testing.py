@@ -235,7 +235,7 @@ def main():
     for model_data in models_data:
         with open("../../datasets-metadata.json") as f:
             datasets_metadata = json.load(f)
-            results_folder = f"./testing_results_predsless/{model_data["model"].replace('/', '-')}"
+            results_folder = f"./testing_results_predsless/{model_data['model'].replace('/', '-')}"
             os.makedirs(results_folder, exist_ok=True)
             for dataset_info in datasets_metadata["datasets"]:
                 if dataset_info["task"] != "Object and Aspect Identification":
