@@ -241,7 +241,8 @@ def main():
                 if dataset_info["task"] != "Object and Aspect Identification":
                     continue
                 train_folder = f"../../Splits/{dataset_info['folder']}"
-                test_folders = [f"../../Splits/{test_folder}" for test_folder in dataset_info["test_splits"]]
+                # test on all datasets
+                test_folders = [f"../../Splits/{dataset['folder']}" for dataset in datasets_metadata["datasets"]]
                 train_and_test_on_datasets(
                     train_folder,
                     test_folders,
