@@ -209,9 +209,7 @@ def main():
             if dataset_info["task"] != "Object and Aspect Identification":
                 continue
             train_folder = f"../../Splits/{dataset_info['folder']}"
-            test_folders = [f"../../Splits/{other_dataset['folder']}" for other_dataset in datasets_metadata["datasets"] if
-                            other_dataset["task"] == "Object and Aspect Identification"
-                            and "merged" not in other_dataset["folder"]]
+            test_folders = [f"../../Splits/oai_webis_beloucif_merged"]
             train_and_test_on_datasets(train_folder, test_folders, results_folder, model_name)
 
 if __name__ == "__main__":
