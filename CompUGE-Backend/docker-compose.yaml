@@ -8,6 +8,8 @@ services:
       - "15564:8000"
     environment:
         - DB_URL=postgresql+psycopg2://postgres:admin@db:5432/postgres
+        - SECRET_KEY=I4X2mFx3Q-Kz9z5Yh8GqKRA87MvqEr9NeZyHsSx3P2fP_FK4-bSRK8_2DctRxFObhYzpHwvM9hYgUEs-VWJD0g
+        - ADMIN_PASSWORD=IrinaIsTheBestSupervisor
   db:
     image: postgres:latest
     restart: always
