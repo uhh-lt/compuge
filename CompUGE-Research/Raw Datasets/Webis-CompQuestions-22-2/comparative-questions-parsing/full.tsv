@@ -200,6 +200,7 @@ sentence_id	words	labels
 16	the	ASP
 16	spanish	ASP
 16	language	ASP
+
 17	what	O
 17	foods	OBJ
 17	burn	ASP
@@ -209,6 +210,13 @@ sentence_id	words	labels
 17	blast	ASP
 17	that	ASP
 17	fat	ASP
+
+
+
+
+
+
+
 18	what	O
 18	are	O
 18	the	O
