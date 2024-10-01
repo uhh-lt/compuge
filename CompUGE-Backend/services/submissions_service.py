@@ -40,8 +40,7 @@ def submit_solution(task, dataset, submission_dict):
     link = submission_dict["modelLink"]
     team = submission_dict["teamName"]
     email = submission_dict["contactEmail"]
-    is_public = bool(submission_dict["isPublic"])
-
+    is_public = bool(submission_dict["isPublic"] == "true")
     labels = get_test_labels(task, dataset)
     if labels is None:
         return "Error getting test labels"
